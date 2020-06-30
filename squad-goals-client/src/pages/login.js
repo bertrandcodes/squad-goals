@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AppIconPNG from '../images/handstogether.png';
 import axios from 'axios';
-
+import { Link } from 'react-router-dom';
 
 //MUI Stuff
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -10,6 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const styles = {
     form: {
@@ -27,7 +28,17 @@ const styles = {
         margin: '10px auto 10px auto'
     },
     button: {
-        marginTop: 30
+        marginTop: 30,
+        marginBottom: 20,
+        position: 'relative'
+    },
+    customError: {
+        color: 'red',
+        fontSize: '0.8rem',
+        marginTop: 10
+    },
+    progress: {
+        position: 'absolute'
     }
 };
 
@@ -53,13 +64,14 @@ export class Login extends Component {
         }
         axios.post('/login', userData)
             .then(res => {
-                console.log(res.data);
+                console.log(res, 'res');
                 this.setState({
                     loading: false
                 });
                 this.props.history.push('/');
             })
             .catch(err => {
+                console.log(err.response.data, 'err')
                 this.setState({
                     errors: err.response.data,
                     loading: false
@@ -89,7 +101,17 @@ export class Login extends Component {
                             value={this.state.email} onChange={this.handleChange} fullWidth />
                         <TextField id="password" name="password" type="password" label="Password" className={classes.textField}
                             value={this.state.password} helperText={errors.password} error={errors.password ? true : false} onChange={this.handleChange} fullWidth />
-                        <Button type="submit" variant="contained" color="primary" className={classes.button}>Login</Button>
+                        {errors.general && (
+                            <Typography variant="body2" className={classes.customError}>
+                                {errors.general}
+                            </Typography>
+                        )}
+                        <Button type="submit" variant="contained" color="primary" className={classes.button} disabled={loading}>Login
+                        {loading && (
+                                <CircularProgress size={30} className={classes.progress} />
+                            )}</Button>
+                        <br />
+                        <small>Don't have an account? Sign up <Link to="/signup">here</Link></small>
                     </form>
                 </Grid>
                 <Grid item sm />
