@@ -9,24 +9,25 @@ const isEmpty = (string) => {
     else return false;
 }
 
-exports.validateSignUpData = (data) => {
+exports.validateSignupData = (data) => {
     let errors = {};
 
     if (isEmpty(data.email)) {
-        errors.email = 'Must not be empty'
+        errors.email = 'Must not be empty';
     } else if (!isEmail(data.email)) {
-        errors.email = 'Must be a valid email address'
+        errors.email = 'Must be a valid email address';
     }
 
-    if (isEmpty(data.password)) errors.password = 'Must not be empty'
-    if (data.password !== data.confirmPassword) errors.confirmPassword = 'Password must match';
+    if (isEmpty(data.password)) errors.password = 'Must not be empty';
+    if (data.password !== data.confirmPassword)
+        errors.confirmPassword = 'Passwords must match';
     if (isEmpty(data.handle)) errors.handle = 'Must not be empty';
 
     return {
         errors,
         valid: Object.keys(errors).length === 0 ? true : false
-    }
-}
+    };
+};
 
 exports.validateLoginData = (data) => {
     let errors = {};
@@ -34,10 +35,17 @@ exports.validateLoginData = (data) => {
     if (isEmpty(data.email)) errors.email = 'Must not be empty';
     if (isEmpty(data.password)) errors.password = 'Must not be empty';
 
-    if (Object.keys(errors).length > 0) return res.status(400).json(errors);
-
     return {
         errors,
         valid: Object.keys(errors).length === 0 ? true : false
-    }
+    };
+};
+
+exports.reduceUserDetails = (data) => {
+    let userDetails = {};
+
+    userDetails.challenges = data.challenges;
+    userDetails.completed = data.completed;
+
+    return userDetails
 }
