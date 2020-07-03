@@ -44,7 +44,6 @@ exports.validateLoginData = (data) => {
 exports.reduceUserDetails = (data) => {
     let userDetails = {};
 
-    userDetails.challenges = data.challenges;
     userDetails.completed = data.completed;
 
     return userDetails

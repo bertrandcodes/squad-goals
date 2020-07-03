@@ -42,7 +42,8 @@ exports.signup = (req, res) => {
                 email: newUser.email,
                 createdAt: new Date().toISOString(),
                 imageUrl: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${noImg}?alt=media`,
-                userId
+                userId,
+                completed: 0
             };
             return db.doc(`/users/${newUser.handle}`).set(userCredentials);
         })
@@ -54,7 +55,7 @@ exports.signup = (req, res) => {
             if (err.code === 'auth/email-already-in-use') {
                 return res.status(400).json({ email: 'Email is already in use' })
             } else {
-                return res.status(500).json({ general: 'Something went wrong, please try again' })
+                return res.status(500).json({ general: 'Password must be at least 6 characters long' })
             }
         })
 }
@@ -83,7 +84,7 @@ exports.login = (req, res) => {
         });
 };
 
-//Add user details
+//Add completed count
 exports.addUserDetails = (req, res) => {
     let userDetails = reduceUserDetails(req.body);
 
