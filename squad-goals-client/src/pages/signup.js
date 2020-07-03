@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import AppIconPNG from '../images/handstogether.png';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-
 //MUI Stuff
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
@@ -11,6 +10,9 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
+//Redux Stuff
+import { connect } from 'react-redux';
+import { signupUser } from '../redux/actions/userActions';
 
 const styles = {
     form: {
@@ -132,4 +134,9 @@ Signup.propTypes = {
     classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(Signup);
+const mapStateToProps = (state) => ({
+    user: state.user,
+    UI: state.UI
+})
+
+export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(Signup));
