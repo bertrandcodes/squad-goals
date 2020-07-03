@@ -6,6 +6,10 @@ import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import amber from '@material-ui/core/colors/amber';
 import lime from '@material-ui/core/colors/lime';
 import jwtDecode from 'jwt-decode';
+//Redux
+import { Provider } from 'react-redux';
+// import { SET_AUTHENTICATED } from './redux/types';
+import store from './redux/store';
 //Components
 import Navbar from './components/Navbar';
 import AuthRoute from './util/AuthRoute';
@@ -49,22 +53,22 @@ const theme = createMuiTheme({
 })
 
 let authenticated;
-// const token = localStorage.FBIdToken;
-// if (token) {
-//   const decodedToken = jwtDecode(token);
-//   if (decodedToken.exp * 1000 < Date.now()) {
-//     window.location.href = '/login';
-//     authenticated = false;
-//   } else {
-//     authenticated = true;
-//   }
-// }
+const token = localStorage.FBIdToken;
+if (token) {
+  const decodedToken = jwtDecode(token);
+  if (decodedToken.exp * 1000 < Date.now()) {
+    window.location.href = '/login';
+    authenticated = false;
+  } else {
+    authenticated = true;
+  }
+}
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <MuiThemeProvider theme={theme}>
+      <MuiThemeProvider theme={theme}>
+        <Provider store={store}>
           <Router>
             <Navbar />
             <div className="container">
@@ -75,8 +79,8 @@ class App extends Component {
               </Switch>
             </div>
           </Router>
-        </MuiThemeProvider>
-      </div>
+        </Provider>
+      </MuiThemeProvider>
     );
   }
 }
