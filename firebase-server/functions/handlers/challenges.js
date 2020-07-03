@@ -1,14 +1,16 @@
 const { db } = require('../util/admin.js');
-
+//Get all challenges
 exports.getAllChallenges = (req, res) => {
     db.collection('challenges').get()
         .then(data => {
             let challenges = [];
             data.forEach((doc) => {
                 challenges.push({
-                    body: doc.data().body,
-                    userHandle: doc.data().userHandle,
-                    createdAt: doc.data().createdAt
+                    challengeId: doc.id,
+                    name: doc.data().name,
+                    goal: doc.data().goal,
+                    description: doc.data().description,
+                    participants: doc.data().participants
                 });
             });
             return res.json(challenges);
@@ -16,21 +18,43 @@ exports.getAllChallenges = (req, res) => {
         .catch(err => console.error(err));
 }
 
+//Post one challenge
 exports.postOneChallenge = (req, res) => {
     const newChallenge = {
-        body: req.body.body,
-        userHandle: req.user.handle,
-        createdAt: new Date().toISOString()
+        name: req.body.name,
+        goal: req.body.goal,
+        description: req.body.description,
+        participants: req.body.participants
     };
 
     db
         .collection('challenges')
         .add(newChallenge)
-        .then(doc => {
-            res.json({ message: `document ${doc.id} created successfully` })
+        .then((doc) => {
+            const resChallenge = newChallenge;
+            resChallenge.challengeId = doc.id;
+            res.json(resChallenge);
         })
         .catch(err => {
             res.status(500).json({ error: 'something went wrong' });
             console.error(err);
         })
+}
+
+//Get one challenge
+exports.getChallenge = (req, res) => {
+    let challengeData = {};
+    db.doc(`/challenges/${req.params.challengeId}`).get()
+        .then((doc) => {
+            if (!doc.exists) {
+                return res.status(404).json({ error: 'Challenge not found' })
+            }
+            challengeData = doc.data();
+            challengeData.challengeId = doc.id;
+            return res.json(challengeData);
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).json({ error: err.code });
+        });
 }

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AppIconPNG from '../images/handstogether.png';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 //MUI Stuff
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -53,8 +52,12 @@ export class Signup extends Component {
             password: '',
             confirmPassword: '',
             handle: '',
-            loading: false,
             errors: {}
+        }
+    }
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.UI.errors) {
+            this.setState({ errors: nextProps.UI.errors });
         }
     }
     handleSubmit = (event) => {
@@ -68,21 +71,7 @@ export class Signup extends Component {
             confirmPassword: this.state.confirmPassword,
             handle: this.state.handle
         }
-        axios.post('/signup', newUserData)
-            .then(res => {
-                localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`);
-                this.setState({
-                    loading: false
-                });
-                this.props.history.push('/');
-            })
-            .catch(err => {
-                console.log(err.response.data, 'err')
-                this.setState({
-                    errors: err.response.data,
-                    loading: false
-                })
-            })
+        this.props.signupUser(newUserData, this.props.history);
 
     };
     handleChange = (event) => {
@@ -92,8 +81,8 @@ export class Signup extends Component {
     };
 
     render() {
-        const { classes } = this.props;
-        const { errors, loading } = this.state;
+        const { classes, UI: { loading } } = this.props;
+        const { errors } = this.state;
         return (
             <Grid container className={classes.form}>
                 <Grid item sm />
@@ -131,12 +120,18 @@ export class Signup extends Component {
 }
 
 Signup.propTypes = {
-    classes: PropTypes.object.isRequired
-}
+    classes: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired,
+    UI: PropTypes.object.isRequired,
+    signupUser: PropTypes.func.isRequired
+};
 
 const mapStateToProps = (state) => ({
     user: state.user,
     UI: state.UI
 })
 
-export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(Signup));
+export default connect(
+    mapStateToProps,
+    { signupUser }
+)(withStyles(styles)(Signup));

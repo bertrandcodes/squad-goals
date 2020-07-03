@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AppIconPNG from '../images/handstogether.png';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 //MUI Stuff
