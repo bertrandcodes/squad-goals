@@ -1,18 +1,22 @@
 const functions = require('firebase-functions');
-
+const FBAuth = require('./util/FBAuth')
 const app = require('express')();
 
-const FBAuth = require('./util/FBAuth')
+const cors = require('cors');
+app.use(cors());
 
-const {getAllScreams, postOneScream} = require('./handlers/screams');
-const { signup, login } = require('./handlers/users');
-
-//Scream routes
-app.get('/screams', getAllScreams);
-app.post('/scream', FBAuth, postOneScream);
+const { getAllChallenges, postOneChallenge } = require('./handlers/challenges');
+const { signup, login, uploadImage, addUserDetails, getAuthenticatedUser } = require('./handlers/users');
 
 //Users routes
 app.post('/signup', signup);
 app.post('/login', login);
+app.post('/user/image', FBAuth, uploadImage);
+app.post('/user', FBAuth, addUserDetails);
+app.get('/user', FBAuth, getAuthenticatedUser);
+
+//Challenges routes
+app.get('/challenges', getAllChallenges);
+app.post('/challenge', FBAuth, postOneChallenge);
 
 exports.api = functions.https.onRequest(app);
