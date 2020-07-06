@@ -41,5 +41,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://us-central1-accountability-tracker-friends.cloudfunctions.net/api"
+  "proxy": "http://localhost:5000/accountability-tracker-friends/us-central1/api"
 }
