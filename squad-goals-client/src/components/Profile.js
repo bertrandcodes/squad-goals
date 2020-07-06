@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 //MUI
 import Button from '@material-ui/core/Button';
-import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
@@ -12,7 +11,9 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 //Redux
 import { connect } from 'react-redux';
-import { logoutUser, uploadImage } from '../redux/actions/userActions'
+import { logoutUser, uploadImage } from '../redux/actions/userActions';
+import PropTypes from 'prop-types';
+
 
 const styles = {
     profileImage: {
@@ -31,7 +32,9 @@ export class Profile extends Component {
     handleImageChange = (event) => {
         const image = event.target.files[0];
         const formData = new FormData();
+        console.log(image, 'image')
         formData.append('image', image, image.name);
+        // console.log(formData, 'formdata')
         this.props.uploadImage(formData);
     }
     handleEditPicture = () => {
@@ -68,7 +71,7 @@ const mapStateToProps = (state) => ({
 const mapActionsToProps = { logoutUser, uploadImage }
 
 Profile.propTypes = {
-    logoutUser: PropTypes.func.isRequired,
+    // logoutUser: PropTypes.func.isRequired,
     uploadImage: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
     classes: PropTypes.object.isRequired
