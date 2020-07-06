@@ -57,6 +57,16 @@ export const getUserData = () => (dispatch) => {
         .catch(err => console.log(err))
 }
 
+export const addChallenge = (userDetails) => (dispatch) => {
+    dispatch({ type: LOADING_USER });
+    axios
+      .post('/challenge', userDetails)
+      .then(() => {
+        dispatch(getUserData());
+      })
+      .catch((err) => console.log(err));
+  };
+
 export const uploadImage = (formData) => (dispatch) => {
     dispatch({ type: LOADING_USER })
     console.log('here', formData)
