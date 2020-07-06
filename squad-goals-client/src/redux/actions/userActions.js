@@ -60,12 +60,12 @@ export const getUserData = () => (dispatch) => {
 export const addChallenge = (userDetails) => (dispatch) => {
     dispatch({ type: LOADING_USER });
     axios
-      .post('/challenge', userDetails)
-      .then(() => {
-        dispatch(getUserData());
-      })
-      .catch((err) => console.log(err));
-  };
+        .post('/challenge', userDetails)
+        .then(() => {
+            dispatch(getUserData());
+        })
+        .catch((err) => console.log(err));
+};
 
 export const uploadImage = (formData) => (dispatch) => {
     dispatch({ type: LOADING_USER })

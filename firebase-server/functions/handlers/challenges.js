@@ -1,7 +1,8 @@
 const { db } = require('../util/admin.js');
 //Get all challenges
 exports.getAllChallenges = (req, res) => {
-    db.collection('challenges').get()
+    db.collection('challenges').orderBy('createdAt', 'desc')
+        .get()
         .then(data => {
             let challenges = [];
             data.forEach((doc) => {
@@ -10,7 +11,8 @@ exports.getAllChallenges = (req, res) => {
                     name: doc.data().name,
                     goal: doc.data().goal,
                     description: doc.data().description,
-                    participants: doc.data().participants
+                    participants: doc.data().participants,
+                    createdAt: doc.data().createdAt
                 });
             });
             return res.json(challenges);
@@ -24,7 +26,8 @@ exports.postOneChallenge = (req, res) => {
         name: req.body.name,
         goal: req.body.goal,
         description: req.body.description,
-        participants: req.body.participants
+        participants: req.body.participants,
+        createdAt: new Date().toISOString()
     };
 
     db
