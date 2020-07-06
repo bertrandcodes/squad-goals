@@ -5,22 +5,34 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
+import withStyles from '@material-ui/core/styles/withStyles';
+
 //Redux
 import { connect } from 'react-redux';
 import { addChallenge } from '../redux/actions/userActions';
 import PropTypes from 'prop-types';
 
+const styles = (theme) => ({
+
+});
 
 export class AddChallenge extends Component {
-    state = {
-        name: '',
-        goal: '',
-        description: '',
-        participants: 'none yet',
-        open: false
-    };
+    constructor() {
+        super();
+        this.state = {
+            name: '',
+            goal: '',
+            description: '',
+            participants: 'none yet',
+            open: false
+        }
+    }
     handleOpen = () => {
         this.setState({ open: true })
+    };
+    handleClose = () => {
+        this.setState({ open: false });
     };
     handleChange = (event) => {
         this.setState({
@@ -37,6 +49,7 @@ export class AddChallenge extends Component {
         this.props.addChallenge(userDetails);
         this.handleClose();
     }
+
     render() {
         return (
             <Fragment>
@@ -50,13 +63,15 @@ export class AddChallenge extends Component {
                     <DialogContent>
                         <form>
                             <TextField
-                                name="task name"
+                                name="name"
                                 type="text"
                                 label="name"
                                 rows="1"
                                 placeholder="Pushups"
                                 value={this.state.name}
-                                onChange={this.handleChange}>
+                                onChange={this.handleChange}
+                                fullWidth
+                            >
                             </TextField>
                             <TextField
                                 name="goal"
@@ -65,25 +80,29 @@ export class AddChallenge extends Component {
                                 rows="1"
                                 placeholder="100"
                                 value={this.state.goal}
-                                onChange={this.handleChange}>
+                                onChange={this.handleChange}
+                                fullWidth
+                            >
                             </TextField>
                             <TextField
                                 name="description"
                                 type="text"
-                                label="name"
+                                label="description"
                                 multiline
                                 rows="3"
                                 placeholder="Do 100 pushups everyday!"
                                 value={this.state.description}
-                                onChange={this.handleChange}>
+                                onChange={this.handleChange}
+                                fullWidth
+                            >
                             </TextField>
                         </form>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={this.handleClose} color="primary">
+                        <Button onClick={this.handleClose} variant="contained" color="secondary">
                             Cancel
                         </Button>
-                        <Button onClick={this.handleSubmit} color="primary">
+                        <Button onClick={this.handleSubmit} variant="contained" color="primary">
                             Submit
                         </Button>
                     </DialogActions>
