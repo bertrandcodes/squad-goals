@@ -61,3 +61,20 @@ exports.getChallenge = (req, res) => {
             res.status(500).json({ error: err.code });
         });
 }
+
+//Update challenge
+exports.updateChallenge = (req, res) => {
+    // let challengeData = {};
+    var name = req.body.name;
+    var newValue = req.body.newValue;
+    console.log(name, 'name')
+    console.log(newValue, 'newValue')
+    db.doc(`/challenge/${req.params.challengeId}`).withConverter("")
+        .then((doc) => {
+            if (!doc.exists) {
+                return res.status(404).json({ error: 'Challenge not found' })
+            }
+            // challengeData = doc.data();
+            // console.log(doc.data)
+        })
+}
