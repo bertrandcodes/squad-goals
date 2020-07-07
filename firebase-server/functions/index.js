@@ -5,7 +5,7 @@ const app = require('express')();
 const cors = require('cors');
 app.use(cors());
 
-const { getAllChallenges, postOneChallenge, getChallenge } = require('./handlers/challenges');
+const { getAllChallenges, postOneChallenge, getChallenge, updateChallenge } = require('./handlers/challenges');
 const { signup, login, uploadImage, addUserDetails, getAuthenticatedUser } = require('./handlers/users');
 
 //Users routes
@@ -19,5 +19,6 @@ app.get('/user', FBAuth, getAuthenticatedUser);
 app.get('/challenges', getAllChallenges);
 app.post('/challenge', FBAuth, postOneChallenge);
 app.get('/challenge/:challengeId', getChallenge);
+app.put('/challenge/:challengeId', updateChallenge);
 
 exports.api = functions.https.onRequest(app);
