@@ -24,7 +24,9 @@ export class AddChallenge extends Component {
             name: '',
             goal: '',
             description: '',
-            participants: 'none yet',
+            handle: '',
+            current: 0,
+            participants: [],
             open: false
         }
     }
@@ -39,18 +41,29 @@ export class AddChallenge extends Component {
             [event.target.name]: event.target.value
         });
     };
-    handleSubmit = () => {
+    // addParticipant = (handle) => {
+    //     this.setState({
+    //         participants: 10
+    //     })
+    // }
+    // addParticipant = (handle) => {
+    //     this.setState({ handle: handle, current: 0 });
+    // }
+    handleSubmit = (handle) => {
         const userDetails = {
             name: this.state.name,
             goal: this.state.goal,
             description: this.state.description,
-            participants: this.state.participants
+            participants: this.state.participants,
+            handle: handle,
+            current: 0
         };
         this.props.addChallenge(userDetails);
         this.handleClose();
     }
 
     render() {
+        const { handle } = this.props.credentials
         return (
             <Fragment>
                 <Button onClick={this.handleOpen} variant="contained" color="primary">+</Button>
@@ -96,13 +109,16 @@ export class AddChallenge extends Component {
                                 fullWidth
                             >
                             </TextField>
+                            <button
+                            // onClick={event => { event.preventDefault(); this.addParticipant(handle) }}
+                            >Add participants</button>
                         </form>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.handleClose} variant="contained" color="secondary">
                             Cancel
                         </Button>
-                        <Button onClick={this.handleSubmit} variant="contained" color="primary">
+                        <Button onClick={event => { event.preventDefault(); this.handleSubmit(handle) }} variant="contained" color="primary">
                             Submit
                         </Button>
                     </DialogActions>

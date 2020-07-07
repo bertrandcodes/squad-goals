@@ -11,6 +11,8 @@ exports.getAllChallenges = (req, res) => {
                     name: doc.data().name,
                     goal: doc.data().goal,
                     description: doc.data().description,
+                    handle: doc.data().handle,
+                    current: doc.data().current,
                     participants: doc.data().participants,
                     createdAt: doc.data().createdAt
                 });
@@ -26,6 +28,8 @@ exports.postOneChallenge = (req, res) => {
         name: req.body.name,
         goal: req.body.goal,
         description: req.body.description,
+        handle: req.body.handle,
+        current: req.body.current,
         participants: req.body.participants,
         createdAt: new Date().toISOString()
     };
@@ -69,12 +73,12 @@ exports.updateChallenge = (req, res) => {
     var newValue = req.body.newValue;
     console.log(name, 'name')
     console.log(newValue, 'newValue')
-    db.doc(`/challenge/${req.params.challengeId}`).withConverter("")
-        .then((doc) => {
-            if (!doc.exists) {
-                return res.status(404).json({ error: 'Challenge not found' })
-            }
-            // challengeData = doc.data();
-            // console.log(doc.data)
+    db.collection('challenges').doc(req.params.challengeId).update({ current: newValue })
+        .then(() => {
+            return res.json(newValue)
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json({ error: err.code });
         })
 }

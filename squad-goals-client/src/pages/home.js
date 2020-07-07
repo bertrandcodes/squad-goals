@@ -8,7 +8,7 @@ import { getChallenges } from '../redux/actions/dataActions';
 import Tooltip from '@material-ui/core/Tooltip';
 
 //Components
-import Challenge from '../components/Challenge';
+import Challenge from '../components/Challenges';
 import Profile from '../components/Profile';
 import AddChallenge from '../components/AddChallenge';
 

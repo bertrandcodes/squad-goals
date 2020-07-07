@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import withStyles from '@material-ui/core/styles/withStyles';
+import { Link } from 'react-router-dom';
 // MUI Stuff
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -10,15 +11,16 @@ import Typography from '@material-ui/core/Typography';
 const styles = {
     card: {
         display: 'flex',
-        marginBottom: 20
+        marginBottom: 20,
+        textDecoration: 'none'
     }
 }
 
 export class Challenge extends Component {
     render() {
-        const { classes, challenge: { name, goal, description } } = this.props
+        const { classes, challenge: { name, goal, description, challengeId } } = this.props
         return (
-            <Card className={classes.card}>
+            <Card className={classes.card} component={Link} to={`/challenge/${challengeId}`}>
                 <CardContent>
                     <Typography variant="h3" align="center">{goal}</Typography>
                     <Typography variant="h2" align="center">{name}</Typography>
