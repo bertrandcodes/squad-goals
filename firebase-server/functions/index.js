@@ -6,7 +6,7 @@ const cors = require('cors');
 app.use(cors());
 
 const { getAllChallenges, postOneChallenge, getChallenge, updateChallenge } = require('./handlers/challenges');
-const { signup, login, uploadImage, addUserDetails, getAuthenticatedUser, addFriend } = require('./handlers/users');
+const { signup, login, uploadImage, addUserDetails, getAuthenticatedUser, addFriend, getFriend } = require('./handlers/users');
 
 //Users routes
 app.post('/signup', signup);
@@ -14,7 +14,9 @@ app.post('/login', login);
 app.post('/user/image', FBAuth, uploadImage);
 app.post('/user', FBAuth, addUserDetails);
 app.get('/user', FBAuth, getAuthenticatedUser);
-app.put('/user', addFriend);
+app.put('/user', FBAuth, addFriend);
+app.get('/user/:friendUid', FBAuth, getFriend);
+
 
 //Challenges routes
 app.get('/challenges', getAllChallenges);
