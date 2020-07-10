@@ -1,5 +1,6 @@
 import {
-    SET_CHALLENGES,
+    SET_CHALLENGES
+    // LOADING_DATA,
 } from '../types';
 import axios from 'axios';
 

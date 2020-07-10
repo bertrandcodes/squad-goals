@@ -1,4 +1,4 @@
-import { SET_USER, SET_ERRORS, CLEAR_ERRORS, LOADING_UI, SET_UNAUTHENTICATED, LOADING_USER } from '../types';
+import { SET_USER, SET_ERRORS, SET_FRIENDS, CLEAR_ERRORS, LOADING_UI, SET_UNAUTHENTICATED, LOADING_USER } from '../types';
 import axios from 'axios';
 
 export const loginUser = (userData, history) => (dispatch) => {
@@ -69,12 +69,33 @@ export const addChallenge = (userDetails) => (dispatch) => {
 
 export const uploadImage = (formData) => (dispatch) => {
     dispatch({ type: LOADING_USER })
-    console.log('here', formData)
     axios.post('/user/image', formData)
         .then(() => {
             dispatch(getUserData());
         })
         .catch(err => console.log(err));
+}
+
+export const addFriend = (friendData) => (dispatch) => {
+    dispatch({ type: LOADING_USER })
+    axios.put('/user', friendData)
+        .then(() => {
+            dispatch(getUserData())
+        })
+        .catch(err => console.log(err));
+
+}
+
+export const getFriend = (friendUid) => (dispatch) => {
+    dispatch({ type: LOADING_USER });
+    axios.get(`/user/${friendUid}`)
+        .then(res => {
+            dispatch({
+                type: SET_FRIENDS,
+                payload: res.data
+            })
+        })
+        .catch(err => console.log(err))
 }
 
 const setAuthorizationHeader = (token) => {

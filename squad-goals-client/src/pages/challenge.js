@@ -39,8 +39,7 @@ export class challenge extends Component {
             newValue: Number(event.target.value)
         });
     };
-    handleSubmit = (event) => {
-        event.preventDefault();
+    handleSubmit = () => {
         const challenge = this.props.match.params.challengeId;
         const newValues = {
             name: this.state.handle,
@@ -52,6 +51,10 @@ export class challenge extends Component {
             })
             .catch((err) => console.log(err));
     };
+    updateBar = (currentPercentage) => {
+        const barFill = document.querySelector(".progress-bar-fill");
+        barFill.style.height = `${currentPercentage}%`
+    }
     render() {
         const { name, goal, description, handle, current, participants } = this.state;
         const { data } = this.props;
@@ -70,7 +73,7 @@ export class challenge extends Component {
                     </div>
                     <div>{handle}</div><div>{current}</div>
                     <input onChange={this.handleChange} />
-                    <button onClick={() => {this.updateBar(); this.handleSubmit();}}>Add more</button>
+                    <button onClick={() => { this.updateBar(currentPercentage); this.handleSubmit(); }}>Add more</button>
                 </div>
             </Fragment>
         )
