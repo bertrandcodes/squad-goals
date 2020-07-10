@@ -183,53 +183,12 @@ exports.uploadImage = (req, res) => {
     busboy.end(req.rawBody);
 };
 
-const performUpdate = async (docRef, updates) =>
-    await docRef.update({ ...updates });
-
-// Add friend
-// exports.addFriend = async (req, res) => {
-//     var uid = req.body.uid;
-//     var friendUid = req.body.friendUid;
-//     // console.log(uid, 'uid');
-//     // console.log(friendUid, 'frienduid');
-//     if (!uid || !friendUid) return null;
-
-//     const uRef = db.collection('users').doc(uid);
-//     const fRef = db.collection('users').doc(friendUid);
-
-//     try {
-//         const fDoc = await fRef.get();
-
-//         if (fDoc.exists) {
-//             const uDoc = await uRef.get()
-//             const userUpdates = {
-//                 friends: { ...{ [friendUid]: 1 }, ...uDoc.data().friends }
-//             };
-//             const friendUpdates = {
-//                 friends: { ...{ [uid]: 1 }, ...fDoc.data().friends }
-//             };
-
-//             await Promise.all([
-//                 performUpdate(uRef, userUpdates),
-//                 performUpdate(fRef, friendUpdates)
-//             ]);
-//             return fDoc.data().handle
-//         }
-//         return false;
-//     } catch (error) {
-//         console.error('addFriend error:', error);
-//         return 'addFriend error';
-//     }
-// }
-
 exports.addFriend = (req, res) => {
     var uid = req.body.uid;
     var friendUid = req.body.friendUid;
-    // console.log(uid, 'uid');
-    // console.log(friendUid, 'frienduid');
     if (!uid || !friendUid) return null;
 
-    db.collection('users').doc(uid).update({ friends: admin.firestore.FieldValue.arrayUnion({ [friendUid]: 1 }) })
+    db.collection('users').doc(uid).update({ friends: admin.firestore.FieldValue.arrayUnion(friendUid) })
         .then(() => {
             console.log('added 1 friend')
             return res.json('added friend')
@@ -238,4 +197,44 @@ exports.addFriend = (req, res) => {
             console.log(err);
             res.status(500).json({ error: err.code });
         })
+}
+
+// //Get own user details
+// exports.getAuthenticatedUser = (req, res) => {
+//     let userData = {};
+//     db.doc(`/users/${req.user.uid}`).get()
+//         .then(doc => {
+//             if (doc.exists) {
+//                 userData.credentials = doc.data();
+//                 return db.collection('challenges').where('userHandle', '==', req.user.handle).get()
+//             }
+//         })
+//         .then(data => {
+//             userData.challenges = [];
+//             data.forEach(doc => {
+//                 userData.challenges.push(doc.data());
+//             })
+//             return res.json(userData);
+//         })
+//         .catch(err => {
+//             console.error(err);
+//             return res.status(500).json({ error: err.code });
+//         })
+// }
+
+//Get a friend
+exports.getFriend = (req, res) => {
+    let friendData = {};
+    db.doc(`/users/${req.params.friendUid}`).get()
+        .then(doc => {
+            if (!doc.exists) {
+                return res.status(404).json({ error: 'Friend not found' })
+            }
+            friendData = doc.data();
+            return res.json(friendData);
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).json({ error: err.code });
+        });
 }
