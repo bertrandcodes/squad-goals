@@ -71,8 +71,7 @@ exports.updateChallenge = (req, res) => {
     // let challengeData = {};
     var name = req.body.name;
     var newValue = req.body.newValue;
-    console.log(name, 'name')
-    console.log(newValue, 'newValue')
+    // console.log(req.params.challengeId, 'challengeid')
     db.collection('challenges').doc(req.params.challengeId).update({ current: newValue })
         .then(() => {
             return res.json(newValue)

@@ -24,7 +24,7 @@ exports.signup = (req, res) => {
 
     //TODO: validate data
     let token, userId;
-    db.doc(`/users/${newUser.handle}`).get()
+    db.doc(`/users/${userId}`).get()
         .then(doc => {
             if (doc.exists) {
                 return res.status(400).json({ handle: 'this handle is already taken' })
@@ -39,14 +39,15 @@ exports.signup = (req, res) => {
         .then(idToken => {
             token = idToken;
             const userCredentials = {
+                userId,
                 handle: newUser.handle,
                 email: newUser.email,
                 createdAt: new Date().toISOString(),
                 imageUrl: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${noImg}?alt=media`,
-                userId,
-                completed: 0
+                completed: 0,
+                friends: []
             };
-            return db.doc(`/users/${newUser.handle}`).set(userCredentials);
+            return db.doc(`/users/${userId}`).set(userCredentials);
         })
         .then(() => {
             return res.status(201).json({ token });
@@ -89,7 +90,7 @@ exports.login = (req, res) => {
 exports.addUserDetails = (req, res) => {
     let userDetails = reduceUserDetails(req.body);
 
-    db.doc(`/users/${req.user.handle}`)
+    db.doc(`/users/${req.user.uid}`)
         .update(userDetails)
         .then(() => {
             return res.json({ message: "Details added successfully" });
@@ -103,7 +104,7 @@ exports.addUserDetails = (req, res) => {
 //Get own user details
 exports.getAuthenticatedUser = (req, res) => {
     let userData = {};
-    db.doc(`/users/${req.user.handle}`).get()
+    db.doc(`/users/${req.user.uid}`).get()
         .then(doc => {
             if (doc.exists) {
                 userData.credentials = doc.data();
@@ -169,7 +170,7 @@ exports.uploadImage = (req, res) => {
             .then(() => {
                 // Append token to url
                 const imageUrl = `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${imageFileName}?alt=media`;
-                return db.doc(`/users/${req.user.handle}`).update({ imageUrl });
+                return db.doc(`/users/${req.user.uid}`).update({ imageUrl });
             })
             .then(() => {
                 return res.json({ message: "image uploaded successfully" });
@@ -181,3 +182,60 @@ exports.uploadImage = (req, res) => {
     });
     busboy.end(req.rawBody);
 };
+
+const performUpdate = async (docRef, updates) =>
+    await docRef.update({ ...updates });
+
+// Add friend
+// exports.addFriend = async (req, res) => {
+//     var uid = req.body.uid;
+//     var friendUid = req.body.friendUid;
+//     // console.log(uid, 'uid');
+//     // console.log(friendUid, 'frienduid');
+//     if (!uid || !friendUid) return null;
+
+//     const uRef = db.collection('users').doc(uid);
+//     const fRef = db.collection('users').doc(friendUid);
+
+//     try {
+//         const fDoc = await fRef.get();
+
+//         if (fDoc.exists) {
+//             const uDoc = await uRef.get()
+//             const userUpdates = {
+//                 friends: { ...{ [friendUid]: 1 }, ...uDoc.data().friends }
+//             };
+//             const friendUpdates = {
+//                 friends: { ...{ [uid]: 1 }, ...fDoc.data().friends }
+//             };
+
+//             await Promise.all([
+//                 performUpdate(uRef, userUpdates),
+//                 performUpdate(fRef, friendUpdates)
+//             ]);
+//             return fDoc.data().handle
+//         }
+//         return false;
+//     } catch (error) {
+//         console.error('addFriend error:', error);
+//         return 'addFriend error';
+//     }
+// }
+
+exports.addFriend = (req, res) => {
+    var uid = req.body.uid;
+    var friendUid = req.body.friendUid;
+    // console.log(uid, 'uid');
+    // console.log(friendUid, 'frienduid');
+    if (!uid || !friendUid) return null;
+
+    db.collection('users').doc(uid).update({ friends: admin.firestore.FieldValue.arrayUnion({ [friendUid]: 1 }) })
+        .then(() => {
+            console.log('added 1 friend')
+            return res.json('added friend')
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json({ error: err.code });
+        })
+}

@@ -6,7 +6,8 @@ let db = {
       handle: 'Bertrand',
       createdAt: '2020-07-02T23:57:39.958Z',
       imageUrl: 'image/dsfsdkfghskdfgs/dgfdhfgdh',
-      completed: 0
+      completed: 0,
+      friends: []
     }
   ],
   challenges: [
