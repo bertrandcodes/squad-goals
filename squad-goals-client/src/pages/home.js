@@ -11,6 +11,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Challenge from '../components/Challenges';
 import Profile from '../components/Profile';
 import AddChallenge from '../components/AddChallenge';
+import AddFriends from '../components/AddFriends.js';
 
 
 export class Home extends Component {
@@ -26,6 +27,7 @@ export class Home extends Component {
                 <Grid item sm={4} xs={12}>
                     <Profile />
                 </Grid>
+                <AddFriends/>
                 <AddChallenge />
                 <Grid item sm={8} xs={12}>
                     {recentChallengesMarkup}
