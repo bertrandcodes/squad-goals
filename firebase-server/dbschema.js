@@ -15,7 +15,8 @@ let db = {
       name: 'pushups',
       goal: '100 a day',
       description: 'do 100 pushups today',
-      participants: []
+      participants: [],
+      participantList: [],
     }
   ]
 }

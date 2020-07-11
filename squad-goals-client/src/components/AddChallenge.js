@@ -24,9 +24,10 @@ export class AddChallenge extends Component {
             name: '',
             goal: '',
             description: '',
-            handle: '',
-            current: 0,
+            // handle: '',
+            // current: 0,
             participants: [],
+            participantList: [],
             open: false
         }
     }
@@ -49,23 +50,61 @@ export class AddChallenge extends Component {
     // addParticipant = (handle) => {
     //     this.setState({ handle: handle, current: 0 });
     // }
-    handleSubmit = (handle) => {
+    addParticipant = (friendData) => {
+        var handle = friendData.handle
+        this.setState({
+            participants: [...this.state.participants, friendData],
+            participantList: [...this.state.participantList, handle]
+        })
+    }
+    handleSubmit = (ownData) => {
+        var ownHandle = ownData.handle
+        // this.setState({
+        //     participants: [...this.state.participants, ownData],
+        //     participantList: [...this.state.participantList, ownHandle]
+        // })
         const userDetails = {
             name: this.state.name,
             goal: this.state.goal,
             description: this.state.description,
-            participants: this.state.participants,
-            handle: handle,
-            current: 0
+            participants: [...this.state.participants, ownData],
+            participantList: [...this.state.participantList, ownHandle],
+            // handle: ownData.handle,
+            // current: 0
         };
         this.props.addChallenge(userDetails);
+        this.setState({
+            name: '',
+            goal: '',
+            description: '',
+            participants: [],
+            participantList: []
+        })
         this.handleClose();
     }
 
     render() {
-        const { handle } = this.props.credentials
+        const { handle, userId } = this.props.credentials
+        const { friends } = this.props.user
+        var ownData = {
+            handle,
+            uid: userId,
+            current: 0
+        }
+
+        let friendsList = friends ? (friends.map(friend => {
+            const friendData = {
+                handle: friend.handle,
+                uid: friend.userId,
+                current: 0
+            }
+            return <div><button onClick={event => { event.preventDefault(); this.addParticipant(friendData) }}>{friend.handle}</button></div>
+        }
+        )) : <p>Loading...</p>
+
         return (
             <Fragment>
+                {console.log(this.state.participants, 'participants')}
                 <Button onClick={this.handleOpen} variant="contained" color="primary">+</Button>
                 <Dialog
                     open={this.state.open}
@@ -109,16 +148,14 @@ export class AddChallenge extends Component {
                                 fullWidth
                             >
                             </TextField>
-                            <button
-                            // onClick={event => { event.preventDefault(); this.addParticipant(handle) }}
-                            >Add participants</button>
+                            {friendsList}
                         </form>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.handleClose} variant="contained" color="secondary">
                             Cancel
                         </Button>
-                        <Button onClick={event => { event.preventDefault(); this.handleSubmit(handle) }} variant="contained" color="primary">
+                        <Button onClick={event => { event.preventDefault(); this.handleSubmit(ownData) }} variant="contained" color="primary">
                             Submit
                         </Button>
                     </DialogActions>
@@ -134,7 +171,8 @@ AddChallenge.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    credentials: state.user.credentials
+    credentials: state.user.credentials,
+    user: state.user
 });
 
 export default connect(

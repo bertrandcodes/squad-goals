@@ -11,7 +11,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 //Redux
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addFriend, getFriend } from '../redux/actions/userActions';
+import { addFriend } from '../redux/actions/userActions';
 
 const styles = (theme) => ({
 
@@ -41,18 +41,19 @@ export class AddFriends extends Component {
         const friendData = { uid, friendUid }
         this.props.addFriend(friendData);
     }
-    showFriend = (friends) => {
-        console.log(friends[0])
-        this.props.getFriend(friends[0])
-    }
+    // showFriend = (friends) => {
+    //     console.log(friends[0])
+    //     this.props.getFriend(friends[0])
+    // }
 
     render() {
-        const { friends } = this.props.user.credentials;
+        const { friends } = this.props.user;
+
+        let friendsList = friends ? (friends.map(friend => <p>{friend.handle}</p>)) : <p>Loading...</p>
         // let recentFriendMarkup = friends ? (friends.map(friend =>
         // this.props.getFriend(friend))) : <p>Loading...</p>
         return (
             <Fragment>
-                {console.log(friends)}
                 <Button onClick={this.handleOpen} variant="contained" color="secondary">Add friends</Button>
                 <Dialog
                     open={this.state.open}
@@ -76,8 +77,7 @@ export class AddFriends extends Component {
                             <Button onClick={event => { event.preventDefault(); this.handleSubmit(this.props.user.credentials.userId, this.state.friendUid) }} variant="contained" color="primary">Add Amigo</Button>
                         </form>
                     </DialogContent>
-                    <button onClick={event => { event.preventDefault(); this.showFriend(friends); }}>show a friend</button>
-                    <p>{this.props.user.friends.handle}</p>
+                    <div>{friendsList}</div>
                     <DialogActions>
                         <Button onClick={this.handleClose} variant="contained" color="secondary">
                             Cancel
@@ -90,8 +90,7 @@ export class AddFriends extends Component {
 }
 
 AddFriends.propTypes = {
-    addFriend: PropTypes.func.isRequired,
-    getFriend: PropTypes.func.isRequired
+    addFriend: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -101,5 +100,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
     mapStateToProps,
-    { addFriend, getFriend }
+    { addFriend }
 )(withStyles(styles)(AddFriends));

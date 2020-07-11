@@ -4,7 +4,7 @@ const initialState = {
     authenticated: false,
     loading: false,
     credentials: {},
-    friends: {}
+    friends: []
 };
 
 export default function (state = initialState, action) {
@@ -28,7 +28,7 @@ export default function (state = initialState, action) {
                 ...state,
                 authenticated: true,
                 loading: false,
-                friends: action.payload
+                friends: [...state.friends, action.payload]
             }
         case LOADING_USER:
             return {
