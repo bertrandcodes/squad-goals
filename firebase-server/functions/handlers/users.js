@@ -191,7 +191,7 @@ exports.addFriend = (req, res) => {
     db.collection('users').doc(uid).update({ friends: admin.firestore.FieldValue.arrayUnion(friendUid) })
         .then(() => {
             console.log('added 1 friend')
-            return res.json('added friend')
+            return res.json(friendUid)
         })
         .catch((err) => {
             console.log(err);
