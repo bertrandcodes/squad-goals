@@ -114,7 +114,10 @@ exports.getAuthenticatedUser = (req, res) => {
         .then(data => {
             userData.challenges = [];
             data.forEach(doc => {
-                userData.challenges.push(doc.data());
+                var noId = doc.data();
+                noId.challengeId = doc.id;
+                userData.challenges.push(noId);
+                // console.log(noId, 'this one here sir');
             })
             return res.json(userData);
         })
