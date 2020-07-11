@@ -54,6 +54,9 @@ export const getUserData = () => (dispatch) => {
                 payload: res.data
             })
         })
+        .then(() => {
+            dispatch(getFriends());
+        })
         .catch(err => console.log(err))
 }
 
@@ -62,7 +65,14 @@ export const addChallenge = (userDetails) => (dispatch) => {
     axios
         .post('/challenge', userDetails)
         .then(() => {
-            dispatch(getUserData());
+            axios.get('/user')
+                .then(res => {
+                    dispatch({
+                        type: SET_USER,
+                        payload: res.data
+                    })
+                })
+                .catch(err => console.log(err))
         })
         .catch((err) => console.log(err));
 };
@@ -71,23 +81,68 @@ export const uploadImage = (formData) => (dispatch) => {
     dispatch({ type: LOADING_USER })
     axios.post('/user/image', formData)
         .then(() => {
-            dispatch(getUserData());
+            axios.get('/user')
+                .then(res => {
+                    dispatch({
+                        type: SET_USER,
+                        payload: res.data
+                    })
+                })
+                .catch(err => console.log(err))
         })
         .catch(err => console.log(err));
 }
 
 export const addFriend = (friendData) => (dispatch) => {
     dispatch({ type: LOADING_USER })
+    var { friendUid } = friendData
     axios.put('/user', friendData)
-        .then(() => {
-            dispatch(getUserData())
+        .then((friendUid) => {
+            axios.get('/user')
+                .then(res => {
+                    dispatch({
+                        type: SET_USER,
+                        payload: res.data
+                    })
+                })
+                .catch(err => console.log(err));
+            return friendUid.data;
+        })
+        .then((friendUid) => {
+            dispatch(getFriend(friendUid));
         })
         .catch(err => console.log(err));
 
 }
 
+
+export const getFriends = () => (dispatch) => {
+    // dispatch({ type: LOADING_USER });
+    var friends = [];
+    axios.get(`/user`)
+        .then(res => {
+            friends = res.data.credentials.friends;
+            // console.log(friends, 'shudbearray');
+            friends.forEach(friend => {
+                axios.get(`/user/${friend}`)
+                    .then(res => {
+                        dispatch({
+                            type: SET_FRIENDS,
+                            payload: res.data
+                        })
+                    })
+            });
+            // dispatch({
+            //     type: SET_FRIENDS,
+            //     payload: res.data.credentials.friends
+            // })
+        })
+        .catch(err => console.log(err))
+}
+
+
 export const getFriend = (friendUid) => (dispatch) => {
-    dispatch({ type: LOADING_USER });
+    // dispatch({ type: LOADING_USER });
     axios.get(`/user/${friendUid}`)
         .then(res => {
             dispatch({

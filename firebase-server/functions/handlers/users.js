@@ -108,7 +108,7 @@ exports.getAuthenticatedUser = (req, res) => {
         .then(doc => {
             if (doc.exists) {
                 userData.credentials = doc.data();
-                return db.collection('challenges').where('handle', '==', req.user.handle).get()
+                return db.collection('challenges').where('participantList', 'array-contains', req.user.handle).get()
             }
         })
         .then(data => {

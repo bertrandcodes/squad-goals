@@ -20,14 +20,14 @@ export class Home extends Component {
     }
 
     render() {
-        const { challenges } = this.props.data;
+        const { challenges } = this.props.user;
         let recentChallengesMarkup = challenges ? (challenges.map(challenge => <Challenge challenge={challenge} />)) : <p>Loading...</p>
         return (
             <Grid className="home-grid" container spacing={10}>
                 <Grid item sm={4} xs={12}>
                     <Profile />
                 </Grid>
-                <AddFriends/>
+                <AddFriends />
                 <AddChallenge />
                 <Grid item sm={8} xs={12}>
                     {recentChallengesMarkup}
@@ -39,11 +39,13 @@ export class Home extends Component {
 
 Home.propTypes = {
     getChallenges: PropTypes.func.isRequired,
-    data: PropTypes.object.isRequired
+    data: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => ({
-    data: state.data
+    data: state.data,
+    user: state.user
 });
 
 export default connect(

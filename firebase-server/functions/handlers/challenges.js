@@ -11,9 +11,10 @@ exports.getAllChallenges = (req, res) => {
                     name: doc.data().name,
                     goal: doc.data().goal,
                     description: doc.data().description,
-                    handle: doc.data().handle,
-                    current: doc.data().current,
+                    // handle: doc.data().handle,
+                    // current: doc.data().current,
                     participants: doc.data().participants,
+                    participantList: doc.data().participantList,
                     createdAt: doc.data().createdAt
                 });
             });
@@ -28,9 +29,10 @@ exports.postOneChallenge = (req, res) => {
         name: req.body.name,
         goal: req.body.goal,
         description: req.body.description,
-        handle: req.body.handle,
-        current: req.body.current,
+        // handle: req.body.handle,
+        // current: req.body.current,
         participants: req.body.participants,
+        participantList: req.body.participantList,
         createdAt: new Date().toISOString()
     };
 
