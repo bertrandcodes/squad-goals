@@ -54,23 +54,30 @@ export class challenge extends Component {
             var userIndex = participants.findIndex((obj => obj.handle === handle));
             return participants[userIndex].current
         }
-        console.log(getCurrent(participants, handle))
+        var current = getCurrent(participants, handle)
 
-        // const challenge = this.props.match.params.challengeId;
-        // const newValues = {
-        //     name: this.state.handle,
-        //     newValue: (this.state.newValue + this.state.current)
-        // }
-        // axios.put(`/challenge/${challenge}`, newValues)
-        //     .then((res) => {
-        //         console.log(res.data)
-        //     })
-        //     .catch((err) => console.log(err));
+        const challenge = this.props.match.params.challengeId;
+        const newValues = {
+            name: handle,
+            newValue: (this.state.newValue + current)
+        }
+        axios.put(`/challenge/${challenge}`, newValues)
+            .then((res) => {
+                console.log(res.data)
+            })
+            .catch((err) => console.log(err));
     };
     //put into redux if you want it to load automatically
     updateBar = (participants, handle) => {
-        // const barFill = document.querySelector(".progress-bar-fill");
-        // barFill.style.height = `${currentPercentage}%`
+        var getCurrent = (participants, handle) => {
+            var userIndex = participants.findIndex((obj => obj.handle === handle));
+            return participants[userIndex].current
+        }
+        var current = getCurrent(participants, handle);
+        const currentPercentage = ((current / Number(this.state.goal)) * 100);
+
+        const barFill = document.querySelector(".progress-bar-fill");
+        barFill.style.height = `${currentPercentage}%`
     }
     // getCurrent = (participants, handle) => {
     //     var userIndex = participants.findIndex((obj => obj.handle === handle));
@@ -96,7 +103,7 @@ export class challenge extends Component {
 
         return (
             <div className="challenge-body">
-                {/* {console.log(participants, 'handyyy')} */}
+                {/* {console.log(this.state.newValue, 'handyyy')} */}
                 <h1>{name}</h1>
                 <h2>Goal: {goal}</h2>
                 <h3>{description}</h3>

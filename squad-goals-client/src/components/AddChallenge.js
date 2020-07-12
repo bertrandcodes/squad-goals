@@ -26,7 +26,7 @@ export class AddChallenge extends Component {
             description: '',
             // handle: '',
             // current: 0,
-            participants: [],
+            participants: {},
             participantList: [],
             open: false
         }
@@ -51,14 +51,15 @@ export class AddChallenge extends Component {
     //     this.setState({ handle: handle, current: 0 });
     // }
     addParticipant = (friendData) => {
-        var handle = friendData.handle
+        const { handle, uid, current } = friendData;
+        this.state.participants[uid] = { handle, current };
         this.setState({
-            participants: [...this.state.participants, friendData],
             participantList: [...this.state.participantList, handle]
         })
     }
     handleSubmit = (ownData) => {
-        var ownHandle = ownData.handle
+        const { handle, uid, current } = ownData;
+        this.state.participants[uid] = { handle, current };
         // this.setState({
         //     participants: [...this.state.participants, ownData],
         //     participantList: [...this.state.participantList, ownHandle]
@@ -67,17 +68,18 @@ export class AddChallenge extends Component {
             name: this.state.name,
             goal: this.state.goal,
             description: this.state.description,
-            participants: [...this.state.participants, ownData],
-            participantList: [...this.state.participantList, ownHandle],
+            participants: this.state.participants,
+            participantList: [...this.state.participantList, handle],
             // handle: ownData.handle,
             // current: 0
         };
-        this.props.addChallenge(userDetails);
+        console.log(userDetails, 'try')
+        // this.props.addChallenge(userDetails);
         this.setState({
             name: '',
             goal: '',
             description: '',
-            participants: [],
+            participants: {},
             participantList: []
         })
         this.handleClose();

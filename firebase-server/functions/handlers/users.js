@@ -202,29 +202,6 @@ exports.addFriend = (req, res) => {
         })
 }
 
-// //Get own user details
-// exports.getAuthenticatedUser = (req, res) => {
-//     let userData = {};
-//     db.doc(`/users/${req.user.uid}`).get()
-//         .then(doc => {
-//             if (doc.exists) {
-//                 userData.credentials = doc.data();
-//                 return db.collection('challenges').where('userHandle', '==', req.user.handle).get()
-//             }
-//         })
-//         .then(data => {
-//             userData.challenges = [];
-//             data.forEach(doc => {
-//                 userData.challenges.push(doc.data());
-//             })
-//             return res.json(userData);
-//         })
-//         .catch(err => {
-//             console.error(err);
-//             return res.status(500).json({ error: err.code });
-//         })
-// }
-
 //Get a friend
 exports.getFriend = (req, res) => {
     let friendData = {};
