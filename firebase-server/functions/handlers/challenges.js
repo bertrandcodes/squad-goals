@@ -74,7 +74,8 @@ exports.updateChallenge = (req, res) => {
     var name = req.body.name;
     var newValue = req.body.newValue;
     // console.log(req.params.challengeId, 'challengeid')
-    db.collection('challenges').doc(req.params.challengeId).update({ current: newValue })
+    db.collection('challenges').doc(req.params.challengeId)
+        .where('participants.handle', '==', name).update({ current: newValue })
         .then(() => {
             return res.json(newValue)
         })
