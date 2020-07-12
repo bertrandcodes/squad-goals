@@ -51,3 +51,15 @@ body {
   justify-content: center;
   font-weight: bold;
 }
+
+.graph-divs {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.graph-div {
+  margin-right: 10px;
+  margin-left: 10px;
+}
