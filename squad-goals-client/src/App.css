@@ -5,6 +5,15 @@ body {
     sans-serif;
   background-color: whitesmoke;
 }
+
+input,
+textarea,
+button,
+select,
+a {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
 .container {
   margin: 80px auto 0 auto;
   max-width: 1200px;
@@ -12,6 +21,10 @@ body {
 
 .nav-container {
   margin: auto;
+}
+
+.nav-container svg {
+  color: #000000;
 }
 
 .home-grid {
