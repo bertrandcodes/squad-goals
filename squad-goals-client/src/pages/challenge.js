@@ -3,6 +3,40 @@ import axios from 'axios';
 //Redux
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
+
+const BarWrapper = styled.div`
+.progress-bar {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    position: relative;
+    width: 40px;
+    height: 300px;
+    border: 1px solid black;
+  }
+  
+  .progress-bar-fill {
+    height: ${props => props.percentage}%;
+    background: rgb(67, 218, 67);
+    transition: height 0.5s;
+  }
+  
+  .progress-bar-value {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+  }
+  
+  .graph-div {
+    margin-right: 10px;
+    margin-left: 10px;
+  }  
+`;
 
 export class challenge extends Component {
     constructor() {
@@ -65,11 +99,11 @@ export class challenge extends Component {
     };
     //put into redux if you want it to load automatically
     updateBar = (participants, uid) => {
-        const current = participants[uid].current
-        const currentPercentage = ((current / Number(this.state.goal)) * 100);
+        // const current = participants[uid].current
+        // const currentPercentage = ((current / Number(this.state.goal)) * 100);
 
-        const barFill = document.querySelector(".progress-bar-fill");
-        barFill.style.height = `${currentPercentage}%`
+        // const barFill = document.getElementsByClassName(`.progress-bar-fill ${uid}`);
+        // barFill.style.height = `${currentPercentage}%`
     }
 
     render() {
@@ -81,12 +115,15 @@ export class challenge extends Component {
 
         let barGraphs = participants ? (Object.keys(participants).map(function (key, index) {
             const participantPercentage = ((participants[key].current / Number(goal)) * 100);
-            return (<div className="graph-div"><div className="progress-bar">
-                <div className="progress-bar-value">{participantPercentage}%</div>
-                <div className="progress-bar-fill"></div>
-            </div>
-                <div>{participants[key].handle}</div><div>{participants[key].current}</div>
-            </div>)
+            return (
+                <BarWrapper percentage={participantPercentage}>
+                    <div className="graph-div"><div className="progress-bar">
+                        <div className="progress-bar-value">{participantPercentage}%</div>
+                        <div className={`progress-bar-fill`}></div>
+                    </div>
+                        <div>{participants[key].handle}</div><div>{participants[key].current}</div>
+                    </div>
+                </BarWrapper>)
         }))
             // (participants.map(participant => {
             //     const participantPercentage = ((participant.current / Number(goal)) * 100);
