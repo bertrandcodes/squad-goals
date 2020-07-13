@@ -71,13 +71,15 @@ exports.getChallenge = (req, res) => {
 //Update challenge
 exports.updateChallenge = (req, res) => {
     // let challengeData = {};
-    var name = req.body.name;
+    var uid = req.body.uid;
     var newValue = req.body.newValue;
-    // console.log(req.params.challengeId, 'challengeid')
-    db.collection('challenges').doc(req.params.challengeId)
-        .where('participants.handle', '==', name).update({ current: newValue })
-        .then(() => {
-            return res.json(newValue)
+    var currentUpdate = {};
+    currentUpdate[`participants.${uid}.current`] = newValue;
+    db.collection('challenges').doc(req.params.challengeId).update(currentUpdate)
+        // .child('participants').child(uid).update({ current: newValue })
+        // .where(`participants[${uid}]`, '==', uid).update({ current: newValue })
+        .then((result) => {
+            return res.json(result)
         })
         .catch((err) => {
             console.log(err);
