@@ -8,6 +8,7 @@ import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import Tooltip from '@material-ui/core/Tooltip';
+import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 
 //Redux
 import { connect } from 'react-redux';
@@ -50,7 +51,7 @@ export class Profile extends Component {
                 <input type="file" id="imageInput" hidden="hidden" onChange={this.handleImageChange} />
                 <Tooltip title="Edit profile picture" placement="top">
                     <IconButton onClick={this.handleEditPicture}>
-                        <EditIcon color="primary" />
+                        <AddAPhotoIcon color="primary" />
                     </IconButton>
                 </Tooltip>
                 <Typography variant="h3" align="center">{handle}</Typography>
