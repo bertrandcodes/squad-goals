@@ -42,14 +42,6 @@ export class AddChallenge extends Component {
             [event.target.name]: event.target.value
         });
     };
-    // addParticipant = (handle) => {
-    //     this.setState({
-    //         participants: 10
-    //     })
-    // }
-    // addParticipant = (handle) => {
-    //     this.setState({ handle: handle, current: 0 });
-    // }
     addParticipant = (friendData) => {
         const { handle, uid, current } = friendData;
         this.state.participants[uid] = { handle, current };
@@ -70,11 +62,9 @@ export class AddChallenge extends Component {
             description: this.state.description,
             participants: this.state.participants,
             participantList: [...this.state.participantList, handle],
-            // handle: ownData.handle,
-            // current: 0
         };
         console.log(userDetails, 'try')
-        // this.props.addChallenge(userDetails);
+        this.props.addChallenge(userDetails);
         this.setState({
             name: '',
             goal: '',

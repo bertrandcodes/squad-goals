@@ -12,7 +12,7 @@ export class challenge extends Component {
             goal: '',
             description: '',
             handle: '',
-            // current: 0,
+            uid: '',
             newValue: 0,
             participants: []
         }
@@ -33,7 +33,8 @@ export class challenge extends Component {
         axios.get('/user')
             .then((res) => {
                 this.setState({
-                    handle: res.data.credentials.handle
+                    handle: res.data.credentials.handle,
+                    uid: res.data.credentials.userId
                 })
             })
             .catch((err) => console.log(err))
@@ -49,13 +50,9 @@ export class challenge extends Component {
             newValue: Number(event.target.value)
         });
     };
-    handleSubmit = (participants, handle) => {
-        var getCurrent = (participants, handle) => {
-            var userIndex = participants.findIndex((obj => obj.handle === handle));
-            return participants[userIndex].current
-        }
-        var current = getCurrent(participants, handle)
-
+    handleSubmit = (participants, uid) => {
+        const current = participants[uid].current
+        const handle = participants[uid].handle
         const challenge = this.props.match.params.challengeId;
         const newValues = {
             name: handle,
@@ -68,38 +65,41 @@ export class challenge extends Component {
             .catch((err) => console.log(err));
     };
     //put into redux if you want it to load automatically
-    updateBar = (participants, handle) => {
-        var getCurrent = (participants, handle) => {
-            var userIndex = participants.findIndex((obj => obj.handle === handle));
-            return participants[userIndex].current
-        }
-        var current = getCurrent(participants, handle);
+    updateBar = (participants, uid) => {
+        const current = participants[uid].current
         const currentPercentage = ((current / Number(this.state.goal)) * 100);
 
         const barFill = document.querySelector(".progress-bar-fill");
         barFill.style.height = `${currentPercentage}%`
     }
-    // getCurrent = (participants, handle) => {
-    //     var userIndex = participants.findIndex((obj => obj.handle === handle));
-    //     return participants[userIndex].current
-    // }
+
     render() {
-        const { name, goal, description, participants, handle } = this.state;
+        const { name, goal, description, participants, handle, uid } = this.state;
         const { data } = this.props;
         // const { handle } = this.props.user.credentials.handle;
         // const currentPercentage = ((current / Number(goal)) * 100);
 
 
-        let barGraphs = participants ? (participants.map(participant => {
-            const participantPercentage = ((participant.current / Number(goal)) * 100);
-
+        let barGraphs = participants ? (Object.keys(participants).map(function (key, index) {
+            const participantPercentage = ((participants[key].current / Number(goal)) * 100);
             return (<div className="graph-div"><div className="progress-bar">
                 <div className="progress-bar-value">{participantPercentage}%</div>
                 <div className="progress-bar-fill"></div>
             </div>
-                <div>{participant.handle}</div><div>{participant.current}</div>
+                <div>{participants[key].handle}</div><div>{participants[key].current}</div>
             </div>)
-        })) : <p>Loading...</p>
+        }))
+            // (participants.map(participant => {
+            //     const participantPercentage = ((participant.current / Number(goal)) * 100);
+
+            // return (<div className="graph-div"><div className="progress-bar">
+            //     <div className="progress-bar-value">{participantPercentage}%</div>
+            //     <div className="progress-bar-fill"></div>
+            // </div>
+            //     <div>{participant.handle}</div><div>{participant.current}</div>
+            // </div>)
+            // })) 
+            : <p>Loading...</p>
 
         return (
             <div className="challenge-body">
@@ -111,9 +111,7 @@ export class challenge extends Component {
                     {barGraphs}
                 </div>
                 <input onChange={this.handleChange} />
-                <button onClick={() => { this.updateBar(participants, handle); this.handleSubmit(participants, handle); }}>Add more</button>
-
-                {/* <button onClick={() => { this.updateBar(currentPercentage); this.handleSubmit(); }}>Add more</button> */}
+                <button onClick={() => { this.updateBar(participants, uid); this.handleSubmit(participants, uid); }}>Add more</button>
             </div>
         )
     }
