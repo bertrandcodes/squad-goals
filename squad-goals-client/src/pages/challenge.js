@@ -52,10 +52,9 @@ export class challenge extends Component {
     };
     handleSubmit = (participants, uid) => {
         const current = participants[uid].current
-        const handle = participants[uid].handle
         const challenge = this.props.match.params.challengeId;
         const newValues = {
-            name: handle,
+            uid,
             newValue: (this.state.newValue + current)
         }
         axios.put(`/challenge/${challenge}`, newValues)
