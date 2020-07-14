@@ -96,7 +96,6 @@ export class AddChallenge extends Component {
 
         return (
             <Fragment>
-                {console.log(this.state.participants, 'participants')}
                 <Button onClick={this.handleOpen} variant="contained" color="primary">+</Button>
                 <Dialog
                     open={this.state.open}
