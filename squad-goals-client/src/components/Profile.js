@@ -17,6 +17,9 @@ import PropTypes from 'prop-types';
 
 
 const styles = {
+    paper: {
+        backgroundColor: '#ABD1C9FF'
+    },
     profileImage: {
         width: 200,
         height: 200,
@@ -46,12 +49,12 @@ export class Profile extends Component {
         const { classes, user: { credentials: { completed, handle, imageUrl }, loading, authenticated } } = this.props;
 
         let profileMarkup = !loading ? (authenticated ? (
-            <Paper>
+            <Paper className={classes.paper}>
                 <div className={classes.imageWrapper}><img src={imageUrl} alt="profile pic" className={classes.profileImage} /></div>
                 <input type="file" id="imageInput" hidden="hidden" onChange={this.handleImageChange} />
                 <Tooltip title="Edit profile picture" placement="top">
                     <IconButton onClick={this.handleEditPicture}>
-                        <AddAPhotoIcon color="primary" />
+                        <AddAPhotoIcon color="secondary" />
                     </IconButton>
                 </Tooltip>
                 <Typography variant="h3" align="center">{handle}</Typography>

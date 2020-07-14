@@ -23,8 +23,15 @@ import axios from 'axios';
 
 const theme = createMuiTheme({
   palette: {
-    primary: amber,
-    secondary: lime,
+    primary: {
+      main: '#97B3D0FF'
+    },
+    secondary: {
+      main: '#F3DB74FF'
+    }
+  },
+  typography: {
+    fontFamily: 'Dekko'
   },
   form: {
     textAlign: 'center'
