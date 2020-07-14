@@ -18,7 +18,7 @@ import PropTypes from 'prop-types';
 
 const styles = {
     paper: {
-        backgroundColor: '#ABD1C9FF',
+        backgroundColor: '#ffffff',
         color: 'black',
         // textShadow: '1px 1px black'
     },

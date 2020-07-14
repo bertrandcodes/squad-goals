@@ -35,12 +35,12 @@ export class Navbar extends Component {
                             </Link>
 
                             <MyButton tip="Make friends">
-                                <GroupAddIcon color="secondary" />
+                                <GroupAddIcon className="navButtons" />
                             </MyButton>
 
                             <Link to="/login">
                                 <MyButton tip="Logout" onClick={this.handleLogout}>
-                                    <ExitToAppIcon color="secondary" />
+                                    <ExitToAppIcon className="navButtons" />
                                 </MyButton>
                             </Link>
                         </Fragment>

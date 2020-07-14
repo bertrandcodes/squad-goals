@@ -13,7 +13,7 @@ const styles = {
         display: 'flex',
         marginBottom: 20,
         textDecoration: 'none',
-        backgroundColor: '#ABD1C9FF',
+        backgroundColor: '#ffffff',
         // color: 'whitesmoke',
         // textShadow: '2px 2px black'
     }

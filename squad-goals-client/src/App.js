@@ -22,7 +22,7 @@ import axios from 'axios';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#97B3D0FF'
+      main: '#d22e2e'
     },
     secondary: {
       main: '#F3DB74FF'
