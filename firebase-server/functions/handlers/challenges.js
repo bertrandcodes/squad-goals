@@ -78,8 +78,8 @@ exports.updateChallenge = (req, res) => {
     db.collection('challenges').doc(req.params.challengeId).update(currentUpdate)
         // .child('participants').child(uid).update({ current: newValue })
         // .where(`participants[${uid}]`, '==', uid).update({ current: newValue })
-        .then((result) => {
-            return res.json(result)
+        .then(() => {
+            return res.json(newValue)
         })
         .catch((err) => {
             console.log(err);

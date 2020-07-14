@@ -12,27 +12,46 @@ import Challenge from '../components/Challenges';
 import Profile from '../components/Profile';
 import AddChallenge from '../components/AddChallenge';
 import AddFriends from '../components/AddFriends.js';
+import Loading from '../components/Loading';
 
 
 export class Home extends Component {
+    constructor() {
+        super();
+        this.state = {
+            noChallenges: false
+        }
+    }
     componentDidMount() {
         this.props.getChallenges();
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.user.challenges) {
+            if (nextProps.user.challenges.length === 0) {
+                this.setState({
+                    noChallenges: true
+                })
+            }
+        }
+    }
+
     render() {
-        const { challenges } = this.props.user;
+        const { challenges, loading } = this.props.user;
         let recentChallengesMarkup = challenges ? (challenges.map(challenge => <Challenge challenge={challenge} />)) : <p>Loading...</p>
         return (
-            <Grid className="home-grid" container spacing={10}>
+            loading ? (<Loading />) : (<Grid className="home-grid" container spacing={10}>
                 <Grid item sm={4} xs={12} >
                     <Profile />
                 </Grid>
                 <AddFriends />
                 <AddChallenge />
-                <Grid item sm={8} xs={12}>
-                    {recentChallengesMarkup}
-                </Grid>
-            </Grid>
+                {this.state.noChallenges ? (<p>Create some challenges for yourself! Click the '+' sign above!</p>)
+                    :
+                    (<Grid item sm={8} xs={12}>
+                        {recentChallengesMarkup}
+                    </Grid>)}
+            </Grid>)
         )
     }
 }
@@ -45,7 +64,8 @@ Home.propTypes = {
 
 const mapStateToProps = (state) => ({
     data: state.data,
-    user: state.user
+    user: state.user,
+    UI: state.UI
 });
 
 export default connect(

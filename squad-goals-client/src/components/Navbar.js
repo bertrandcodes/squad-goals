@@ -46,17 +46,11 @@ export class Navbar extends Component {
                         </Fragment>
                     ) : (
                             <Fragment>
-                                <Button color="secondary" component={Link} to="/login">Login</Button>
-                                <Button color="secondary" component={Link} to="/signup">Signup</Button>
+                                <Button className="navButtons" component={Link} to="/login">Login</Button>
+                                <Button className="navButtons" component={Link} to="/signup">Signup</Button>
                             </Fragment>
                         )}
 
-                    {/* <Button color="inherit" component={Link} to="/">Home</Button>
-                    <Button color="inherit" component={Link} to="/login">Login</Button>
-                    <Button color="inherit" component={Link} to="/signup">Signup</Button> */}
-                    {/* <IconButton onClick={this.handleLogout} component={Link} to="/login">
-                        <KeyboardReturn color="secondary" />
-                    </IconButton> */}
                 </Toolbar>
             </AppBar>
         )
