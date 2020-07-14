@@ -125,21 +125,10 @@ export class challenge extends Component {
                     </div>
                 </BarWrapper>)
         }))
-            // (participants.map(participant => {
-            //     const participantPercentage = ((participant.current / Number(goal)) * 100);
-
-            // return (<div className="graph-div"><div className="progress-bar">
-            //     <div className="progress-bar-value">{participantPercentage}%</div>
-            //     <div className="progress-bar-fill"></div>
-            // </div>
-            //     <div>{participant.handle}</div><div>{participant.current}</div>
-            // </div>)
-            // })) 
             : <p>Loading...</p>
 
         return (
             <div className="challenge-body">
-                {/* {console.log(this.state.newValue, 'handyyy')} */}
                 <h1>{name}</h1>
                 <h2>Goal: {goal}</h2>
                 <h3>{description}</h3>

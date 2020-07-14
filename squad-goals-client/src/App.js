@@ -3,8 +3,6 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
-import amber from '@material-ui/core/colors/amber';
-import lime from '@material-ui/core/colors/lime';
 import jwtDecode from 'jwt-decode';
 //Redux
 import { Provider } from 'react-redux';

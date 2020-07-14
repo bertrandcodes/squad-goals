@@ -18,7 +18,9 @@ import PropTypes from 'prop-types';
 
 const styles = {
     paper: {
-        backgroundColor: '#ABD1C9FF'
+        backgroundColor: '#ABD1C9FF',
+        color: 'black',
+        // textShadow: '1px 1px black'
     },
     profileImage: {
         width: 200,
@@ -38,7 +40,6 @@ export class Profile extends Component {
         const formData = new FormData();
         console.log(image, 'image')
         formData.append('image', image, image.name);
-        // console.log(formData, 'formdata')
         this.props.uploadImage(formData);
     }
     handleEditPicture = () => {
