@@ -46,8 +46,8 @@ export class Navbar extends Component {
                         </Fragment>
                     ) : (
                             <Fragment>
-                                <Button color="inherit" component={Link} to="/login">Login</Button>
-                                <Button color="inherit" component={Link} to="/signup">Signup</Button>
+                                <Button color="secondary" component={Link} to="/login">Login</Button>
+                                <Button color="secondary" component={Link} to="/signup">Signup</Button>
                             </Fragment>
                         )}
 

@@ -24,7 +24,7 @@ export class Home extends Component {
         let recentChallengesMarkup = challenges ? (challenges.map(challenge => <Challenge challenge={challenge} />)) : <p>Loading...</p>
         return (
             <Grid className="home-grid" container spacing={10}>
-                <Grid item sm={4} xs={12}>
+                <Grid item sm={4} xs={12} >
                     <Profile />
                 </Grid>
                 <AddFriends />

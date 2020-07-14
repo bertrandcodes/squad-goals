@@ -12,7 +12,8 @@ const styles = {
     card: {
         display: 'flex',
         marginBottom: 20,
-        textDecoration: 'none'
+        textDecoration: 'none',
+        backgroundColor: '#ABD1C9FF'
     }
 }
 

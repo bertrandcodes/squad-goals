@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AppIconPNG from '../images/handstogether.png';
 import { Link } from 'react-router-dom';
+// import firebase from 'firebase';
+// import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+
 
 //MUI Stuff
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -87,16 +90,19 @@ export class Login extends Component {
                         Login
                 </Typography>
                     <form noValidate onSubmit={this.handleSubmit}>
-                        <TextField id="email" name="email" type="email" label="Email" className={classes.textField} helperText={errors.email} error={errors.email ? true : false}
-                            value={this.state.email} onChange={this.handleChange} fullWidth />
-                        <TextField id="password" name="password" type="password" label="Password" className={classes.textField}
-                            value={this.state.password} helperText={errors.password} error={errors.password ? true : false} onChange={this.handleChange} fullWidth />
-                        {errors.general && (
+                        <div>
+                            <TextField id="email" name="email" type="email" label="Email" className={classes.textField} helperText={errors.email} error={errors.email ? true : false}
+                                value={this.state.email} onChange={this.handleChange} />
+                            <TextField id="password" name="password" type="password" label="Password" className={classes.textField}
+                                value={this.state.password} helperText={errors.password} error={errors.password ? true : false} onChange={this.handleChange} />
+                        </div>
+
+                        {errors.general && !loading && (
                             <Typography variant="body2" className={classes.customError}>
                                 {errors.general}
                             </Typography>
                         )}
-                        <Button type="submit" variant="contained" color="primary" className={classes.button} disabled={loading}>Login
+                        <Button type="submit" variant="contained" color="secondary" className={classes.button} disabled={loading}>Login
                         {loading && (
                                 <CircularProgress size={30} className={classes.progress} />
                             )}</Button>

@@ -92,20 +92,22 @@ export class Signup extends Component {
                         Signup
                 </Typography>
                     <form noValidate onSubmit={this.handleSubmit}>
-                        <TextField id="email" name="email" type="email" label="Email" className={classes.textField} helperText={errors.email} error={errors.email ? true : false}
-                            value={this.state.email} onChange={this.handleChange} fullWidth />
-                        <TextField id="password" name="password" type="password" label="Password" className={classes.textField}
-                            value={this.state.password} helperText={errors.password} error={errors.password ? true : false} onChange={this.handleChange} fullWidth />
-                        <TextField id="confirmPassword" name="confirmPassword" type="password" label="Confirm Password" className={classes.textField}
-                            value={this.state.confirmPassword} helperText={errors.confirmPassword} error={errors.confirmPassword ? true : false} onChange={this.handleChange} fullWidth />
-                        <TextField id="handle" name="handle" type="text" label="Handle" className={classes.textField}
-                            value={this.state.handle} helperText={errors.handle} error={errors.handle ? true : false} onChange={this.handleChange} fullWidth />
-                        {errors.general && (
+                        <div>
+                            <TextField id="email" name="email" type="email" label="Email" className={classes.textField} helperText={errors.email} error={errors.email ? true : false}
+                                value={this.state.email} onChange={this.handleChange} />
+                            <TextField id="password" name="password" type="password" label="Password" className={classes.textField}
+                                value={this.state.password} helperText={errors.password} error={errors.password ? true : false} onChange={this.handleChange} />
+                            <TextField id="confirmPassword" name="confirmPassword" type="password" label="Confirm Password" className={classes.textField}
+                                value={this.state.confirmPassword} helperText={errors.confirmPassword} error={errors.confirmPassword ? true : false} onChange={this.handleChange} />
+                            <TextField id="handle" name="handle" type="text" label="Handle" className={classes.textField}
+                                value={this.state.handle} helperText={errors.handle} error={errors.handle ? true : false} onChange={this.handleChange} />
+                        </div>
+                        {errors.general && !loading && (
                             <Typography variant="body2" className={classes.customError}>
                                 {errors.general}
                             </Typography>
                         )}
-                        <Button type="submit" variant="contained" color="primary" className={classes.button} disabled={loading}>Signup
+                        <Button type="submit" variant="contained" color="secondary" className={classes.button} disabled={loading}>Signup
                         {loading && (
                                 <CircularProgress size={30} className={classes.progress} />
                             )}</Button>
