@@ -21,7 +21,7 @@ const styles = {
     paper: {
         backgroundColor: '#ffffff',
         color: 'black',
-        height: '400px',
+        height: '385px',
         width: '280px',
         position: 'relative',
         textAlign: 'center',
@@ -46,8 +46,8 @@ const styles = {
     camera: {
         color: 'grey',
         position: 'absolute',
-        left: '210px',
-        bottom: '185px',
+        left: '197px',
+        bottom: '165px',
         // float: 'right',
     },
     cameraFrame: {
@@ -58,14 +58,6 @@ const styles = {
         textAlign: 'center',
         // float: 'right',
     },
-    // rounded: {
-    //     borderTop: '3px solid black',
-    //     marginLeft: '40px',
-    //     marginRight: '40px',
-    //     borderRadius: '10px',
-    //     marginTop: '10px',
-    //     marginBottom: '20px',
-    // },
     noAccount: {
         height: '90px',
         width: '250px',

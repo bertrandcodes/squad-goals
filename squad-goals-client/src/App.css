@@ -19,6 +19,7 @@ a {
 */
 .container {
   margin: 80px auto 0 auto;
+  max-height: 100%;
   max-width: 1200px;
 }
 

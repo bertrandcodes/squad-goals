@@ -27,7 +27,7 @@ const styles = {
         backgroundColor: 'white'
     },
     rounded: {
-        borderTop: '2px solid black',
+        borderTop: '2px solid black !important',
         marginLeft: '45px',
         marginRight: '45px',
         borderRadius: '10px',
