@@ -19,12 +19,20 @@ const styles = {
     },
     cardContent: {
         width: '100%',
-        paddingTop: '25px',
+        paddingTop: '20px',
         paddingBottom: '16px !important',
         // margin: '25px',
         // border: '1px solid',
         borderRadius: '5px',
         backgroundColor: 'white'
+    },
+    rounded: {
+        borderTop: '2px solid black',
+        marginLeft: '45px',
+        marginRight: '45px',
+        borderRadius: '10px',
+        marginTop: '10px',
+        marginBottom: '20px',
     }
 }
 
@@ -34,9 +42,10 @@ export class Challenge extends Component {
         return (
             <Card className={classes.card} component={Link} to={`/challenge/${challengeId}`}>
                 <CardContent className={classes.cardContent}>
-                    <Typography variant="h2" align="center">{name}</Typography>
-                    <Typography variant="h3" align="center">{goal}</Typography>
-                    <Typography variant="body2" align="center">{description}</Typography>
+                    <Typography variant="h3" align="center">{name}</Typography>
+                    <hr className={classes.rounded} />
+                    <Typography variant="h4" align="center">{goal}</Typography>
+                    <Typography variant="h5" align="center">{description}</Typography>
                 </CardContent>
             </Card>
         )

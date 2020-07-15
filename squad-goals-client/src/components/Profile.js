@@ -21,7 +21,7 @@ const styles = {
     paper: {
         backgroundColor: '#ffffff',
         color: 'black',
-        height: '420px',
+        height: '400px',
         width: '280px',
         position: 'relative',
         textAlign: 'center',
@@ -58,14 +58,14 @@ const styles = {
         textAlign: 'center',
         // float: 'right',
     },
-    rounded: {
-        borderTop: '3px solid black',
-        marginLeft: '40px',
-        marginRight: '40px',
-        borderRadius: '10px',
-        marginTop: '10px',
-        marginBottom: '20px',
-    },
+    // rounded: {
+    //     borderTop: '3px solid black',
+    //     marginLeft: '40px',
+    //     marginRight: '40px',
+    //     borderRadius: '10px',
+    //     marginTop: '10px',
+    //     marginBottom: '20px',
+    // },
     noAccount: {
         height: '90px',
         width: '250px',
@@ -107,7 +107,7 @@ export class Profile extends Component {
                 <Typography variant="h3" align="center">{handle}</Typography>
                 {/* <Typography align="center">{userId}</Typography> */}
 
-                <hr className={classes.rounded} />
+                {/* <hr className={classes.rounded} /> */}
 
                 <Typography variant="h4" align="center"> &#128293; Streaks: {completed}</Typography>
             </Paper>
