@@ -34,9 +34,11 @@ export class Navbar extends Component {
                                     {/* <HomeIcon color="secondary" /> */}
                                 </MyButton>
                             </Link>
-                            <MyButton tip="Make friends">
-                                <GroupAddIcon className="navButtons" />
-                            </MyButton>
+                            <Link to="/friends">
+                                <MyButton tip="Make friends">
+                                    <GroupAddIcon className="navButtons" />
+                                </MyButton>
+                            </Link>
                             <MyButton tip="Calendar">
                                 <DateRangeIcon className="navButtons" />
                             </MyButton>
