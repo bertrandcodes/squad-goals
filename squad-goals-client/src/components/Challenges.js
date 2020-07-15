@@ -14,8 +14,17 @@ const styles = {
         marginBottom: 20,
         textDecoration: 'none',
         backgroundColor: '#ffffff',
-        // color: 'whitesmoke',
-        // textShadow: '2px 2px black'
+        height: '200px',
+        width: '300px'
+    },
+    cardContent: {
+        width: '100%',
+        paddingTop: '25px',
+        paddingBottom: '16px !important',
+        // margin: '25px',
+        // border: '1px solid',
+        borderRadius: '5px',
+        backgroundColor: 'white'
     }
 }
 
@@ -24,9 +33,9 @@ export class Challenge extends Component {
         const { classes, challenge: { name, goal, description, challengeId } } = this.props
         return (
             <Card className={classes.card} component={Link} to={`/challenge/${challengeId}`}>
-                <CardContent>
-                    <Typography variant="h3" align="center">{goal}</Typography>
+                <CardContent className={classes.cardContent}>
                     <Typography variant="h2" align="center">{name}</Typography>
+                    <Typography variant="h3" align="center">{goal}</Typography>
                     <Typography variant="body2" align="center">{description}</Typography>
                 </CardContent>
             </Card>

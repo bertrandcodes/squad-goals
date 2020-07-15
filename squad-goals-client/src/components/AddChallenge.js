@@ -13,9 +13,11 @@ import { connect } from 'react-redux';
 import { addChallenge } from '../redux/actions/userActions';
 import PropTypes from 'prop-types';
 
-const styles = (theme) => ({
-
-});
+const styles = {
+    challengeButton: {
+        margin: '25px'
+    }
+};
 
 export class AddChallenge extends Component {
     constructor() {
@@ -78,6 +80,7 @@ export class AddChallenge extends Component {
     render() {
         const { handle, userId } = this.props.credentials
         const { friends } = this.props.user
+        const { classes } = this.props
         var ownData = {
             handle,
             uid: userId,
@@ -96,7 +99,7 @@ export class AddChallenge extends Component {
 
         return (
             <Fragment>
-                <Button onClick={this.handleOpen} variant="contained" color="primary">+</Button>
+                <Button onClick={this.handleOpen} className={classes.challengeButton} variant="contained" color="secondary">Add Challenge</Button>
                 <Dialog
                     open={this.state.open}
                     onClose={this.handleClose}

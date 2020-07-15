@@ -16,6 +16,7 @@ import AuthRoute from './util/AuthRoute';
 import home from './pages/home';
 import login from './pages/login';
 import signup from './pages/signup';
+import friends from './pages/friends';
 import challenge from './pages/challenge';
 import axios from 'axios';
 
@@ -85,6 +86,7 @@ class App extends Component {
                 <Route exact path="/" component={home} />
                 <AuthRoute exact path="/login" component={login} />
                 <AuthRoute exact path="/signup" component={signup} />
+                <Route exact path="/friends" component={friends} />
                 <Route exact path="/challenge/:challengeId" component={challenge} />
               </Switch>
             </div>

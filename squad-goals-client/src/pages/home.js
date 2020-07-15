@@ -44,7 +44,7 @@ export class Home extends Component {
                 <Grid item  >
                     <Profile />
                 </Grid>
-                <AddFriends />
+                {/* <AddFriends /> */}
                 <AddChallenge />
                 {this.state.noChallenges ? (<p>Create some challenges for yourself! Click the '+' sign above!</p>)
                     :
