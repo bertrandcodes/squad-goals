@@ -40,15 +40,15 @@ export class Home extends Component {
         const { challenges, loading } = this.props.user;
         let recentChallengesMarkup = challenges ? (challenges.map(challenge => <Challenge challenge={challenge} />)) : <p>Loading...</p>
         return (
-            loading ? (<Loading />) : (<Grid className="home-grid" container spacing={10}>
-                <Grid item sm={4} xs={12} >
+            loading ? (<Loading />) : (<Grid className="home-grid">
+                <Grid item  >
                     <Profile />
                 </Grid>
                 <AddFriends />
                 <AddChallenge />
                 {this.state.noChallenges ? (<p>Create some challenges for yourself! Click the '+' sign above!</p>)
                     :
-                    (<Grid item sm={8} xs={12}>
+                    (<Grid item>
                         {recentChallengesMarkup}
                     </Grid>)}
             </Grid>)

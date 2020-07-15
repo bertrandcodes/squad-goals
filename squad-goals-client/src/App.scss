@@ -61,6 +61,7 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
+    max-width: 100%;
 }
 
 /*
@@ -98,7 +99,7 @@ $white: #eee;
 $width: 100px;
 
 .showbox {
-    margin-top: 70%;
+    margin-top: 300px;
 }
 
 .loader {

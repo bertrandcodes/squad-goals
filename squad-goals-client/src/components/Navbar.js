@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import HomeIcon from '@material-ui/icons/Home';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
+import DateRangeIcon from '@material-ui/icons/DateRange';
 //Redux
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -33,9 +34,11 @@ export class Navbar extends Component {
                                     {/* <HomeIcon color="secondary" /> */}
                                 </MyButton>
                             </Link>
-
                             <MyButton tip="Make friends">
                                 <GroupAddIcon className="navButtons" />
+                            </MyButton>
+                            <MyButton tip="Calendar">
+                                <DateRangeIcon className="navButtons" />
                             </MyButton>
 
                             <Link to="/login">
