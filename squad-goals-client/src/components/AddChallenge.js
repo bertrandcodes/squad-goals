@@ -15,7 +15,8 @@ import PropTypes from 'prop-types';
 
 const styles = {
     challengeButton: {
-        margin: '25px'
+        margin: '20px',
+        margin: '15px'
     }
 };
 

@@ -6,9 +6,12 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Avatar from '@material-ui/core/Avatar';
 import withStyles from '@material-ui/core/styles/withStyles';
+import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
+import { FormHelperText } from '@material-ui/core';
 
 import { connect } from 'react-redux';
-import { FormHelperText } from '@material-ui/core';
+import { addFriend } from '../redux/actions/userActions';
+
 
 
 const styles = {
@@ -20,7 +23,7 @@ const styles = {
     paper: {
         backgroundColor: '#ffffff',
         color: 'black',
-        height: '160px',
+        height: '185px',
         width: '300px',
         position: 'relative',
         textAlign: 'center',
@@ -33,7 +36,7 @@ const styles = {
     },
     addFriendDiv: {
         textAlign: 'center',
-        // height: '100px',
+        height: '365px',
         position: 'relative'
     },
     textField: {
@@ -42,23 +45,96 @@ const styles = {
     idSpan: {
         color: 'green'
     },
+    friendsListDiv: {
+        position: 'relative',
+        textAlign: 'center',
+        // marginTop: '-30px'
+    },
     friendsList: {
         position: 'relative',
         height: '200px',
-        // border: '1px solid black',
+        width: '300px',
         textAlign: 'center',
-        // width: '300px',
-        paddingRight: '50px',
-        paddingLeft: '50px'
+        paddingTop: '20px',
+        paddingRight: '10px',
+        paddingLeft: '20px',
+        paddingBottom: '20px',
+        border: '3px double grey',
+        borderRadius: '15px',
+        margin: 'auto',
+        boxSizing: 'border-box',
+    },
+    friendsListInner: {
+        marginTop: '50px',
+        height: '150px',
+        // width: '200px',
+        overflowY: 'scroll',
+        overflowX: 'hidden'
     },
     friendRender: {
-        height: '50px'
+        height: '50px',
+        position: 'relative',
+        textAlign: 'left'
+    },
+    submitButton: {
+        margin: 'auto',
+        marginBottom: '30px',
+        width: '125px',
+    },
+    currentFriends: {
+        margin: '-47px',
+    },
+    currentFriendsSpan: {
+        backgroundColor: '#efefef',
+        paddingLeft: '5px',
+        paddingRight: '5px'
+    },
+    friendCode: {
+        display: 'flex',
+        flexDirection: 'column'
+    },
+    friendHandle: {
+        marginTop: '-30px',
+        paddingLeft: '60px',
+    },
+    disabledIcon: {
+        position: 'absolute',
+        right: '15px',
+        color: 'red',
+    },
+    loadingFriends: {
+        marginTop: '50px'
     }
 }
 
+
 export class friends extends Component {
+    constructor() {
+        super();
+        this.state = {
+            friendUid: '',
+        }
+    }
+    handleChange = (event) => {
+        this.setState({
+            friendUid: event.target.value
+        });
+    };
+    handleSubmit = (uid, friendUid) => {
+        const friendData = { uid, friendUid }
+        this.props.addFriend(friendData);
+    }
     render() {
-        const { classes, user: { credentials: { userId, handle, imageUrl }, loading } } = this.props;
+        const { classes, user: { credentials: { userId, handle, imageUrl }, loading, friends } } = this.props;
+        let friendsList = friends ? (friends.map(friend => {
+            return <div className={classes.friendRender}>
+                <Avatar alt={friend.handle} src={friend.imageUrl} ></Avatar>
+                <div className={classes.friendHandle}>{friend.handle}
+                    <PersonAddDisabledIcon className={classes.disabledIcon} />
+                </div>
+            </div>
+        })) : <div className={classes.loadingFriends}>Loading friends, hang on tight!</div>
+
         return (
             loading ? (<Loading />) : (<div className={classes.friendsPage}>
                 <div className={classes.addFriendDiv}>
@@ -67,20 +143,25 @@ export class friends extends Component {
                             Reaching your goals alone can be tough. Enlist the help of others so it doesn't have to be!
                             <br />
                             <br />
-                            my id: <span className={classes.idSpan}>{userId}</span>
+                            Share this ID with friends:
+                            <br />
+                            <span className={classes.idSpan}>{userId}</span>
                         </div>
                     </Paper>
-                    <TextField id="friend" name="friend" type="friend" variant="outlined" label="Friend ID" className={classes.textField}
-                    // value={} onChange={this.handleChange} 
-                    />
-                    <Button type="submit" variant="contained" color="secondary">Add friend</Button>
+                    <div className={classes.friendCode}>
+                        <TextField id="friend" name="friend" type="friend" variant="outlined" label="Friend ID" className={classes.textField} onChange={this.handleChange}
+                        // value={} onChange={this.handleChange} 
+                        />
+                        <Button onClick={event => { event.preventDefault(); this.handleSubmit(userId, this.state.friendUid) }} type="submit" className={classes.submitButton} variant="contained" color="secondary">Add friend</Button>
+                    </div>
                 </div>
+                <div className={classes.friendsListDiv}>
+                    <div className={classes.friendsList}>
+                        <h1 className={classes.currentFriends}><span className={classes.currentFriendsSpan}>Current Friends</span></h1>
+                        <div className={classes.friendsListInner}>
+                            {friendsList}
 
-                <div className={classes.friendsList}>
-                    <h1>Current Friends</h1>
-                    <div className={classes.friendRender}>
-                        <Avatar src={imageUrl} >{handle[0]}</Avatar>
-                        {handle}
+                        </div>
                     </div>
                 </div>
             </div>)
@@ -93,4 +174,4 @@ const mapStateToProps = (state) => ({
 });
 
 
-export default connect(mapStateToProps)(withStyles(styles)(friends));
+export default connect(mapStateToProps, { addFriend })(withStyles(styles)(friends));
