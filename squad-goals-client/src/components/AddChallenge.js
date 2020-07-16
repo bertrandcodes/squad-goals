@@ -82,15 +82,15 @@ export class AddChallenge extends Component {
         });
     };
     addParticipant = (friendData) => {
-        const { handle, uid, current } = friendData;
-        this.state.participants[uid] = { handle, current };
+        const { handle, uid, imageUrl, current } = friendData;
+        this.state.participants[uid] = { handle, current, imageUrl };
         this.setState({
             participantList: [...this.state.participantList, handle]
         })
     }
     handleSubmit = (ownData) => {
-        const { handle, uid, current } = ownData;
-        this.state.participants[uid] = { handle, current };
+        const { handle, uid, imageUrl, current } = ownData;
+        this.state.participants[uid] = { handle, current, imageUrl };
         const userDetails = {
             name: this.state.name,
             goal: this.state.goal,
@@ -110,12 +110,13 @@ export class AddChallenge extends Component {
     }
 
     render() {
-        const { handle, userId } = this.props.credentials
+        const { handle, userId, imageUrl } = this.props.credentials
         const { friends } = this.props.user
         const { classes } = this.props
         var ownData = {
             handle,
             uid: userId,
+            imageUrl: imageUrl,
             current: 0
         }
 
@@ -172,6 +173,7 @@ export class AddChallenge extends Component {
                                             const friendData = {
                                                 handle: friend.handle,
                                                 uid: friend.userId,
+                                                imageUrl: friend.imageUrl,
                                                 current: 0
                                             }
                                             return <div className={classes.friendRender}>
