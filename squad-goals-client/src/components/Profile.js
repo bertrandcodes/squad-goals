@@ -16,7 +16,6 @@ import { connect } from 'react-redux';
 import { logoutUser, uploadImage } from '../redux/actions/userActions';
 import PropTypes from 'prop-types';
 
-
 const styles = {
     paper: {
         backgroundColor: '#ffffff',
