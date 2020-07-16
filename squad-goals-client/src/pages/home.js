@@ -15,7 +15,6 @@ import AddChallenge from '../components/AddChallenge';
 import AddFriends from '../components/AddFriends.js';
 import Loading from '../components/Loading';
 
-
 export class Home extends Component {
     constructor() {
         super();
@@ -39,7 +38,7 @@ export class Home extends Component {
 
     render() {
         const { challenges, loading } = this.props.user;
-        let recentChallengesMarkup = challenges ? (challenges.map(challenge => <Challenge challenge={challenge} />)) : <Loading/>
+        let recentChallengesMarkup = challenges ? (challenges.map(challenge => <Challenge challenge={challenge} />)) : <Loading />
         return (
             loading ? (<Loading />) : (<Grid className="home-grid">
                 <Grid item  >
@@ -47,7 +46,7 @@ export class Home extends Component {
                 </Grid>
                 {/* <AddFriends /> */}
                 <AddChallenge />
-                {!this.state.noChallenges ? (
+                {this.state.noChallenges ? (
                     <div className="upArrow">
                         <ArrowUpwardIcon className="bounce" />
                         <div className="noChallenge">Create some challenges for yourself! Click the 'Add Challenge' button above!</div>
