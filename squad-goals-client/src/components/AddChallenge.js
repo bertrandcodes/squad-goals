@@ -18,8 +18,7 @@ import PropTypes from 'prop-types';
 
 const styles = {
     challengeButton: {
-        margin: '20px',
-        margin: '15px'
+        margin: '25px',
     },
     addChallengersDiv: {
         margin: '10px',
@@ -27,10 +26,10 @@ const styles = {
         boxSizing: 'border-block',
         backgroundColor: '#efefef',
         borderRadius: '5px',
-        // height: '25px',
-        textAlign: 'center',
         overflowX: 'hidden',
         overflowY: 'scroll',
+        textAlign: 'center',
+        maxHeight: '135px'
     },
     noFriends: {
         margin: 'auto'
@@ -92,10 +91,6 @@ export class AddChallenge extends Component {
     handleSubmit = (ownData) => {
         const { handle, uid, current } = ownData;
         this.state.participants[uid] = { handle, current };
-        // this.setState({
-        //     participants: [...this.state.participants, ownData],
-        //     participantList: [...this.state.participantList, ownHandle]
-        // })
         const userDetails = {
             name: this.state.name,
             goal: this.state.goal,
@@ -103,7 +98,6 @@ export class AddChallenge extends Component {
             participants: this.state.participants,
             participantList: [...this.state.participantList, handle],
         };
-        console.log(userDetails, 'try')
         this.props.addChallenge(userDetails);
         this.setState({
             name: '',

@@ -135,35 +135,36 @@ export class friends extends Component {
         })) : <div className={classes.loadingFriends}>Loading friends, hang on tight!</div>
 
         return (
-            loading ? (<Loading />) : (<div className={classes.friendsPage}>
-                <div className={classes.addFriendDiv}>
-                    <Paper className={classes.paper}>
-                        <div className={classes.text}>
-                            Reaching your goals alone can be tough. Enlist the help of others so it doesn't have to be!
+            !userId ? (<Loading />) :
+                (<div className={classes.friendsPage}>
+                    <div className={classes.addFriendDiv}>
+                        <Paper className={classes.paper}>
+                            <div className={classes.text}>
+                                Reaching your goals alone can be tough. Enlist the help of others so it doesn't have to be!
                             <br />
-                            <br />
+                                <br />
                             Share this ID with friends:
                             <br />
-                            <span className={classes.idSpan}>{userId}</span>
+                                <span className={classes.idSpan}>{userId}</span>
+                            </div>
+                        </Paper>
+                        <div className={classes.friendCode}>
+                            <TextField id="friend" name="friend" type="friend" variant="outlined" label="Friend ID" className={classes.textField} onChange={this.handleChange}
+                            // value={} onChange={this.handleChange} 
+                            />
+                            <Button onClick={event => { event.preventDefault(); this.handleSubmit(userId, this.state.friendUid) }} type="submit" className={classes.submitButton} variant="contained" color="secondary">Add friend</Button>
                         </div>
-                    </Paper>
-                    <div className={classes.friendCode}>
-                        <TextField id="friend" name="friend" type="friend" variant="outlined" label="Friend ID" className={classes.textField} onChange={this.handleChange}
-                        // value={} onChange={this.handleChange} 
-                        />
-                        <Button onClick={event => { event.preventDefault(); this.handleSubmit(userId, this.state.friendUid) }} type="submit" className={classes.submitButton} variant="contained" color="secondary">Add friend</Button>
                     </div>
-                </div>
-                <div className={classes.friendsListDiv}>
-                    <div className={classes.friendsList}>
-                        <h1 className={classes.currentFriends}><span className={classes.currentFriendsSpan}>Current Friends</span></h1>
-                        <div className={classes.friendsListInner}>
-                            {friendsList}
+                    <div className={classes.friendsListDiv}>
+                        <div className={classes.friendsList}>
+                            <h1 className={classes.currentFriends}><span className={classes.currentFriendsSpan}>Current Friends</span></h1>
+                            <div className={classes.friendsListInner}>
+                                {friendsList}
 
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>)
+                </div>)
         )
     }
 }
