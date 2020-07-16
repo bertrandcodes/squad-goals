@@ -60,6 +60,36 @@ a {
   max-width: 100%;
 }
 
+.upArrow {
+  margin: auto;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.noChallenge {
+  width: 250px;
+  padding: 15px;
+  text-align: center;
+  border: 2px dashed grey;
+  border-radius: 10px;
+}
+
+.bounce {
+  animation: bounce 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes bounce {
+  0%, 25%, 50%, 75%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-8px);
+  }
+  60% {
+    transform: translateY(-6px);
+  }
+}
 /*
   ========================================
   Challenge
@@ -78,6 +108,11 @@ a {
   margin-bottom: 20px;
 }
 
+/*
+  ========================================
+  Friends
+  ========================================
+*/
 /*
   ========================================
   Loading

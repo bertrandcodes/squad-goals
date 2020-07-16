@@ -46,8 +46,8 @@ const styles = {
     camera: {
         color: 'grey',
         position: 'absolute',
-        left: '197px',
-        bottom: '165px',
+        left: '200px',
+        bottom: '155px',
         // float: 'right',
     },
     cameraFrame: {

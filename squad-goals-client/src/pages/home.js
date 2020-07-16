@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import { getChallenges } from '../redux/actions/dataActions';
 import Tooltip from '@material-ui/core/Tooltip';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 
 //Components
 import Challenge from '../components/Challenges';
@@ -38,7 +39,7 @@ export class Home extends Component {
 
     render() {
         const { challenges, loading } = this.props.user;
-        let recentChallengesMarkup = challenges ? (challenges.map(challenge => <Challenge challenge={challenge} />)) : <p>Loading...</p>
+        let recentChallengesMarkup = challenges ? (challenges.map(challenge => <Challenge challenge={challenge} />)) : <Loading/>
         return (
             loading ? (<Loading />) : (<Grid className="home-grid">
                 <Grid item  >
@@ -46,7 +47,11 @@ export class Home extends Component {
                 </Grid>
                 {/* <AddFriends /> */}
                 <AddChallenge />
-                {this.state.noChallenges ? (<p>Create some challenges for yourself! Click the '+' sign above!</p>)
+                {!this.state.noChallenges ? (
+                    <div className="upArrow">
+                        <ArrowUpwardIcon className="bounce" />
+                        <div className="noChallenge">Create some challenges for yourself! Click the 'Add Challenge' button above!</div>
+                    </div>)
                     :
                     (<Grid item>
                         {recentChallengesMarkup}
