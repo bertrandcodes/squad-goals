@@ -41,30 +41,34 @@ const styles = {
         marginBottom: '3%',
         marginLeft: '25.5%',
         marginRight: '20%'
+    },
+    greyDiv: {
+        backgroundColor: '#efefef',
+        padding: '5px',
+        borderRadius: '5px'
     }
 }
 
 export class Challenge extends Component {
     render() {
-        const { classes, challenge: { name, goal, description, challengeId } } = this.props
-        // let avatars = friends.map(friend => {
-        //     return <div className={classes.friendRender}>
-        //     </div>
-        // })
+        const { classes, challenge: { name, goal, description, challengeId, participants } } = this.props
+        let avatars = Object.keys(participants).map(participant => {
+            return <div><Avatar alt={participant.handle} src={participant.imageUrl} /></div>
+        })
         return (
             <Card className={classes.card} component={Link} to={`/challenge/${challengeId}`}>
                 <CardContent className={classes.cardContent}>
                     <Typography variant="h5" align="center">{name.toUpperCase()}</Typography>
                     <hr className={classes.rounded} />
-                    <Typography variant="body1" align="center">Goal: {goal}</Typography>
-                    <Typography variant="body1" align="center">Description: {description}</Typography>
-                    <AvatarGroup max={4} className={classes.avatars}>
-                        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                        <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
-                        <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
-                        <Avatar alt="Agnes Walker" src="/static/images/avatar/4.jpg" />
-                        <Avatar alt="Trevor Henderson" src="/static/images/avatar/5.jpg" />
-                    </AvatarGroup>
+                    <div className={classes.greyDiv}>
+                        <Typography variant="body1" align="center">Goal: {goal}</Typography>
+                        <Typography variant="body1" align="center">Description: {description}</Typography>
+                        <AvatarGroup max={4} className={classes.avatars}>
+
+                            {avatars}
+
+                        </AvatarGroup>
+                    </div>
                 </CardContent>
             </Card>
         )
