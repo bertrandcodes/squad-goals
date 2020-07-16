@@ -20,7 +20,7 @@ const styles = {
     paper: {
         backgroundColor: '#ffffff',
         color: 'black',
-        height: '385px',
+        height: '365px',
         width: '280px',
         position: 'relative',
         textAlign: 'center',
@@ -46,7 +46,7 @@ const styles = {
         color: 'grey',
         position: 'absolute',
         left: '200px',
-        bottom: '155px',
+        bottom: '135px',
         // float: 'right',
     },
     cameraFrame: {
@@ -100,7 +100,7 @@ export class Profile extends Component {
 
                 {/* <hr className={classes.rounded} /> */}
 
-                <Typography variant="h4" align="center"> &#128293; Streaks: {completed}</Typography>
+                <Typography variant="h5" align="center"> &#128293; Streaks: {completed}</Typography>
             </Paper>
         ) : (<Paper className={classes.noAccount}><Typography variant="body2" align="center">No Profile found, please login again</Typography>
             <div className={classes.buttons}>

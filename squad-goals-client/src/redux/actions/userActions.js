@@ -60,21 +60,32 @@ export const getUserData = () => (dispatch) => {
         .catch(err => console.log(err))
 }
 
-export const addChallenge = (userDetails) => (dispatch) => {
+export const addChallenge = (userDetails, history) => (dispatch) => {
     dispatch({ type: LOADING_USER });
     axios
         .post('/challenge', userDetails)
         .then(() => {
             axios.get('/user')
                 .then(res => {
+                    dispatch({ type: CLEAR_ERRORS });
                     dispatch({
                         type: SET_USER,
                         payload: res.data
                     })
+                    history.push('/');
                 })
-                .catch(err => console.log(err))
+                .catch(err => {
+                    console.log(err.response.data, 'err')
+                })
+
         })
-        .catch((err) => console.log(err));
+        .catch(err => {
+            console.log(err.response.data, 'err')
+            dispatch({
+                type: SET_ERRORS,
+                payload: err.response.data
+            })
+        })
 };
 
 export const uploadImage = (formData) => (dispatch) => {
@@ -110,8 +121,15 @@ export const addFriend = (friendData) => (dispatch) => {
         })
         .then((friendUid) => {
             dispatch(getFriend(friendUid));
+            dispatch({ type: CLEAR_ERRORS });
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err.response.data, 'err')
+            dispatch({
+                type: SET_ERRORS,
+                payload: err.response.data
+            })
+        })
 
 }
 

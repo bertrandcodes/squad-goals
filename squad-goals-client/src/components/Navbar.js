@@ -10,6 +10,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import DateRangeIcon from '@material-ui/icons/DateRange';
+import AddIcon from '@material-ui/icons/Add';
 //Redux
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -31,7 +32,11 @@ export class Navbar extends Component {
                             <Link to="/login">
                                 <MyButton tip="Home">
                                     <img src="hands.png" width="25px" height="25px" />
-                                    {/* <HomeIcon color="secondary" /> */}
+                                </MyButton>
+                            </Link>
+                            <Link to="/create">
+                                <MyButton tip="Create challenge">
+                                    <AddIcon className="navButtons" />
                                 </MyButton>
                             </Link>
                             <Link to="/friends">
