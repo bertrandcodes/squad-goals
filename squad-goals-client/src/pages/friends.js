@@ -13,7 +13,6 @@ import { connect } from 'react-redux';
 import { addFriend } from '../redux/actions/userActions';
 
 
-
 const styles = {
     // friendsPage: {
     //     display: 'flex',

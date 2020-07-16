@@ -7,6 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import withStyles from '@material-ui/core/styles/withStyles';
+import Avatar from '@material-ui/core/Avatar';
 
 //Redux
 import { connect } from 'react-redux';
@@ -17,7 +18,37 @@ const styles = {
     challengeButton: {
         margin: '20px',
         margin: '15px'
-    }
+    },
+    addChallengersDiv: {
+        margin: '10px',
+        padding: '15px',
+        boxSizing: 'border-block',
+        backgroundColor: '#efefef',
+        borderRadius: '5px',
+        // height: '25px',
+        textAlign: 'center',
+        overflowX: 'hidden',
+        overflowY: 'scroll',
+    },
+    noFriends: {
+        margin: 'auto'
+    },
+    addParticipants: {
+        textAlign: 'center',
+    },
+    header: {
+        marginTop: '20px',
+        marginBottom: '0px'
+    },
+    friendRender: {
+        height: '50px',
+        position: 'relative',
+        textAlign: 'left'
+    },
+    friendHandle: {
+        marginTop: '-30px',
+        paddingLeft: '60px',
+    },
 };
 
 export class AddChallenge extends Component {
@@ -27,15 +58,13 @@ export class AddChallenge extends Component {
             name: '',
             goal: '',
             description: '',
-            // handle: '',
-            // current: 0,
             participants: {},
             participantList: [],
             open: false
         }
     }
     handleOpen = () => {
-        this.setState({ open: true })
+        this.setState({ open: true });
     };
     handleClose = () => {
         this.setState({ open: false });
@@ -88,16 +117,6 @@ export class AddChallenge extends Component {
             current: 0
         }
 
-        let friendsList = friends ? (friends.map(friend => {
-            const friendData = {
-                handle: friend.handle,
-                uid: friend.userId,
-                current: 0
-            }
-            return <div><button onClick={event => { event.preventDefault(); this.addParticipant(friendData) }}>{friend.handle}</button></div>
-        }
-        )) : <p>Loading...</p>
-
         return (
             <Fragment>
                 <Button onClick={this.handleOpen} className={classes.challengeButton} variant="contained" color="secondary">Add Challenge</Button>
@@ -106,13 +125,13 @@ export class AddChallenge extends Component {
                     onClose={this.handleClose}
                     fullWidth
                     maxWidth="sm">
-                    <DialogTitle>Add a new challenge</DialogTitle>
+                    <DialogTitle>Add a new challenge:</DialogTitle>
                     <DialogContent>
                         <form>
                             <TextField
                                 name="name"
                                 type="text"
-                                label="name"
+                                label="Challenge name"
                                 rows="1"
                                 placeholder="Pushups"
                                 value={this.state.name}
@@ -123,7 +142,7 @@ export class AddChallenge extends Component {
                             <TextField
                                 name="goal"
                                 type="text"
-                                label="goal"
+                                label="Goal"
                                 rows="1"
                                 placeholder="100"
                                 value={this.state.goal}
@@ -134,7 +153,7 @@ export class AddChallenge extends Component {
                             <TextField
                                 name="description"
                                 type="text"
-                                label="description"
+                                label="Description"
                                 multiline
                                 rows="3"
                                 placeholder="Do 100 pushups everyday!"
@@ -143,7 +162,28 @@ export class AddChallenge extends Component {
                                 fullWidth
                             >
                             </TextField>
-                            {friendsList}
+                            <div className={classes.addParticipants}>
+                                <h3 className={classes.header}>Add participants</h3>
+                                <div className={classes.addChallengersDiv}>
+                                    {friends.length > 0 ?
+                                        (friends ? (friends.map(friend => {
+                                            const friendData = {
+                                                handle: friend.handle,
+                                                uid: friend.userId,
+                                                current: 0
+                                            }
+                                            return <div className={classes.friendRender}>
+                                                {/* <button onClick={event => { event.preventDefault(); this.addParticipant(friendData) }}>{friend.handle}</button> */}
+                                                <Avatar onClick={event => { event.preventDefault(); this.addParticipant(friendData) }} alt={friend.handle} src={friend.imageUrl} ></Avatar>
+                                                <div className={classes.friendHandle}>{friend.handle}</div>
+                                            </div>
+                                        }
+                                        )) : <p>Loading...</p>) : (<p className={classes.noFriends}>No friends yet... &#128546;</p>)
+                                    }
+
+                                    {/* {friendsList} */}
+                                </div>
+                            </div>
                         </form>
                     </DialogContent>
                     <DialogActions>
