@@ -65,10 +65,12 @@ export class Login extends Component {
     }
     handleSubmit = (event) => {
         event.preventDefault();
-
+        this.setState({
+            errors: {}
+        })
         const userData = {
             email: this.state.email,
-            password: this.state.password
+            password: this.state.password,
         };
         this.props.loginUser(userData, this.props.history);
     };
@@ -91,10 +93,10 @@ export class Login extends Component {
                 </Typography>
                     <form noValidate onSubmit={this.handleSubmit}>
                         <div>
-                            <TextField id="email" name="email" type="email" label="Email" className={classes.textField} helperText={errors.email} error={errors.email ? true : false}
+                            <TextField id="email" name="email" type="email" label="Email" className={classes.textField} helperText={errors.loginEmail} error={errors.loginEmail ? true : false}
                                 value={this.state.email} onChange={this.handleChange} />
                             <TextField id="password" name="password" type="password" label="Password" className={classes.textField}
-                                value={this.state.password} helperText={errors.password} error={errors.password ? true : false} onChange={this.handleChange} />
+                                value={this.state.password} helperText={errors.loginPassword} error={errors.loginPassword ? true : false} onChange={this.handleChange} />
                         </div>
 
                         {errors.general && !loading && (

@@ -47,6 +47,7 @@ const styles = {
         backgroundColor: '#f1f1f1',
         padding: '15px',
         borderRadius: '5px',
+        marginTop: '10px'
         // height: '60px',
         // maxHeight: '200px'
     },
@@ -69,9 +70,26 @@ const styles = {
 }
 
 export class Challenge extends Component {
+    // constructor() {
+    //     super();
+    //     this.state = {
+    //         emoji: '&#128308;'
+    //     }
+    // }
+
+    // componentWillReceiveProps(nextProps) {
+    //     if (nextProps.challenge.participants) {
+    //         var current = nextProps.challenge.participants[nextProps.userId].current
+    //         var goal = Number(nextProps.challenge.goal)
+    //         if ((current / goal) * 100) {
+    //             this.setState({
+    //                 emoji: '&#9989;'
+    //             })
+    //         }
+    //     }
+    // }
     render() {
         const { classes, challenge: { name, goal, description, challengeId, participants }, userId, handle } = this.props
-
         let avatars = Object.keys(participants).map(participant => {
             if (participants[participant].handle !== handle)
                 return <Avatar alt={participants[participant].handle} src={participants[participant].imageUrl} />
@@ -80,9 +98,9 @@ export class Challenge extends Component {
             <Card className={classes.card} component={Link} to={`/challenge/${challengeId}`}>
                 <CardContent className={classes.cardContent}>
                     <Typography variant="h5" align="center">{name.toUpperCase()}</Typography>
-                    <hr className={classes.rounded} />
+                    {/* <hr className={classes.rounded} /> */}
                     <div className={classes.greyDiv}>
-                        <Typography variant="h6" align="center"><span className={classes.status}>&#128308; Status: </span>{participants[userId].current}/{goal}</Typography>
+                        <Typography variant="h6" align="center"><span className={classes.status}>Status: </span>{participants[userId].current}/{goal}</Typography>
                         < Typography variant="body1" align="center" className={classes.typographyDescription}> Description: {description}</Typography>
                         <AvatarGroup max={4} className={classes.avatars}>
 

@@ -9,6 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Avatar from '@material-ui/core/Avatar';
 import Checkbox from '@material-ui/core/Checkbox';
+import Typography from '@material-ui/core/Typography';
 
 
 //Redux
@@ -55,7 +56,12 @@ const styles = {
         position: 'absolute',
         right: '0px',
         bottom: '6px',
-    }
+    },
+    customError: {
+        color: 'red',
+        fontSize: '0.8rem',
+        marginTop: 10
+    },
 };
 
 export class AddChallenge extends Component {
@@ -67,9 +73,15 @@ export class AddChallenge extends Component {
             description: '',
             participants: {},
             participantList: [],
-            open: false
+            open: false,
+            errors: {}
         }
     }
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.UI.errors) {
+            this.setState({ errors: nextProps.UI.errors });
+        }
+    };
     handleOpen = () => {
         this.setState({ open: true });
     };
@@ -106,13 +118,15 @@ export class AddChallenge extends Component {
             participants: {},
             participantList: []
         })
-        this.handleClose();
+        // this.handleClose();
     }
 
     render() {
-        const { handle, userId, imageUrl } = this.props.credentials
-        const { friends } = this.props.user
-        const { classes } = this.props
+        const { handle, userId, imageUrl } = this.props.credentials;
+        const { friends } = this.props.user;
+        const { classes } = this.props;
+        const { errors } = this.state;
+
         var ownData = {
             handle,
             uid: userId,
@@ -140,6 +154,8 @@ export class AddChallenge extends Component {
                                 value={this.state.name}
                                 onChange={this.handleChange}
                                 fullWidth
+                                helperText={errors.name}
+                                error={errors.name}
                             >
                             </TextField>
                             <TextField
@@ -151,6 +167,8 @@ export class AddChallenge extends Component {
                                 value={this.state.goal}
                                 onChange={this.handleChange}
                                 fullWidth
+                                helperText={errors.goals}
+                                error={errors.goals}
                             >
                             </TextField>
                             <TextField
@@ -163,8 +181,15 @@ export class AddChallenge extends Component {
                                 value={this.state.description}
                                 onChange={this.handleChange}
                                 fullWidth
+                                helperText={errors.description}
+                                error={errors.description}
                             >
                             </TextField>
+                            {/* {errors.goals && (
+                                <Typography variant="body2" className={classes.customError}>
+                                    {errors.goals}
+                                </Typography>
+                            )} */}
                             <div className={classes.addParticipants}>
                                 <h3 className={classes.header}>Add participants</h3>
                                 <div className={classes.addChallengersDiv}>
@@ -219,7 +244,8 @@ AddChallenge.propTypes = {
 
 const mapStateToProps = (state) => ({
     credentials: state.user.credentials,
-    user: state.user
+    user: state.user,
+    UI: state.UI
 });
 
 export default connect(

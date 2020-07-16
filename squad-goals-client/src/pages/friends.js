@@ -14,11 +14,10 @@ import { addFriend } from '../redux/actions/userActions';
 
 
 const styles = {
-    // friendsPage: {
-    //     display: 'flex',
-    //     flexDirection: 'row',
-    //     height: '100%'
-    // },
+    friendsPage: {
+        display: 'flex',
+        flexDirection: 'column',
+    },
     paper: {
         backgroundColor: '#ffffff',
         color: 'black',
@@ -35,7 +34,7 @@ const styles = {
     },
     addFriendDiv: {
         textAlign: 'center',
-        height: '365px',
+        height: '300px',
         position: 'relative'
     },
     textField: {
@@ -77,7 +76,7 @@ const styles = {
     },
     submitButton: {
         margin: 'auto',
-        marginBottom: '30px',
+        marginBottom: '35px',
         width: '125px',
     },
     currentFriends: {
@@ -112,6 +111,12 @@ export class friends extends Component {
         super();
         this.state = {
             friendUid: '',
+            errors: {}
+        }
+    }
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.UI.errors) {
+            this.setState({ errors: nextProps.UI.errors });
         }
     }
     handleChange = (event) => {
@@ -124,7 +129,8 @@ export class friends extends Component {
         this.props.addFriend(friendData);
     }
     render() {
-        const { classes, user: { credentials: { userId, handle, imageUrl }, loading, friends } } = this.props;
+        const { classes, UI, user: { credentials: { userId, handle, imageUrl }, loading, friends } } = this.props;
+        const { errors, friendUid } = this.state;
         let friendsList = friends ? (friends.map(friend => {
             return <div className={classes.friendRender}>
                 <Avatar alt={friend.handle} src={friend.imageUrl} ></Avatar>
@@ -149,12 +155,12 @@ export class friends extends Component {
                             </div>
                         </Paper>
                         <div className={classes.friendCode}>
-                            <TextField id="friend" name="friend" type="friend" variant="outlined" label="Friend ID" className={classes.textField} onChange={this.handleChange}
-                            // value={} onChange={this.handleChange} 
+                            <TextField id="friend" name="friend" type="friend" variant="outlined" label="Friend ID" className={classes.textField} helperText={errors.id} error={errors.id} onChange={this.handleChange}
+                                value={friendUid}
                             />
-                            <Button onClick={event => { event.preventDefault(); this.handleSubmit(userId, this.state.friendUid) }} type="submit" className={classes.submitButton} variant="contained" color="secondary">Add friend</Button>
                         </div>
                     </div>
+                    <Button onClick={event => { event.preventDefault(); this.handleSubmit(userId, this.state.friendUid) }} type="submit" className={classes.submitButton} variant="contained" color="secondary">Add friend</Button>
                     <div className={classes.friendsListDiv}>
                         <div className={classes.friendsList}>
                             <h1 className={classes.currentFriends}><span className={classes.currentFriendsSpan}>Current Friends</span></h1>
@@ -170,7 +176,8 @@ export class friends extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    user: state.user
+    user: state.user,
+    UI: state.UI
 });
 
 

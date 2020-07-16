@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 //Redux
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 //Material UI
+import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import { getChallenges } from '../redux/actions/dataActions';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -14,6 +17,12 @@ import Profile from '../components/Profile';
 import AddChallenge from '../components/AddChallenge';
 import AddFriends from '../components/AddFriends.js';
 import Loading from '../components/Loading';
+
+const styles = {
+    challengeButton: {
+        margin: '25px',
+    }
+}
 
 export class Home extends Component {
     constructor() {
@@ -37,15 +46,15 @@ export class Home extends Component {
     }
 
     render() {
-        const { challenges, loading, credentials: {userId, handle} } = this.props.user;
+        const { challenges, loading, credentials: { userId, handle } } = this.props.user;
+        const { classes } = this.props;
         let recentChallengesMarkup = challenges ? (challenges.map(challenge => <Challenge challenge={challenge} userId={userId} handle={handle} />)) : <Loading />
         return (
             loading ? (<Loading />) : (<Grid className="home-grid">
                 <Grid item  >
                     <Profile />
                 </Grid>
-                {/* <AddFriends /> */}
-                <AddChallenge />
+                <Button className={classes.challengeButton} variant="contained" color="secondary" component={Link} to={`/create`}>Add Challenge</Button>
                 {this.state.noChallenges ? (
                     <div className="upArrow">
                         <ArrowUpwardIcon className="bounce" />
@@ -75,4 +84,4 @@ const mapStateToProps = (state) => ({
 export default connect(
     mapStateToProps,
     { getChallenges }
-)(Home);
+)(withStyles(styles)(Home));

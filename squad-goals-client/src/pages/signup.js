@@ -60,10 +60,15 @@ export class Signup extends Component {
             this.setState({ errors: nextProps.UI.errors });
         }
     }
+    handleChange = (event) => {
+        this.setState({
+            [event.target.name]: event.target.value
+        });
+    };
     handleSubmit = (event) => {
         event.preventDefault();
         this.setState({
-            loading: true
+            loading: true,
         });
         const newUserData = {
             email: this.state.email,
@@ -73,11 +78,6 @@ export class Signup extends Component {
         }
         this.props.signupUser(newUserData, this.props.history);
 
-    };
-    handleChange = (event) => {
-        this.setState({
-            [event.target.name]: event.target.value
-        });
     };
 
     render() {

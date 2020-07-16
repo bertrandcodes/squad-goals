@@ -18,6 +18,7 @@ import login from './pages/login';
 import signup from './pages/signup';
 import friends from './pages/friends';
 import challenge from './pages/challenge';
+import create from './pages/create';
 import axios from 'axios';
 
 const theme = createMuiTheme({
@@ -86,6 +87,7 @@ class App extends Component {
                 <Route exact path="/" component={home} />
                 <AuthRoute exact path="/login" component={login} />
                 <AuthRoute exact path="/signup" component={signup} />
+                <Route exact path="/create" component={create} />
                 <Route exact path="/friends" component={friends} />
                 <Route exact path="/challenge/:challengeId" component={challenge} />
               </Switch>
