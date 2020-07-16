@@ -37,23 +37,44 @@ const styles = {
         marginBottom: '20px',
     },
     avatars: {
-        marginTop: '3%',
-        marginBottom: '3%',
-        marginLeft: '25.5%',
-        marginRight: '20%'
+        marginTop: '5px',
+        marginLeft: '20%',
+        marginRight: '20%',
+        display: 'flex',
+        justifyContent: 'center'
     },
     greyDiv: {
-        backgroundColor: '#efefef',
-        padding: '5px',
-        borderRadius: '5px'
+        backgroundColor: '#f1f1f1',
+        padding: '15px',
+        borderRadius: '5px',
+        // height: '60px',
+        // maxHeight: '200px'
+    },
+    status: {
+        fontSize: '1rem',
+        fontWeight: '400',
+        lineHeight: '1.5',
+        marginBlockStart: '1em',
+        marginBlockEnd: '1em',
+        marginInlineStart: '0px',
+        marginInlineEnd: '0px',
+        paddingTop: '5px'
+    },
+    // typographyStatus: {
+    //     marginBottom: '5px'
+    // },
+    typographyDescription: {
+        marginTop: '5px'
     }
 }
 
 export class Challenge extends Component {
     render() {
-        const { classes, challenge: { name, goal, description, challengeId, participants } } = this.props
+        const { classes, challenge: { name, goal, description, challengeId, participants }, userId, handle } = this.props
+
         let avatars = Object.keys(participants).map(participant => {
-            return <div><Avatar alt={participant.handle} src={participant.imageUrl} /></div>
+            if (participants[participant].handle !== handle)
+                return <Avatar alt={participants[participant].handle} src={participants[participant].imageUrl} />
         })
         return (
             <Card className={classes.card} component={Link} to={`/challenge/${challengeId}`}>
@@ -61,8 +82,8 @@ export class Challenge extends Component {
                     <Typography variant="h5" align="center">{name.toUpperCase()}</Typography>
                     <hr className={classes.rounded} />
                     <div className={classes.greyDiv}>
-                        <Typography variant="body1" align="center">Goal: {goal}</Typography>
-                        <Typography variant="body1" align="center">Description: {description}</Typography>
+                        <Typography variant="h6" align="center"><span className={classes.status}>&#128308; Status: </span>{participants[userId].current}/{goal}</Typography>
+                        < Typography variant="body1" align="center" className={classes.typographyDescription}> Description: {description}</Typography>
                         <AvatarGroup max={4} className={classes.avatars}>
 
                             {avatars}
@@ -70,7 +91,7 @@ export class Challenge extends Component {
                         </AvatarGroup>
                     </div>
                 </CardContent>
-            </Card>
+            </Card >
         )
     }
 }
