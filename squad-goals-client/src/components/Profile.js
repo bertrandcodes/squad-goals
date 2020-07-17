@@ -20,12 +20,12 @@ const styles = {
     paper: {
         backgroundColor: '#ffffff',
         color: 'black',
-        height: '365px',
+        height: '385px',
         width: '280px',
         position: 'relative',
         textAlign: 'center',
         padding: '10px',
-        // textShadow: '1px 1px black'
+        borderRadius: '60%'
     },
     profileImage: {
         width: '230px',
@@ -46,7 +46,7 @@ const styles = {
         color: 'grey',
         position: 'absolute',
         left: '200px',
-        bottom: '135px',
+        bottom: '145px',
         // float: 'right',
     },
     cameraFrame: {

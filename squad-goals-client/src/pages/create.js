@@ -27,6 +27,23 @@ const styles = theme => ({
         position: 'relative',
         textAlign: 'center'
     },
+    backgroundDiv: {
+        position: 'absolute',
+        left: '0',
+        right: '0',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        height: '340px',
+        width: '320px',
+        border: '3px double grey',
+        borderRadius: '15px',
+        bottom: '215px'
+    },
+    challengeSpan: {
+        backgroundColor: '#efefef',
+        paddingLeft: '5px',
+        paddingRight: '5px'
+    },
     challengeHeader: {
         marginTop: '0px',
         marginBottom: '10px',
@@ -37,7 +54,7 @@ const styles = theme => ({
     },
     textField: {
         marginTop: '5px',
-        backgroundColor: 'white',
+        // backgroundColor: 'white',
     },
     challengeButton: {
         margin: '25px',
@@ -45,9 +62,9 @@ const styles = theme => ({
     addChallengersDiv: {
         margin: 'auto',
         marginTop: '10px',
-        width: '300px',
+        width: '330px',
         marginBottom: '15px',
-        padding: '15px',
+        padding: '12px',
         boxSizing: 'border-block',
         backgroundColor: 'white',
         borderRadius: '5px',
@@ -152,9 +169,10 @@ export class create extends Component {
 
         return (
             <Fragment>
+                {/* <div className={classes.backgroundDiv}></div> */}
                 <div className={classes.mainDiv}>
                     <div className={classes.secondDiv}>
-                        <h1 className={classes.challengeHeader}>Add a new challenge:</h1>
+                        <h1 className={classes.challengeHeader}><span className={classes.challengeSpan}>Add a new challenge:</span></h1>
 
                         <Grid container direction={"column"} className={classes.form} spacing={1}>
                             <Grid item>

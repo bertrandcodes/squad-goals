@@ -39,7 +39,7 @@ const styles = {
     },
     friendTextField: {
         margin: '30px auto 20px auto',
-        backgroundColor: 'white'
+        // backgroundColor: 'white'
     },
     idSpan: {
         color: 'green'
