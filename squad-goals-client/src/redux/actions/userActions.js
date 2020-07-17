@@ -75,7 +75,7 @@ export const addChallenge = (userDetails, history) => (dispatch) => {
                         payload: res.data
                     })
                     history.push('/');
-                    toast('🚀 Challenge successfully added!', {
+                    toast.success('🚀 Challenge successfully added!', {
                         // position: "bottom-center",
                         // autoClose: 3000,
                         // hideProgressBar: false,
@@ -133,6 +133,8 @@ export const addFriend = (friendData) => (dispatch) => {
         .then((friendUid) => {
             dispatch(getFriend(friendUid));
             dispatch({ type: CLEAR_ERRORS });
+            toast.warn('👯 Wow! You made a friend!', {
+            })
         })
         .catch(err => {
             console.log(err.response.data, 'err')

@@ -37,8 +37,9 @@ const styles = {
         height: '298px',
         position: 'relative'
     },
-    textField: {
+    friendTextField: {
         margin: '30px auto 20px auto',
+        backgroundColor: 'white'
     },
     idSpan: {
         color: 'green'
@@ -155,7 +156,7 @@ export class friends extends Component {
                             </div>
                         </Paper>
                         <div className={classes.friendCode}>
-                            <TextField id="friend" name="friend" type="friend" variant="outlined" label="Friend ID" className={classes.textField} helperText={errors.id} error={errors.id} onChange={this.handleChange}
+                            <TextField id="friend" name="friend" type="friend" variant="outlined" label="Friend ID" className={classes.friendTextField} helperText={errors.id} error={errors.id} onChange={this.handleChange}
                                 value={friendUid}
                             />
                         </div>

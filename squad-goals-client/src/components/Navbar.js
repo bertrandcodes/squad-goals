@@ -24,7 +24,7 @@ export class Navbar extends Component {
     }
     render() {
         const { authenticated } = this.props
-        const toastify = () => toast('⏳ Uh-oh! This feature is not yet available. Check back in later.', {
+        const toastify = () => toast.error('⏳ Uh-oh! Our engineer is working hard to develop this feature. Check back in later.', {
             // position: "bottom-center",
             // autoClose: 3000,
             // hideProgressBar: false,

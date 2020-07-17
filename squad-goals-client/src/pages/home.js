@@ -58,7 +58,7 @@ export class Home extends Component {
                 {this.state.noChallenges ? (
                     <div className="upArrow">
                         <ArrowUpwardIcon className="bounce" />
-                        <div className="noChallenge">Create some challenges for yourself! Click the 'Add Challenge' button above!</div>
+                        <div className="noChallenge">Create some goals for yourself. Click the 'Add Challenge' button above!</div>
                     </div>)
                     :
                     (<Grid item>
