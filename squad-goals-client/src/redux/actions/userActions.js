@@ -1,5 +1,7 @@
 import { SET_USER, SET_ERRORS, SET_FRIENDS, CLEAR_ERRORS, LOADING_UI, SET_UNAUTHENTICATED, LOADING_USER } from '../types';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 
 export const loginUser = (userData, history) => (dispatch) => {
     dispatch({ type: LOADING_UI });
@@ -73,6 +75,15 @@ export const addChallenge = (userDetails, history) => (dispatch) => {
                         payload: res.data
                     })
                     history.push('/');
+                    toast('🚀 Challenge successfully added!', {
+                        // position: "bottom-center",
+                        // autoClose: 3000,
+                        // hideProgressBar: false,
+                        // closeOnClick: true,
+                        // pauseOnHover: true,
+                        // draggable: true,
+                        // progress: undefined,
+                    });
                 })
                 .catch(err => {
                     console.log(err.response.data, 'err')

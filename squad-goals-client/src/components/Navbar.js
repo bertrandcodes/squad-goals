@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import MyButton from '../util/MyButton'
+import { ToastContainer, toast } from 'react-toastify';
 
 //MUI Stuff
 import AppBar from '@material-ui/core/AppBar';
@@ -23,6 +24,16 @@ export class Navbar extends Component {
     }
     render() {
         const { authenticated } = this.props
+        const toastify = () => toast('⏳ Uh-oh! This feature is not yet available. Check back in later.', {
+            // position: "bottom-center",
+            // autoClose: 3000,
+            // hideProgressBar: false,
+            // closeOnClick: true,
+            // pauseOnHover: true,
+            // draggable: true,
+            // progress: undefined,
+        });
+
         return (
             <AppBar>
                 <Toolbar className="nav-container">
@@ -44,7 +55,7 @@ export class Navbar extends Component {
                                     <GroupAddIcon className="navButtons" />
                                 </MyButton>
                             </Link>
-                            <MyButton tip="Calendar">
+                            <MyButton tip="Calendar" onClick={toastify}>
                                 <DateRangeIcon className="navButtons" />
                             </MyButton>
 

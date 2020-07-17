@@ -34,7 +34,7 @@ const styles = {
     },
     addFriendDiv: {
         textAlign: 'center',
-        height: '300px',
+        height: '298px',
         position: 'relative'
     },
     textField: {
