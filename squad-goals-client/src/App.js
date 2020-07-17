@@ -4,6 +4,8 @@ import './App.css';
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import jwtDecode from 'jwt-decode';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 //Redux
 import { Provider } from 'react-redux';
 import store from './redux/store';
@@ -94,6 +96,14 @@ class App extends Component {
             </div>
           </Router>
         </Provider>
+        <ToastContainer
+          position="bottom-center"
+          autoClose={3000}
+          hideProgressBar={false}
+          limit={1}
+        />
+
+
       </MuiThemeProvider>
     );
   }

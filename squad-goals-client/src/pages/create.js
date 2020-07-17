@@ -237,7 +237,7 @@ export class create extends Component {
                         </div>
 
                         <Button onClick={event => { event.preventDefault(); this.handleSubmit(ownData) }} variant="contained" color="secondary">
-                            Submit
+                            Create
                         </Button>
                     </div>
                 </div>

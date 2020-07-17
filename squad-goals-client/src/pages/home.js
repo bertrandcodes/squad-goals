@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
 //Redux
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 //Material UI
+import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import { getChallenges } from '../redux/actions/dataActions';
