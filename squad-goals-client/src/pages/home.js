@@ -48,7 +48,7 @@ export class Home extends Component {
     render() {
         const { challenges, loading, credentials: { userId, handle } } = this.props.user;
         const { classes } = this.props;
-        let recentChallengesMarkup = challenges ? (challenges.map(challenge => <Challenge challenge={challenge} userId={userId} handle={handle} />)) : <Loading />
+        let recentChallengesMarkup = challenges ? (challenges.map(challenge => <Challenge challenge={challenge} userId={userId} handle={handle} />)) : <div>User session timed out. 😴</div>
         return (
             loading ? (<Loading />) : (<Grid className="home-grid">
                 <Grid item  >
