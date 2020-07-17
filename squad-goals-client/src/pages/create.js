@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 //Material UI
 import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -25,7 +26,16 @@ const styles = theme => ({
     },
     secondDiv: {
         position: 'relative',
-        textAlign: 'center'
+        textAlign: 'center',
+        height: '300px',
+        width: '320px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        // paddingRight: '20px',
+        boxSizing: 'border-box',
+        paddingTop: '10px',
+        paddingBottom: '10px',
+        backgroundColor: 'white',
     },
     backgroundDiv: {
         position: 'absolute',
@@ -39,17 +49,17 @@ const styles = theme => ({
         borderRadius: '15px',
         bottom: '215px'
     },
-    challengeSpan: {
-        backgroundColor: '#efefef',
-        paddingLeft: '5px',
-        paddingRight: '5px'
-    },
+    // challengeSpan: {
+    //     backgroundColor: '#efefef',
+    //     paddingLeft: '5px',
+    //     paddingRight: '5px'
+    // },
     challengeHeader: {
         marginTop: '0px',
         marginBottom: '10px',
     },
     form: {
-        width: '300px',
+        width: '280px',
         margin: 'auto'
     },
     textField: {
@@ -62,11 +72,11 @@ const styles = theme => ({
     addChallengersDiv: {
         margin: 'auto',
         marginTop: '10px',
-        width: '330px',
+        width: '300px',
         marginBottom: '15px',
         padding: '12px',
         boxSizing: 'border-block',
-        backgroundColor: 'white',
+        backgroundColor: 'whitesmoke',
         borderRadius: '5px',
         overflowX: 'hidden',
         overflowY: 'scroll',
@@ -78,6 +88,7 @@ const styles = theme => ({
     },
     addParticipants: {
         textAlign: 'center',
+        marginTop: '35px'
     },
     header: {
         marginTop: '20px',
@@ -171,8 +182,8 @@ export class create extends Component {
             <Fragment>
                 {/* <div className={classes.backgroundDiv}></div> */}
                 <div className={classes.mainDiv}>
-                    <div className={classes.secondDiv}>
-                        <h1 className={classes.challengeHeader}><span className={classes.challengeSpan}>Add a new challenge:</span></h1>
+                    <Paper className={classes.secondDiv}>
+                        <h1 className={classes.challengeHeader}><span className={classes.challengeSpan}>Start new challenge:</span></h1>
 
                         <Grid container direction={"column"} className={classes.form} spacing={1}>
                             <Grid item>
@@ -215,8 +226,8 @@ export class create extends Component {
                                     name="description"
                                     type="description"
                                     label="Description"
-                                    multiline
-                                    rows="2"
+                                    // multiline
+                                    rows="1"
                                     placeholder="Do 100 pushups everyday!"
                                     variant="outlined"
                                     value={this.state.description}
@@ -261,7 +272,7 @@ export class create extends Component {
                         <Button onClick={event => { event.preventDefault(); this.handleSubmit(ownData) }} variant="contained" color="secondary">
                             Create
                         </Button>
-                    </div>
+                    </Paper>
                 </div>
 
 

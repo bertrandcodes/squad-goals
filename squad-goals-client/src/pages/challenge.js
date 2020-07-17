@@ -110,7 +110,7 @@ export class challenge extends Component {
 
 
         let barGraphs = !loading ? (Object.keys(participants).map(function (key, index) {
-            const participantPercentage = ((participants[key].current / Number(goal)) * 100);
+            const participantPercentage = ((participants[key].current / Number(goal)) * 100).toFixed(1);
             return (
                 <BarWrapper percentage={participantPercentage}>
                     <div className="graph-div"><div className="progress-bar">
@@ -126,7 +126,7 @@ export class challenge extends Component {
         if (participants.length !== 0) {
             return (
                 <div className="challenge-body">
-                    <h1>{name}</h1>
+                    <h1>{name.toUpperCase()}</h1>
                     <h2>Goal: {goal}</h2>
                     <h3>{description}</h3>
                     <div className="graph-divs">
