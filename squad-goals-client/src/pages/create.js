@@ -18,7 +18,7 @@ import { connect } from 'react-redux';
 import { addChallenge } from '../redux/actions/userActions';
 import PropTypes from 'prop-types';
 
-const styles = {
+const styles = theme => ({
     mainDiv: {
         display: 'flex',
         flexDirection: 'column'
@@ -35,15 +35,17 @@ const styles = {
         width: '300px',
         margin: 'auto'
     },
-    challengeText: {
+    textField: {
         marginTop: '5px',
-
+        backgroundColor: 'white',
     },
     challengeButton: {
         margin: '25px',
     },
     addChallengersDiv: {
-        margin: '10px',
+        margin: 'auto',
+        marginTop: '10px',
+        width: '300px',
         marginBottom: '15px',
         padding: '15px',
         boxSizing: 'border-block',
@@ -84,7 +86,7 @@ const styles = {
         fontSize: '0.8rem',
         marginTop: 10
     },
-};
+});
 
 export class create extends Component {
     constructor() {
@@ -157,7 +159,7 @@ export class create extends Component {
                         <Grid container direction={"column"} className={classes.form} spacing={1}>
                             <Grid item>
                                 <TextField
-                                    className={classes.challengeText}
+                                    className={classes.textField}
                                     name="name"
                                     type="name"
                                     label="Challenge name"
@@ -174,6 +176,7 @@ export class create extends Component {
                             </Grid>
                             <Grid item>
                                 <TextField
+                                    className={classes.textField}
                                     name="goal"
                                     type="goal"
                                     label="Goal"
@@ -190,6 +193,7 @@ export class create extends Component {
                             </Grid>
                             <Grid item>
                                 <TextField
+                                    className={classes.textField}
                                     name="description"
                                     type="description"
                                     label="Description"

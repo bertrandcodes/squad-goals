@@ -94,9 +94,9 @@ export class Login extends Component {
                     <form noValidate onSubmit={this.handleSubmit}>
                         <div>
                             <TextField id="email" name="email" type="email" label="Email" className={classes.textField} helperText={errors.loginEmail} error={errors.loginEmail ? true : false}
-                                value={this.state.email} onChange={this.handleChange} />
+                                variant="outlined" value={this.state.email} onChange={this.handleChange} />
                             <TextField id="password" name="password" type="password" label="Password" className={classes.textField}
-                                value={this.state.password} helperText={errors.loginPassword} error={errors.loginPassword ? true : false} onChange={this.handleChange} />
+                                variant="outlined" value={this.state.password} helperText={errors.loginPassword} error={errors.loginPassword ? true : false} onChange={this.handleChange} />
                         </div>
 
                         {errors.general && !loading && (

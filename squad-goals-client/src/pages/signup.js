@@ -94,13 +94,13 @@ export class Signup extends Component {
                     <form noValidate onSubmit={this.handleSubmit}>
                         <div>
                             <TextField id="email" name="email" type="email" label="Email" className={classes.textField} helperText={errors.email} error={errors.email ? true : false}
-                                value={this.state.email} onChange={this.handleChange} />
+                                variant="outlined" value={this.state.email} onChange={this.handleChange} />
                             <TextField id="password" name="password" type="password" label="Password" className={classes.textField}
-                                value={this.state.password} helperText={errors.password} error={errors.password ? true : false} onChange={this.handleChange} />
+                                variant="outlined" value={this.state.password} helperText={errors.password} error={errors.password ? true : false} onChange={this.handleChange} />
                             <TextField id="confirmPassword" name="confirmPassword" type="password" label="Confirm Password" className={classes.textField}
-                                value={this.state.confirmPassword} helperText={errors.confirmPassword} error={errors.confirmPassword ? true : false} onChange={this.handleChange} />
+                                variant="outlined" value={this.state.confirmPassword} helperText={errors.confirmPassword} error={errors.confirmPassword ? true : false} onChange={this.handleChange} />
                             <TextField id="handle" name="handle" type="text" label="Handle" className={classes.textField}
-                                value={this.state.handle} helperText={errors.handle} error={errors.handle ? true : false} onChange={this.handleChange} />
+                                variant="outlined" value={this.state.handle} helperText={errors.handle} error={errors.handle ? true : false} onChange={this.handleChange} />
                         </div>
                         {errors.general && !loading && (
                             <Typography variant="body2" className={classes.customError}>
