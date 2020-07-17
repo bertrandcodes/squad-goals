@@ -13,13 +13,15 @@ import Typography from '@material-ui/core/Typography';
 const styles = {
     card: {
         display: 'flex',
-        marginBottom: 20,
+        marginBottom: '5px',
         textDecoration: 'none',
         backgroundColor: '#ffffff',
         // height: '200px',
         width: '350px',
     },
     cardContent: {
+        display: 'flex',
+        // flexDirection: 'column',
         width: '100%',
         paddingTop: '20px',
         paddingBottom: '16px !important',
@@ -28,13 +30,18 @@ const styles = {
         borderRadius: '5px',
         backgroundColor: 'white'
     },
+    challengeHeader: {
+        width: '85px',
+        marginTop: 'auto',
+        marginBottom: 'auto',
+    },
     rounded: {
-        borderTop: '2px solid black !important',
+        border: '1px solid whitesmoke',
         marginLeft: '15px',
         marginRight: '15px',
         borderRadius: '10px',
-        marginTop: '10px',
-        marginBottom: '20px',
+        // marginTop: '10px',
+        // marginBottom: '20px',
     },
     avatars: {
         marginTop: '5px',
@@ -42,6 +49,9 @@ const styles = {
         marginRight: '20%',
         display: 'flex',
         justifyContent: 'center'
+    },
+    information: {
+        width: '190px'
     },
     greyDiv: {
         // backgroundColor: '#f1f1f1',
@@ -51,6 +61,12 @@ const styles = {
         // border: '2px grey dashed',
         // height: '60px',
         // maxHeight: '200px'
+        // marginLeft: 'auto',
+        // marginRight: 'auto',
+    },
+    statusHeader: {
+        textAlign: 'left',
+        // color: 'grey'
     },
     status: {
         fontSize: '1rem',
@@ -60,13 +76,31 @@ const styles = {
         marginBlockEnd: '1em',
         marginInlineStart: '0px',
         marginInlineEnd: '0px',
-        paddingTop: '5px'
+        paddingTop: '5px',
+        // color: 'grey'
     },
-    // typographyStatus: {
-    //     marginBottom: '5px'
+    fraction: {
+        float: 'right'
+    },
+    description: {
+        float: 'right',
+        textAlign: 'right',
+        width: '110px',
+        // marginLeft: 'auto',
+        // marginRight: 'auto'
+    },
+    // challengeTypography: {
+    //     textAlign: 'left'
     // },
     typographyDescription: {
-        marginTop: '5px'
+        marginTop: '5px',
+        textAlign: 'left',
+        overflow: 'hidden'
+        // height: '50px'
+    },
+    avatarDiv: {
+        marginLeft: 'auto',
+        marginRight: 'auto'
     }
 }
 
@@ -98,16 +132,23 @@ export class Challenge extends Component {
         return (
             <Card className={classes.card} component={Link} to={`/challenge/${challengeId}`}>
                 <CardContent className={classes.cardContent}>
-                    <Typography variant="h5" align="center">{name.toUpperCase()}</Typography>
-                    {/* <hr className={classes.rounded} /> */}
-                    <div className={classes.greyDiv}>
-                        <Typography variant="h6" align="center"><span className={classes.status}>Status: </span>{participants[userId].current}/{goal}</Typography>
-                        < Typography variant="body1" align="center" className={classes.typographyDescription}> Description: {description}</Typography>
-                        <AvatarGroup max={4} className={classes.avatars}>
+                    <Typography variant="h6" align="center" className={classes.challengeHeader}>{name.toUpperCase()}</Typography>
+                    <hr className={classes.rounded} />
+                    <div className={classes.information}>
+                        <div className={classes.greyDiv}>
+                            <Typography variant="h6" align="center" className={classes.statusHeader}><span className={classes.status}>Status: </span><span className={classes.fraction}>{participants[userId].current}/{goal}</span></Typography>
+                            < div className={classes.typographyDescription}>
+                                <span className={classes.status}>Description: </span>
+                                <div className={classes.description}>{description}</div>
+                            </div>
+                        </div>
+                        <div className={classes.avatarDiv}>
+                            <AvatarGroup max={4} className={classes.avatars}>
 
-                            {avatars}
+                                {avatars}
 
-                        </AvatarGroup>
+                            </AvatarGroup>
+                        </div>
                     </div>
                 </CardContent>
             </Card >
