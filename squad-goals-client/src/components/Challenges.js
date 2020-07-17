@@ -44,10 +44,11 @@ const styles = {
         justifyContent: 'center'
     },
     greyDiv: {
-        backgroundColor: '#f1f1f1',
-        padding: '15px',
+        // backgroundColor: '#f1f1f1',
+        // padding: '15px',
         borderRadius: '5px',
-        marginTop: '10px'
+        // marginTop: '5px',
+        // border: '2px grey dashed',
         // height: '60px',
         // maxHeight: '200px'
     },
