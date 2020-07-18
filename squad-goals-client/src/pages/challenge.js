@@ -99,6 +99,7 @@ export class challenge extends Component {
             description: '',
             handle: '',
             uid: '',
+            pastAdds: 0,
             newValue: 0,
             newestValue: 0,
             participants: []
@@ -137,21 +138,36 @@ export class challenge extends Component {
         const challenge = this.props.match.params.challengeId;
         const newValues = {
             uid,
-            newValue: (this.state.newValue + current)
+            newValue: this.state.newValue + this.state.pastAdds + current
         }
+        this.setState({
+            pastAdds: this.state.newValue + this.state.pastAdds
+        })
         var compliment = compliments[Math.floor(Math.random() * compliments.length)];
         axios.put(`/challenge/${challenge}`, newValues)
             .then((res) => {
-                console.log(res.data)
-                toast.success(compliment, {
-                });
+                if (this.state.newValue > 0) {
+                    toast.success(compliment, {
+                    });
+                }
             })
             .catch((err) => console.log(err));
     };
-    //put into redux if you want it to load automatically
     updateBar = (data) => {
-        const current = data.participants[data.uid].current + this.state.newValue
+        const current = data.participants[data.uid].current + this.state.pastAdds + this.state.newValue
         const currentPercentage = ((current / Number(this.state.goal)) * 100);
+        const uidData = {
+            uid: this.state.uid
+        }
+        if (currentPercentage >= 100) {
+            axios.put(`/user/${this.state.handle}`, uidData)
+                .then((res) => {
+                    console.log(res.data)
+                    toast.success('🎉🎉🎉 Congrats! You are done for today!', {
+                    });
+                })
+                .catch((err) => console.log(err));
+        }
 
         const barFill = document.querySelector(`.progress-bar-fill-${data.handle}`);
         this.setState({
@@ -162,7 +178,7 @@ export class challenge extends Component {
     }
 
     render() {
-        const { name, goal, description, participants, handle, uid, newestValue } = this.state;
+        const { name, goal, description, participants, handle, uid, newestValue, pastAdds } = this.state;
         const { classes, data, user: { loading } } = this.props;
         const updateData = {
             participants,
@@ -175,8 +191,10 @@ export class challenge extends Component {
 
         let barGraphs = !loading ? (Object.keys(participants).sort(function (a, b) { return participants[b].current - participants[a].current }).map(function (key, index) {
             const participantPercentage = ((participants[key].current / Number(goal)) * 100).toFixed(0);
+            const myPercentage = (((participants[key].current + pastAdds) / Number(goal)) * 100).toFixed(0);
             return (
                 <BarWrapper percentage={participantPercentage} handle={participants[key].handle}>
+
                     <div className="participant-bar">
 
                         <div className="graph-div">
@@ -185,7 +203,7 @@ export class challenge extends Component {
                             </div> */}
                             <div className="progress-bar">
                                 {participants[key].handle === handle ? (
-                                    <div className="progress-bar-value">{(Number(participantPercentage) + (Number(newestValue) / Number(goal)) * 100).toFixed(0)}%</div>
+                                    <div className="progress-bar-value">{Number(myPercentage)}%</div>
                                 ) : (
                                         <div className="progress-bar-value">{Number(participantPercentage)}%</div>
                                     )}
@@ -196,7 +214,7 @@ export class challenge extends Component {
                     </div>
                 </BarWrapper>)
         }))
-            : <Loading />
+            : <p>Loading challenge...</p>
 
         if (participants.length !== 0) {
             return (
