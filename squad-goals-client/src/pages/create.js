@@ -22,19 +22,25 @@ import PropTypes from 'prop-types';
 const styles = theme => ({
     mainDiv: {
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        textAlign: 'center',
     },
     secondDiv: {
         position: 'relative',
         textAlign: 'center',
-        height: '300px',
+        // height: '360px',
+        // height: '330px',
+        // maxHeight: '360px',
+        // display: 'inline-block',
         width: '320px',
         marginLeft: 'auto',
         marginRight: 'auto',
         // paddingRight: '20px',
         boxSizing: 'border-box',
         paddingTop: '10px',
-        paddingBottom: '10px',
+        paddingBottom: '20px',
         backgroundColor: 'white',
     },
     backgroundDiv: {
@@ -64,10 +70,11 @@ const styles = theme => ({
     },
     textField: {
         marginTop: '5px',
-        backgroundColor: 'whitesmoke',
+        // backgroundColor: 'whitesmoke',
     },
     challengeButton: {
-        margin: '25px',
+        margin: 'auto',
+        width: '125px',
     },
     addChallengersDiv: {
         margin: 'auto',
@@ -89,10 +96,10 @@ const styles = theme => ({
     },
     addParticipants: {
         textAlign: 'center',
-        marginTop: '35px'
+        // marginTop: '35px'
     },
     header: {
-        marginTop: '20px',
+        marginTop: '10px',
         marginBottom: '0px'
     },
     friendRender: {
@@ -240,40 +247,41 @@ export class create extends Component {
                                 </TextField>
                             </Grid>
                         </Grid>
-                        <div className={classes.addParticipants}>
-                            <h2 className={classes.header}>Add participants</h2>
-                            <div className={classes.addChallengersDiv}>
-                                {friends.length > 0 ?
-                                    (friends ? (friends.map(friend => {
-                                        const friendData = {
-                                            handle: friend.handle,
-                                            uid: friend.userId,
-                                            imageUrl: friend.imageUrl,
-                                            current: 0
-                                        }
-                                        return <div className={classes.friendRender}>
-                                            <Avatar alt={friend.handle} src={friend.imageUrl} ></Avatar>
-                                            <div className={classes.friendHandle}>{friend.handle}
-                                                <Checkbox
-                                                    onClick={event => { event.preventDefault(); this.addParticipant(friendData) }}
-                                                    // value="checkedA"
-                                                    // inputProps={{ 'aria-label': 'Checkbox A' }}
-                                                    color='green'
-                                                    className={classes.check}
-                                                /></div>
-                                        </div>
-                                    }
-                                    )) : <p>Loading...</p>) : (<p className={classes.noFriends}>No friends yet... &#128546;</p>)
-                                }
-
-                                {/* {friendsList} */}
-                            </div>
-                        </div>
-
-                        <Button onClick={event => { event.preventDefault(); this.handleSubmit(ownData) }} variant="contained" color="secondary">
-                            Create
-                        </Button>
                     </Paper>
+
+                    <div className={classes.addParticipants}>
+                        <h2 className={classes.header}>Add participants</h2>
+                        <div className={classes.addChallengersDiv}>
+                            {friends.length > 0 ?
+                                (friends ? (friends.map(friend => {
+                                    const friendData = {
+                                        handle: friend.handle,
+                                        uid: friend.userId,
+                                        imageUrl: friend.imageUrl,
+                                        current: 0
+                                    }
+                                    return <div className={classes.friendRender}>
+                                        <Avatar alt={friend.handle} src={friend.imageUrl} ></Avatar>
+                                        <div className={classes.friendHandle}>{friend.handle}
+                                            <Checkbox
+                                                onClick={event => { event.preventDefault(); this.addParticipant(friendData) }}
+                                                // value="checkedA"
+                                                // inputProps={{ 'aria-label': 'Checkbox A' }}
+                                                color='green'
+                                                className={classes.check}
+                                            /></div>
+                                    </div>
+                                }
+                                )) : <p>Loading...</p>) : (<p className={classes.noFriends}>No friends yet... &#128546;</p>)
+                            }
+
+                            {/* {friendsList} */}
+                        </div>
+                    </div>
+
+                    <Button className={classes.challengeButton} onClick={event => { event.preventDefault(); this.handleSubmit(ownData) }} variant="contained" color="secondary">
+                        Create
+                        </Button>
                 </div>
 
 
