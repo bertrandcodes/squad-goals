@@ -12,7 +12,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 //Redux
 import { connect } from 'react-redux';
@@ -122,6 +122,9 @@ const styles = theme => ({
         fontSize: '0.8rem',
         marginTop: 10
     },
+    progress: {
+        position: 'absolute'
+    }
 });
 
 export class create extends Component {
@@ -143,7 +146,8 @@ export class create extends Component {
     };
     handleChange = (event) => {
         this.setState({
-            [event.target.name]: event.target.value
+            [event.target.name]: event.target.value,
+            // errors: {}
         });
     };
     addParticipant = (friendData) => {
@@ -175,8 +179,8 @@ export class create extends Component {
 
     render() {
         const { handle, userId, imageUrl } = this.props.credentials;
+        const { classes, UI: { loading } } = this.props;
         const { friends } = this.props.user;
-        const { classes } = this.props;
         const { errors } = this.state;
 
         var ownData = {
@@ -274,14 +278,15 @@ export class create extends Component {
                                 }
                                 )) : <p>Loading...</p>) : (<p className={classes.noFriends}>No friends yet... &#128546;</p>)
                             }
-
-                            {/* {friendsList} */}
                         </div>
                     </div>
 
-                    <Button className={classes.challengeButton} onClick={event => { event.preventDefault(); this.handleSubmit(ownData) }} variant="contained" color="secondary">
+                    <Button className={classes.challengeButton} onClick={event => { event.preventDefault(); this.handleSubmit(ownData) }} variant="contained" color="secondary" disabled={loading}>
                         Create
-                        </Button>
+                        {loading && (
+                            <CircularProgress size={30} className={classes.progress} />
+                        )}
+                    </Button>
                 </div>
 
 

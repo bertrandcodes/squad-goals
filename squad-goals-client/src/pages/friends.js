@@ -8,6 +8,8 @@ import Avatar from '@material-ui/core/Avatar';
 import withStyles from '@material-ui/core/styles/withStyles';
 import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
 import { FormHelperText } from '@material-ui/core';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 import { connect } from 'react-redux';
 import { addFriend } from '../redux/actions/userActions';
@@ -103,6 +105,9 @@ const styles = {
     },
     loadingFriends: {
         marginTop: '50px'
+    },
+    progress: {
+        position: 'absolute'
     }
 }
 
@@ -122,15 +127,19 @@ export class friends extends Component {
     }
     handleChange = (event) => {
         this.setState({
-            friendUid: event.target.value
+            friendUid: event.target.value,
+            // errors: {}
         });
     };
     handleSubmit = (uid, friendUid) => {
+        this.setState({
+            errors: {}
+        })
         const friendData = { uid, friendUid }
         this.props.addFriend(friendData);
     }
     render() {
-        const { classes, UI, user: { credentials: { userId, handle, imageUrl }, loading, friends } } = this.props;
+        const { classes, UI: { loading }, user: { credentials: { userId, handle, imageUrl }, friends } } = this.props;
         const { errors, friendUid } = this.state;
         let friendsList = friends ? (friends.map(friend => {
             return <div className={classes.friendRender}>
@@ -161,7 +170,11 @@ export class friends extends Component {
                             />
                         </div>
                     </div>
-                    <Button onClick={event => { event.preventDefault(); this.handleSubmit(userId, this.state.friendUid) }} type="submit" className={classes.submitButton} variant="contained" color="secondary">Add friend</Button>
+                    <Button onClick={event => { event.preventDefault(); this.handleSubmit(userId, this.state.friendUid) }} type="submit" className={classes.submitButton} variant="contained" color="secondary" disabled={loading}>Add friend
+                    {loading && (
+                            <CircularProgress size={30} className={classes.progress} />
+                        )}
+                    </Button>
                     <div className={classes.friendsListDiv}>
                         <div className={classes.friendsList}>
                             <h1 className={classes.currentFriends}><span className={classes.currentFriendsSpan}>Current Friends</span></h1>
