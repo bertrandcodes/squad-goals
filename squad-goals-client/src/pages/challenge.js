@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 import Loading from '../components/Loading';
+import { toast } from 'react-toastify';
 
 import Avatar from '@material-ui/core/Avatar';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -22,7 +23,7 @@ const styles = {
     updateTextField: {
         width: '55px',
         backgroundColor: 'white',
-        marginBottom: '10px'
+        marginBottom: '15px'
     }
 }
 
@@ -140,6 +141,8 @@ export class challenge extends Component {
         axios.put(`/challenge/${challenge}`, newValues)
             .then((res) => {
                 console.log(res.data)
+                toast.success('🎉 Wow! Good job!', {
+                });
             })
             .catch((err) => console.log(err));
     };
