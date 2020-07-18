@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 import Loading from '../components/Loading';
 import { toast } from 'react-toastify';
+import compliments from '../compliments.json';
 
 import Avatar from '@material-ui/core/Avatar';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -23,7 +24,7 @@ const styles = {
     updateTextField: {
         width: '55px',
         backgroundColor: 'white',
-        marginBottom: '15px'
+        marginBottom: '15px',
     }
 }
 
@@ -131,17 +132,18 @@ export class challenge extends Component {
             newValue: Number(event.target.value)
         });
     };
-    handleSubmit = (participants, uid) => {
+    handleSubmit = (participants, uid, compliments) => {
         const current = participants[uid].current
         const challenge = this.props.match.params.challengeId;
         const newValues = {
             uid,
             newValue: (this.state.newValue + current)
         }
+        var compliment = compliments[Math.floor(Math.random() * compliments.length)];
         axios.put(`/challenge/${challenge}`, newValues)
             .then((res) => {
                 console.log(res.data)
-                toast.success('🎉 Wow! Good job!', {
+                toast.success(compliment, {
                 });
             })
             .catch((err) => console.log(err));
@@ -206,8 +208,8 @@ export class challenge extends Component {
                         <div className="graph-divs">
                             {barGraphs}
                         </div>
-                        <TextField className={classes.updateTextField} name="input" type="input" variant="outlined" placeholder="100" size="small" onChange={this.handleChange} />
-                        <Button variant="contained" color="secondary" onClick={() => { this.updateBar(updateData); this.handleSubmit(participants, uid); }}>Add more</Button>
+                        <TextField className={classes.updateTextField} inputProps={{ style: { textAlign: 'center' } }} name="input" type="input" variant="outlined" placeholder="100" size="small" onChange={this.handleChange} />
+                        <Button variant="contained" color="secondary" onClick={() => { this.updateBar(updateData); this.handleSubmit(participants, uid, compliments); }}>Add more</Button>
                     </div>
                 </BarWrapper>
             );
