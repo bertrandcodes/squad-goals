@@ -40,7 +40,7 @@ const styles = theme => ({
         // paddingRight: '20px',
         boxSizing: 'border-box',
         paddingTop: '10px',
-        paddingBottom: '20px',
+        paddingBottom: '25px',
         backgroundColor: 'white',
     },
     backgroundDiv: {
