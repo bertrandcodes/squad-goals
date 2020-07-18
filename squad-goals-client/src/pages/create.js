@@ -64,7 +64,7 @@ const styles = theme => ({
     },
     textField: {
         marginTop: '5px',
-        // backgroundColor: 'white',
+        backgroundColor: 'whitesmoke',
     },
     challengeButton: {
         margin: '25px',
@@ -72,12 +72,13 @@ const styles = theme => ({
     addChallengersDiv: {
         margin: 'auto',
         marginTop: '10px',
-        width: '300px',
+        width: '290px',
         marginBottom: '15px',
         padding: '12px',
         boxSizing: 'border-block',
-        backgroundColor: 'whitesmoke',
-        borderRadius: '5px',
+        // backgroundColor: 'whitesmoke',
+        border: '3px double grey',
+        borderRadius: '15px',
         overflowX: 'hidden',
         overflowY: 'scroll',
         textAlign: 'center',
@@ -240,7 +241,7 @@ export class create extends Component {
                             </Grid>
                         </Grid>
                         <div className={classes.addParticipants}>
-                            <h3 className={classes.header}>Add participants</h3>
+                            <h2 className={classes.header}>Add participants</h2>
                             <div className={classes.addChallengersDiv}>
                                 {friends.length > 0 ?
                                     (friends ? (friends.map(friend => {

@@ -1,26 +1,61 @@
 import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 import Loading from '../components/Loading';
+
+import Avatar from '@material-ui/core/Avatar';
+import withStyles from '@material-ui/core/styles/withStyles';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
 //Redux
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
+const styles = {
+    small: {
+        height: '30px',
+        width: '30px',
+        margin: 'auto',
+        marginRight: '10px'
+    },
+    updateTextField: {
+        width: '55px',
+        backgroundColor: 'white',
+        marginBottom: '10px'
+    }
+}
+
 const BarWrapper = styled.div`
+.info-header-1 {
+    margin-top: 0px;
+    margin-bottom: 5px;
+}
+.info-header {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.participant-bar {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
 .progress-bar {
+    position: relative;
     display: flex;
     justify-content: flex-end;
     flex-direction: column;
-    position: relative;
-    width: 40px;
-    height: 300px;
-    border: 1px solid black;
+    height: 35px;
+    width: 300px;
+    border: 1px solid grey;
   }
   
-  .progress-bar-fill {
-    height: ${props => props.percentage}%;
+  .progress-bar-fill-${props => props.handle} {
+    height: 100%;
+    width: ${props => props.percentage}%;
     background: rgb(67, 218, 67);
-    transition: height 0.5s;
+    transition: width 0.5s;
+    max-width: 100%;
   }
   
   .progress-bar-value {
@@ -32,10 +67,24 @@ const BarWrapper = styled.div`
     justify-content: center;
     font-weight: bold;
   }
+  .challenge-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.graph-divs {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
   
   .graph-div {
-    margin-right: 10px;
-    margin-left: 10px;
+    margin-top: 5px;
+    margin-top: 5px;
+    display: flex;
+    flex-direction: row;
   }  
 `;
 
@@ -49,6 +98,7 @@ export class challenge extends Component {
             handle: '',
             uid: '',
             newValue: 0,
+            newestValue: 0,
             participants: []
         }
     }
@@ -94,30 +144,50 @@ export class challenge extends Component {
             .catch((err) => console.log(err));
     };
     //put into redux if you want it to load automatically
-    updateBar = (participants, uid) => {
-        // const current = participants[uid].current
-        // const currentPercentage = ((current / Number(this.state.goal)) * 100);
+    updateBar = (data) => {
+        const current = data.participants[data.uid].current + this.state.newValue
+        const currentPercentage = ((current / Number(this.state.goal)) * 100);
 
-        // const barFill = document.getElementsByClassName(`.progress-bar-fill ${uid}`);
-        // barFill.style.height = `${currentPercentage}%`
+        const barFill = document.querySelector(`.progress-bar-fill-${data.handle}`);
+        this.setState({
+            newestValue: this.state.newValue
+        })
+        barFill.style.width = `${currentPercentage}%`
+
     }
 
     render() {
-        const { name, goal, description, participants, handle, uid } = this.state;
-        const { data, user: { loading } } = this.props;
+        const { name, goal, description, participants, handle, uid, newestValue } = this.state;
+        const { classes, data, user: { loading } } = this.props;
+        const updateData = {
+            participants,
+            uid,
+            handle
+        }
         // const { handle } = this.props.user.credentials.handle;
         // const currentPercentage = ((current / Number(goal)) * 100);
 
 
-        let barGraphs = !loading ? (Object.keys(participants).map(function (key, index) {
-            const participantPercentage = ((participants[key].current / Number(goal)) * 100).toFixed(1);
+        let barGraphs = !loading ? (Object.keys(participants).sort(function (a, b) { return participants[b].current - participants[a].current }).map(function (key, index) {
+            const participantPercentage = ((participants[key].current / Number(goal)) * 100).toFixed(0);
             return (
-                <BarWrapper percentage={participantPercentage}>
-                    <div className="graph-div"><div className="progress-bar">
-                        <div className="progress-bar-value">{participantPercentage}%</div>
-                        <div className={`progress-bar-fill`}></div>
-                    </div>
-                        <div>{participants[key].handle}</div><div>{participants[key].current}</div>
+                <BarWrapper percentage={participantPercentage} handle={participants[key].handle}>
+                    <div className="participant-bar">
+
+                        <div className="graph-div">
+                            <Avatar className={classes.small} alt={participants[key].handle} src={participants[key].imageUrl} ></Avatar>
+                            {/* <div>{participants[key].current}
+                            </div> */}
+                            <div className="progress-bar">
+                                {participants[key].handle === handle ? (
+                                    <div className="progress-bar-value">{(Number(participantPercentage) + (Number(newestValue) / Number(goal)) * 100).toFixed(0)}%</div>
+                                ) : (
+                                        <div className="progress-bar-value">{Number(participantPercentage)}%</div>
+                                    )}
+                                <div className={`progress-bar-fill-${participants[key].handle}`}></div>
+                            </div>
+
+                        </div>
                     </div>
                 </BarWrapper>)
         }))
@@ -125,16 +195,18 @@ export class challenge extends Component {
 
         if (participants.length !== 0) {
             return (
-                <div className="challenge-body">
-                    <h1>{name.toUpperCase()}</h1>
-                    <h2>Goal: {goal}</h2>
-                    <h3>{description}</h3>
-                    <div className="graph-divs">
-                        {barGraphs}
+                <BarWrapper>
+                    <div className="challenge-body">
+                        <h1 className="info-header-1">{name.toUpperCase()}</h1>
+                        <h2 className="info-header">Goal: {goal}</h2>
+                        <h3 className="info-header">{description}</h3>
+                        <div className="graph-divs">
+                            {barGraphs}
+                        </div>
+                        <TextField className={classes.updateTextField} name="input" type="input" variant="outlined" placeholder="100" size="small" onChange={this.handleChange} />
+                        <Button variant="contained" color="secondary" onClick={() => { this.updateBar(updateData); this.handleSubmit(participants, uid); }}>Add more</Button>
                     </div>
-                    <input onChange={this.handleChange} />
-                    <button onClick={() => { this.updateBar(participants, uid); this.handleSubmit(participants, uid); }}>Add more</button>
-                </div>
+                </BarWrapper>
             );
         } else {
             return (<Loading />)
@@ -152,4 +224,4 @@ const mapStateToProps = (state) => ({
     user: state.user
 });
 
-export default connect(mapStateToProps)(challenge);
+export default connect(mapStateToProps)(withStyles(styles)(challenge));
