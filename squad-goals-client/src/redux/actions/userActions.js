@@ -23,6 +23,7 @@ export const loginUser = (userData, history) => (dispatch) => {
 
 export const signupUser = (newUserData, history) => (dispatch) => {
     dispatch({ type: LOADING_UI });
+    // dispatch({ type: CLEAR_ERRORS });
     axios.post('/signup', newUserData)
         .then(res => {
             setAuthorizationHeader(res.data.token)
@@ -64,7 +65,8 @@ export const getUserData = () => (dispatch) => {
 }
 
 export const addChallenge = (userDetails, history) => (dispatch) => {
-    dispatch({ type: LOADING_USER });
+    dispatch({ type: LOADING_UI });
+    // dispatch({ type: CLEAR_ERRORS });
     axios
         .post('/challenge', userDetails)
         .then(() => {
@@ -110,7 +112,8 @@ export const uploadImage = (formData) => (dispatch) => {
 }
 
 export const addFriend = (friendData) => (dispatch) => {
-    dispatch({ type: LOADING_USER })
+    dispatch({ type: LOADING_UI });
+    dispatch({ type: CLEAR_ERRORS });
     var { friendUid } = friendData
     axios.put('/user', friendData)
         .then((friendUid) => {
