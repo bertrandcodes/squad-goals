@@ -56,6 +56,7 @@ export const getUserData = () => (dispatch) => {
                 payload: res.data
             })
         })
+        //THIS NEEDS TO GO!!! CAUSING TOO MANY RENDERS
         .then(() => {
             dispatch(getFriends());
         })
@@ -156,14 +157,9 @@ export const getFriends = () => (dispatch) => {
                         })
                     })
             });
-            // dispatch({
-            //     type: SET_FRIENDS,
-            //     payload: res.data.credentials.friends
-            // })
         })
         .catch(err => console.log(err))
 }
-
 
 export const getFriend = (friendUid) => (dispatch) => {
     // dispatch({ type: LOADING_USER });
