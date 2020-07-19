@@ -113,7 +113,7 @@ export const uploadImage = (formData) => (dispatch) => {
 
 export const addFriend = (friendData) => (dispatch) => {
     dispatch({ type: LOADING_UI });
-    dispatch({ type: CLEAR_ERRORS });
+    // dispatch({ type: CLEAR_ERRORS });
     var { friendUid } = friendData
     axios.put('/user', friendData)
         .then((friendUid) => {

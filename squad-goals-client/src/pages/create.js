@@ -198,7 +198,9 @@ export class create extends Component {
                         <h1 className={classes.challengeHeader}><span className={classes.challengeSpan}>Start new challenge:</span></h1>
 
                         <Grid container direction={"column"} className={classes.form} spacing={1}>
+                            <form noValidate>
                             <Grid item>
+    
                                 <TextField
                                     className={classes.textField}
                                     name="name"
@@ -250,6 +252,7 @@ export class create extends Component {
                                 >
                                 </TextField>
                             </Grid>
+                            </form>
                         </Grid>
                     </Paper>
 
