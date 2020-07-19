@@ -151,15 +151,15 @@ export class create extends Component {
         });
     };
     addParticipant = (friendData) => {
-        const { handle, uid, imageUrl, current } = friendData;
-        this.state.participants[uid] = { handle, current, imageUrl };
+        const { handle, uid, imageUrl, current, completed } = friendData;
+        this.state.participants[uid] = { handle, current, imageUrl, completed };
         this.setState({
             participantList: [...this.state.participantList, handle]
         })
     }
     handleSubmit = (ownData) => {
-        const { handle, uid, imageUrl, current } = ownData;
-        this.state.participants[uid] = { handle, current, imageUrl };
+        const { handle, uid, imageUrl, current, completed } = ownData;
+        this.state.participants[uid] = { handle, current, imageUrl, completed };
         const userDetails = {
             name: this.state.name,
             goal: this.state.goal,
@@ -180,7 +180,8 @@ export class create extends Component {
             handle,
             uid: userId,
             imageUrl: imageUrl,
-            current: 0
+            current: 0,
+            completed: 0,
         }
 
         return (
@@ -258,7 +259,8 @@ export class create extends Component {
                                         handle: friend.handle,
                                         uid: friend.userId,
                                         imageUrl: friend.imageUrl,
-                                        current: 0
+                                        current: 0,
+                                        completed: 0,
                                     }
                                     return <div className={classes.friendRender}>
                                         <Avatar alt={friend.handle} src={friend.imageUrl} ></Avatar>
