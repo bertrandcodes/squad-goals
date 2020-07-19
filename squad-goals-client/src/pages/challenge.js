@@ -19,7 +19,18 @@ const styles = {
         height: '30px',
         width: '30px',
         margin: 'auto',
-        marginRight: '10px'
+        marginRight: '-11px'
+    },
+    completedCircle: {
+        height: '25px',
+        width: '25px',
+        borderRadius: '50%',
+        backgroundColor: '#f3db74',
+        // position: 'absolute',
+        margin: 'auto',
+        marginBottom: '-6px',
+        marginRight: '5px',
+        zIndex: '1'
     },
     updateTextField: {
         width: '55px',
@@ -199,6 +210,7 @@ export class challenge extends Component {
 
                         <div className="graph-div">
                             <Avatar className={classes.small} alt={participants[key].handle} src={participants[key].imageUrl} ></Avatar>
+                            <div className={classes.completedCircle}>10</div>
                             {/* <div>{participants[key].current}
                             </div> */}
                             <div className="progress-bar">

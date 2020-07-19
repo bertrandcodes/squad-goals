@@ -130,8 +130,7 @@ export const addFriend = (friendData) => (dispatch) => {
         .then((friendUid) => {
             dispatch(getFriend(friendUid));
             dispatch({ type: CLEAR_ERRORS });
-            toast.warn('👯 Wow! You made a friend!', {
-            })
+            toast.warn('👯 Woohoo! You made a friend!')
         })
         .catch(err => {
             console.log(err.response.data, 'err')
