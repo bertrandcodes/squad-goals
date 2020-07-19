@@ -168,13 +168,6 @@ export class create extends Component {
             participantList: [...this.state.participantList, handle],
         };
         this.props.addChallenge(userDetails, this.props.history);
-        this.setState({
-            name: '',
-            goal: '',
-            description: '',
-            participants: {},
-            participantList: []
-        })
     }
 
     render() {
@@ -199,59 +192,59 @@ export class create extends Component {
 
                         <Grid container direction={"column"} className={classes.form} spacing={1}>
                             <form noValidate>
-                            <Grid item>
-    
-                                <TextField
-                                    className={classes.textField}
-                                    name="name"
-                                    type="name"
-                                    label="Challenge name"
-                                    rows="1"
-                                    placeholder="Pushups"
-                                    variant="outlined"
-                                    value={this.state.name}
-                                    onChange={this.handleChange}
-                                    fullWidth
-                                    helperText={errors.name}
-                                    error={errors.name}
-                                >
-                                </TextField>
-                            </Grid>
-                            <Grid item>
-                                <TextField
-                                    className={classes.textField}
-                                    name="goal"
-                                    type="goal"
-                                    label="Goal"
-                                    rows="1"
-                                    placeholder="100"
-                                    variant="outlined"
-                                    value={this.state.goal}
-                                    onChange={this.handleChange}
-                                    fullWidth
-                                    helperText={errors.goal}
-                                    error={errors.goal}
-                                >
-                                </TextField>
-                            </Grid>
-                            <Grid item>
-                                <TextField
-                                    className={classes.textField}
-                                    name="description"
-                                    type="description"
-                                    label="Description"
-                                    // multiline
-                                    rows="1"
-                                    placeholder="Do 100 pushups everyday!"
-                                    variant="outlined"
-                                    value={this.state.description}
-                                    onChange={this.handleChange}
-                                    fullWidth
-                                    helperText={errors.description}
-                                    error={errors.description}
-                                >
-                                </TextField>
-                            </Grid>
+                                <Grid item>
+
+                                    <TextField
+                                        className={classes.textField}
+                                        name="name"
+                                        type="name"
+                                        label="Challenge name"
+                                        rows="1"
+                                        placeholder="Pushups"
+                                        variant="outlined"
+                                        value={this.state.name}
+                                        onChange={this.handleChange}
+                                        fullWidth
+                                        helperText={errors.name}
+                                        error={errors.name}
+                                    >
+                                    </TextField>
+                                </Grid>
+                                <Grid item>
+                                    <TextField
+                                        className={classes.textField}
+                                        name="goal"
+                                        type="goal"
+                                        label="Goal"
+                                        rows="1"
+                                        placeholder="100"
+                                        variant="outlined"
+                                        value={this.state.goal}
+                                        onChange={this.handleChange}
+                                        fullWidth
+                                        helperText={errors.goal}
+                                        error={errors.goal}
+                                    >
+                                    </TextField>
+                                </Grid>
+                                <Grid item>
+                                    <TextField
+                                        className={classes.textField}
+                                        name="description"
+                                        type="description"
+                                        label="Description"
+                                        // multiline
+                                        rows="1"
+                                        placeholder="Do 100 pushups everyday!"
+                                        variant="outlined"
+                                        value={this.state.description}
+                                        onChange={this.handleChange}
+                                        fullWidth
+                                        helperText={errors.description}
+                                        error={errors.description}
+                                    >
+                                    </TextField>
+                                </Grid>
                             </form>
                         </Grid>
                     </Paper>
@@ -284,7 +277,7 @@ export class create extends Component {
                         </div>
                     </div>
 
-                    <Button className={classes.challengeButton} onClick={event => { event.preventDefault(); this.handleSubmit(ownData) }} variant="contained" color="secondary" disabled={loading}>
+                    <Button className={classes.challengeButton} onClick={event => { event.preventDefault(); this.handleSubmit(ownData) }} type="submit" variant="contained" color="secondary" disabled={loading}>
                         Create
                         {loading && (
                             <CircularProgress size={30} className={classes.progress} />
