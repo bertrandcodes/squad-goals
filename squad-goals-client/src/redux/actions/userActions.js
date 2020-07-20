@@ -78,8 +78,7 @@ export const addChallenge = (userDetails, history) => (dispatch) => {
                         payload: res.data
                     })
                     history.push('/');
-                    toast.success('🚀 Challenge successfully added!', {
-                    });
+                    toast.success('🚀 Challenge successfully added!');
                 })
                 .catch(err => {
                     console.log(err.response.data, 'err')
@@ -141,7 +140,6 @@ export const addFriend = (friendData) => (dispatch) => {
         })
 
 }
-
 
 export const getFriends = () => (dispatch) => {
     // dispatch({ type: LOADING_USER });
