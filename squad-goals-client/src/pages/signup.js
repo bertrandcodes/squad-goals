@@ -29,7 +29,7 @@ const styles = {
         margin: '10px auto 10px auto'
     },
     button: {
-        marginTop: 30,
+        marginTop: 20,
         marginBottom: 20,
         position: 'relative'
     },

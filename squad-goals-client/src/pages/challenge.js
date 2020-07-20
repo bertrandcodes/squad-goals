@@ -3,6 +3,7 @@ import axios from 'axios';
 import Loading from '../components/Loading';
 import { toast } from 'react-toastify';
 import compliments from '../compliments.json';
+import moment from 'moment';
 
 import Avatar from '@material-ui/core/Avatar';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -131,7 +132,11 @@ const BarWrapper = styled.div`
     margin-top: 5px;
     display: flex;
     flex-direction: row;
-  }  
+  }
+  
+  .last-update {
+      color: grey;
+  }
 `;
 
 export class challenge extends Component {
@@ -146,6 +151,7 @@ export class challenge extends Component {
             pastAdds: 0,
             newValue: 0,
             newestValue: 0,
+            lastUpdate: undefined,
             participants: []
         }
     }
@@ -201,14 +207,26 @@ export class challenge extends Component {
         const current = data.participants[data.uid].current + this.state.pastAdds + this.state.newValue
         const currentPercentage = ((current / Number(this.state.goal)) * 100);
         const challenge = this.props.match.params.challengeId;
+        const time = moment().calendar();
         const uidData = {
             uid: this.state.uid
         }
+        this.setState({
+            lastUpdate: time
+        })
+        axios.put(`/challenge/${challenge}/time`, {
+            uid: this.state.uid,
+            time: time
+        })
+            .then((res) => {
+                console.log(res.data)
+            })
+            .catch((err) => console.log(err));
         if (currentPercentage >= 100) {
             axios.put(`/user/${this.state.handle}`, uidData)
                 .then((res) => {
                     console.log(res.data)
-                    toast.success('🎉🎉🎉 Congrats! You are done for today!')
+                    toast.success('🌟 Congrats! You are done for today!')
                 })
                 .catch((err) => console.log(err));
             axios.put(`/challenge/${challenge}/star`, uidData)
@@ -283,6 +301,13 @@ export class challenge extends Component {
                         <h1 className="info-header-1">{name.toUpperCase()}</h1>
                         <h2 className="info-header">Goal: {goal}</h2>
                         <h3 className="info-header">{description}</h3>
+                        <p className="last-update" ><i>last updated:
+                        {this.state.lastUpdate ? (
+                                <span className="time-span"> {this.state.lastUpdate}</span>
+                            ) : (
+                                    <span className="time-span"> {participants[uid].lastUpdate}</span>
+                                )}
+                        </i></p>
                         <div className="graph-divs">
                             {barGraphs}
                         </div>
@@ -295,7 +320,7 @@ export class challenge extends Component {
                                 </div>
                             )}
                     </div>
-                </BarWrapper>
+                </BarWrapper >
             );
         } else {
             return (<Loading />)
