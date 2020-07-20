@@ -19,7 +19,7 @@ const styles = {
         height: '30px',
         width: '30px',
         margin: 'auto',
-        marginRight: '-11px'
+        marginRight: '-16px'
     },
     completedCircle: {
         height: '25px',
@@ -32,10 +32,43 @@ const styles = {
         marginRight: '5px',
         zIndex: '1'
     },
+    completedStar: {
+        position: 'relative',
+        height: '30px',
+        width: '30px',
+        borderRadius: '50%',
+        // position: 'absolute',
+        margin: 'auto',
+        marginBottom: '-6px',
+        marginRight: '5px',
+        zIndex: '1'
+    },
+    noStar: {
+        position: 'relative',
+        height: '30px',
+        width: '15px',
+        borderRadius: '50%',
+        // position: 'absolute',
+        margin: 'auto',
+        marginBottom: '-6px',
+        marginRight: '5px',
+        zIndex: '1'
+    },
+    centered: {
+        position: 'absolute',
+        top: '58%',
+        left: '54%',
+        transform: 'translate(-50%, -50%)',
+        zIndex: 2,
+        fontSize: '13px'
+    },
     updateTextField: {
         width: '55px',
         backgroundColor: 'white',
         marginBottom: '15px',
+    },
+    noButton: {
+        marginTop: '10px'
     }
 }
 
@@ -167,6 +200,7 @@ export class challenge extends Component {
     updateBar = (data) => {
         const current = data.participants[data.uid].current + this.state.pastAdds + this.state.newValue
         const currentPercentage = ((current / Number(this.state.goal)) * 100);
+        const challenge = this.props.match.params.challengeId;
         const uidData = {
             uid: this.state.uid
         }
@@ -174,8 +208,12 @@ export class challenge extends Component {
             axios.put(`/user/${this.state.handle}`, uidData)
                 .then((res) => {
                     console.log(res.data)
-                    toast.success('🎉🎉🎉 Congrats! You are done for today!', {
-                    });
+                    toast.success('🎉🎉🎉 Congrats! You are done for today!')
+                })
+                .catch((err) => console.log(err));
+            axios.put(`/challenge/${challenge}/star`, uidData)
+                .then((res) => {
+                    console.log(challenge)
                 })
                 .catch((err) => console.log(err));
         }
@@ -210,7 +248,17 @@ export class challenge extends Component {
 
                         <div className="graph-div">
                             <Avatar className={classes.small} alt={participants[key].handle} src={participants[key].imageUrl} ></Avatar>
-                            <div className={classes.completedCircle}>10</div>
+                            {/* <div className={classes.completedCircle}>10</div> */}
+                            {participants[key].completed > 0 ? (
+                                <div className={classes.completedStar}>
+                                    <img className={classes.completedStar} src="https://img.icons8.com/fluent/48/000000/star.png" />
+                                    <div className={classes.centered}>{participants[key].completed}</div>
+                                </div>
+                            ) : (
+                                    <div className={classes.noStar} />
+                                )}
+
+
                             {/* <div>{participants[key].current}
                             </div> */}
                             <div className="progress-bar">
@@ -228,7 +276,7 @@ export class challenge extends Component {
         }))
             : <p>Loading challenge...</p>
 
-        if (participants.length !== 0) {
+        if (participants.length !== 0 && participants[uid]) {
             return (
                 <BarWrapper>
                     <div className="challenge-body">
@@ -238,8 +286,14 @@ export class challenge extends Component {
                         <div className="graph-divs">
                             {barGraphs}
                         </div>
-                        <TextField className={classes.updateTextField} inputProps={{ style: { textAlign: 'center' } }} name="input" type="input" variant="outlined" placeholder="100" size="small" onChange={this.handleChange} />
-                        <Button variant="contained" color="secondary" onClick={() => { this.updateBar(updateData); this.handleSubmit(participants, uid, compliments); }}>Add more</Button>
+                        {participants[uid].current === Number(goal) ? (
+                            <Button className={classes.noButton} variant="contained" color="secondary" disabled="true">Done for the day!</Button>
+                        ) : (
+                                <div className="challenge-body">
+                                    <TextField className={classes.updateTextField} inputProps={{ style: { textAlign: 'center' } }} name="input" type="input" variant="outlined" placeholder="100" size="small" onChange={this.handleChange} />
+                                    <Button variant="contained" color="secondary" onClick={() => { this.updateBar(updateData); this.handleSubmit(participants, uid, compliments); }}>Add more</Button>
+                                </div>
+                            )}
                     </div>
                 </BarWrapper>
             );
