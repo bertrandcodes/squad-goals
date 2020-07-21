@@ -123,7 +123,9 @@ const styles = theme => ({
         marginTop: 10
     },
     progress: {
-        position: 'absolute'
+        position: 'absolute',
+        top: '3px',
+        left: '48px',
     }
 });
 

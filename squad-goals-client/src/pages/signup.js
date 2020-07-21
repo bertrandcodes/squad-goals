@@ -39,7 +39,9 @@ const styles = {
         marginTop: 10
     },
     progress: {
-        position: 'absolute'
+        position: 'absolute',
+        top: '3px',
+        left: '21px',
     }
 };
 
