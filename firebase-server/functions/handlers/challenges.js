@@ -1,4 +1,6 @@
-const { db } = require('../util/admin.js');
+const { db, admin } = require('../util/admin.js');
+const { validateGoals } = require('../util/validators');
+
 //Get all challenges
 exports.getAllChallenges = (req, res) => {
     db.collection('challenges').orderBy('createdAt', 'desc')
@@ -11,8 +13,6 @@ exports.getAllChallenges = (req, res) => {
                     name: doc.data().name,
                     goal: doc.data().goal,
                     description: doc.data().description,
-                    // handle: doc.data().handle,
-                    // current: doc.data().current,
                     participants: doc.data().participants,
                     participantList: doc.data().participantList,
                     createdAt: doc.data().createdAt
@@ -29,12 +29,14 @@ exports.postOneChallenge = (req, res) => {
         name: req.body.name,
         goal: req.body.goal,
         description: req.body.description,
-        // handle: req.body.handle,
-        // current: req.body.current,
         participants: req.body.participants,
         participantList: req.body.participantList,
         createdAt: new Date().toISOString()
     };
+
+    const { valid, errors } = validateGoals(newChallenge);
+
+    if (!valid) return res.status(400).json(errors);
 
     db
         .collection('challenges')
@@ -70,16 +72,44 @@ exports.getChallenge = (req, res) => {
 
 //Update challenge
 exports.updateChallenge = (req, res) => {
-    // let challengeData = {};
     var uid = req.body.uid;
     var newValue = req.body.newValue;
     var currentUpdate = {};
     currentUpdate[`participants.${uid}.current`] = newValue;
     db.collection('challenges').doc(req.params.challengeId).update(currentUpdate)
-        // .child('participants').child(uid).update({ current: newValue })
-        // .where(`participants[${uid}]`, '==', uid).update({ current: newValue })
         .then(() => {
-            return res.json(newValue)
+            return res.json(currentUpdate)
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json({ error: err.code });
+        })
+}
+
+//Update star count
+exports.updateStar = (req, res) => {
+    var uid = req.body.uid;
+    var currentUpdate = {};
+    currentUpdate[`participants.${uid}.completed`] = admin.firestore.FieldValue.increment(1);
+    db.collection('challenges').doc(req.params.challengeId).update(currentUpdate)
+        .then(() => {
+            return res.json(currentUpdate)
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json({ error: err.code });
+        })
+}
+
+//Update time
+exports.updateTime = (req, res) => {
+    var uid = req.body.uid;
+    var time = req.body.time;
+    var currentUpdate = {};
+    currentUpdate[`participants.${uid}.lastUpdate`] = time;
+    db.collection('challenges').doc(req.params.challengeId).update(currentUpdate)
+        .then(() => {
+            return res.json(currentUpdate)
         })
         .catch((err) => {
             console.log(err);

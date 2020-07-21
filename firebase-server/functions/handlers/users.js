@@ -1,11 +1,10 @@
 const { db, admin } = require('../util/admin');
-// const { uuid } = require('uuidv4');
 
 const config = require('../util/config');
 const firebase = require('firebase');
 firebase.initializeApp(config)
 
-const { validateSignupData, validateLoginData, reduceUserDetails } = require('../util/validators');
+const { validateSignupData, validateLoginData, reduceUserDetails, validateAddFriend } = require('../util/validators');
 
 //Sign up user
 exports.signup = (req, res) => {
@@ -108,7 +107,7 @@ exports.getAuthenticatedUser = (req, res) => {
         .then(doc => {
             if (doc.exists) {
                 userData.credentials = doc.data();
-                return db.collection('challenges').where('participantList', 'array-contains', req.user.handle).get()
+                return db.collection('challenges').where('participantList', 'array-contains', req.user.handle).orderBy('createdAt', 'desc').get()
             }
         })
         .then(data => {
@@ -117,7 +116,6 @@ exports.getAuthenticatedUser = (req, res) => {
                 var noId = doc.data();
                 noId.challengeId = doc.id;
                 userData.challenges.push(noId);
-                // console.log(noId, 'this one here sir');
             })
             return res.json(userData);
         })
@@ -139,16 +137,12 @@ exports.uploadImage = (req, res) => {
 
     let imageToBeUploaded = {};
     let imageFileName;
-    // String for image token
-    // let generatedToken = uuid();
 
     busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
         if (mimetype !== "image/jpeg" && mimetype !== "image/png") {
             return res.status(400).json({ error: "Wrong file type submitted" });
         }
-        // my.image.png => ['my', 'image', 'png']
         const imageExtension = filename.split(".")[filename.split(".").length - 1];
-        // 32756238461724837.png
         imageFileName = `${Math.round(
             Math.random() * 1000000000000
         ).toString()}.${imageExtension}`;
@@ -165,8 +159,6 @@ exports.uploadImage = (req, res) => {
                 metadata: {
                     metadata: {
                         contentType: imageToBeUploaded.mimetype
-                        //Generate token to be appended to imageUrl
-                        // firebaseStorageDownloadTokens: generatedToken,
                     },
                 },
             })
@@ -186,10 +178,14 @@ exports.uploadImage = (req, res) => {
     busboy.end(req.rawBody);
 };
 
+//Add a friend
 exports.addFriend = (req, res) => {
     var uid = req.body.uid;
     var friendUid = req.body.friendUid;
+    const { valid, errors } = validateAddFriend(friendUid, uid);
+
     if (!uid || !friendUid) return null;
+    if (!valid) return res.status(400).json(errors);
 
     db.collection('users').doc(uid).update({ friends: admin.firestore.FieldValue.arrayUnion(friendUid) })
         .then(() => {
@@ -217,4 +213,19 @@ exports.getFriend = (req, res) => {
             console.error(err);
             res.status(500).json({ error: err.code });
         });
+}
+
+//Update completed
+exports.updateCompleted = (req, res) => {
+    var uid = req.body.uid;
+    db.collection('users').doc(uid).update({
+        completed: admin.firestore.FieldValue.increment(1)
+    })
+        .then(() => {
+            return res.json(uid)
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json({ error: err.code });
+        })
 }
