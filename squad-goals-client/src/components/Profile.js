@@ -7,7 +7,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
-import EditIcon from '@material-ui/icons/Edit';
 import Tooltip from '@material-ui/core/Tooltip';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 //Redux
@@ -78,7 +77,7 @@ export class Profile extends Component {
         fileInput.click();
     }
     render() {
-        const { classes, user: { credentials: { completed, handle, imageUrl, userId }, loading, authenticated } } = this.props;
+        const { classes, user: { credentials: { completed, handle, imageUrl }, loading, authenticated } } = this.props;
 
         let profileMarkup = !loading ? (authenticated ? (
             <Paper className={classes.paper}>
@@ -94,7 +93,7 @@ export class Profile extends Component {
                 </div>
                 <Typography variant="h3" align="center">{handle}</Typography>
 
-                <Typography variant="h5" align="center"> &#128293; Streaks: {completed}</Typography>
+                <Typography variant="h5" align="center"> <span role="img" aria-label="fire">&#128293;</span> Streaks: {completed}</Typography>
             </Paper>
         ) : (<Paper className={classes.noAccount}><Typography variant="body2" align="center">No Profile found, please login again</Typography>
             <div className={classes.buttons}>

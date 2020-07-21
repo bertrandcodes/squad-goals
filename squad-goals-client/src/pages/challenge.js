@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 import Loading from '../components/Loading';
 import { toast } from 'react-toastify';
@@ -242,8 +242,8 @@ export class challenge extends Component {
     }
 
     render() {
-        const { name, goal, description, participants, handle, uid, newestValue, pastAdds } = this.state;
-        const { classes, data, user: { loading } } = this.props;
+        const { name, goal, description, participants, handle, uid, pastAdds } = this.state;
+        const { classes, user: { loading } } = this.props;
         const updateData = {
             participants,
             uid,
@@ -254,7 +254,7 @@ export class challenge extends Component {
             const participantPercentage = ((participants[key].current / Number(goal)) * 100).toFixed(0);
             const myPercentage = (((participants[key].current + pastAdds) / Number(goal)) * 100).toFixed(0);
             return (
-                <BarWrapper percentage={participantPercentage} handle={participants[key].handle}>
+                <BarWrapper key={key} percentage={participantPercentage} handle={participants[key].handle}>
 
                     <div className="participant-bar">
 
@@ -262,7 +262,7 @@ export class challenge extends Component {
                             <Avatar className={classes.small} alt={participants[key].handle} src={participants[key].imageUrl} ></Avatar>
                             {participants[key].completed > 0 ? (
                                 <div className={classes.completedStar}>
-                                    <img className={classes.completedStar} src="https://img.icons8.com/fluent/48/000000/star.png" />
+                                    <img className={classes.completedStar} alt="star" src="https://img.icons8.com/fluent/48/000000/star.png" />
                                     <div className={classes.centered}>{participants[key].completed}</div>
                                 </div>
                             ) : (

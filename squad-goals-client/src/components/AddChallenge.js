@@ -9,7 +9,6 @@ import TextField from '@material-ui/core/TextField';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Avatar from '@material-ui/core/Avatar';
 import Checkbox from '@material-ui/core/Checkbox';
-import Typography from '@material-ui/core/Typography';
 //Redux
 import { connect } from 'react-redux';
 import { addChallenge } from '../redux/actions/userActions';

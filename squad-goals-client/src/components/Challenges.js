@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
@@ -81,12 +80,12 @@ const styles = {
     }
 }
 
-export class Challenge extends Component {
+export class Challenges extends Component {
     render() {
         const { classes, challenge: { name, goal, description, challengeId, participants }, userId, handle } = this.props
         let avatars = Object.keys(participants).map(participant => {
             if (participants[participant].handle !== handle)
-                return <Avatar alt={participants[participant].handle} src={participants[participant].imageUrl} />
+                return <Avatar key={participant} alt={participants[participant].handle} src={participants[participant].imageUrl} />
         })
         return (
             <Card className={classes.card} component={Link} to={`/challenge/${challengeId}`}>
@@ -115,4 +114,4 @@ export class Challenge extends Component {
     }
 }
 
-export default withStyles(styles)(Challenge);
+export default withStyles(styles)(Challenges);

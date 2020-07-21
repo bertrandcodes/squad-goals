@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import Loading from '../components/Loading';
 
 import TextField from '@material-ui/core/TextField';
@@ -7,7 +7,6 @@ import Paper from '@material-ui/core/Paper';
 import Avatar from '@material-ui/core/Avatar';
 import withStyles from '@material-ui/core/styles/withStyles';
 import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
-import { FormHelperText } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 
@@ -140,10 +139,10 @@ export class friends extends Component {
         this.props.addFriend(friendData);
     }
     render() {
-        const { classes, UI: { loading }, user: { credentials: { userId, handle, imageUrl }, friends } } = this.props;
+        const { classes, UI: { loading }, user: { credentials: { userId }, friends } } = this.props;
         const { errors, friendUid } = this.state;
         let friendsList = friends ? (friends.map(friend => {
-            return <div className={classes.friendRender}>
+            return <div key={friend.handle} className={classes.friendRender}>
                 <Avatar alt={friend.handle} src={friend.imageUrl} ></Avatar>
                 <div className={classes.friendHandle}>{friend.handle}
                     <PersonAddDisabledIcon className={classes.disabledIcon} />
