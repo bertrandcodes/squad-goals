@@ -2,11 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AppIconPNG from '../images/handstogether.png';
 import { Link } from 'react-router-dom';
-// import firebase from 'firebase';
-// import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-
-
-//MUI Stuff
+//Material UI
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -79,7 +75,6 @@ export class Login extends Component {
     handleChange = (event) => {
         this.setState({
             [event.target.name]: event.target.value,
-            // errors: {}
         });
     };
 

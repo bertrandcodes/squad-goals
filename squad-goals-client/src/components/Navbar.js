@@ -2,8 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import MyButton from '../util/MyButton'
 import { ToastContainer, toast } from 'react-toastify';
-
-//MUI Stuff
+//Material UI
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
@@ -17,7 +16,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { logoutUser } from '../redux/actions/userActions';
 
-
 export class Navbar extends Component {
     handleLogout = () => {
         this.props.logoutUser()
@@ -25,13 +23,6 @@ export class Navbar extends Component {
     render() {
         const { authenticated } = this.props
         const toastify = () => toast.error('⏳ Uh-oh! Our engineer is working hard to develop this feature. Check back in later.', {
-            // position: "bottom-center",
-            // autoClose: 3000,
-            // hideProgressBar: false,
-            // closeOnClick: true,
-            // pauseOnHover: true,
-            // draggable: true,
-            // progress: undefined,
         });
 
         return (

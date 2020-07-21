@@ -1,7 +1,6 @@
 import { SET_USER, SET_ERRORS, SET_FRIENDS, CLEAR_ERRORS, LOADING_UI, SET_UNAUTHENTICATED, LOADING_USER } from '../types';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
 
 export const loginUser = (userData, history) => (dispatch) => {
     dispatch({ type: LOADING_UI });
@@ -23,7 +22,6 @@ export const loginUser = (userData, history) => (dispatch) => {
 
 export const signupUser = (newUserData, history) => (dispatch) => {
     dispatch({ type: LOADING_UI });
-    // dispatch({ type: CLEAR_ERRORS });
     axios.post('/signup', newUserData)
         .then(res => {
             setAuthorizationHeader(res.data.token)
@@ -57,7 +55,6 @@ export const getUserData = () => (dispatch) => {
                 payload: res.data
             })
         })
-        //THIS NEEDS TO GO!!! CAUSING TOO MANY RENDERS
         .then(() => {
             dispatch(getFriends());
         })
@@ -66,7 +63,6 @@ export const getUserData = () => (dispatch) => {
 
 export const addChallenge = (userDetails, history) => (dispatch) => {
     dispatch({ type: LOADING_UI });
-    // dispatch({ type: CLEAR_ERRORS });
     axios
         .post('/challenge', userDetails)
         .then(() => {
@@ -112,7 +108,6 @@ export const uploadImage = (formData) => (dispatch) => {
 
 export const addFriend = (friendData) => (dispatch) => {
     dispatch({ type: LOADING_UI });
-    // dispatch({ type: CLEAR_ERRORS });
     var { friendUid } = friendData
     axios.put('/user', friendData)
         .then((friendUid) => {
@@ -142,12 +137,10 @@ export const addFriend = (friendData) => (dispatch) => {
 }
 
 export const getFriends = () => (dispatch) => {
-    // dispatch({ type: LOADING_USER });
     var friends = [];
     axios.get(`/user`)
         .then(res => {
             friends = res.data.credentials.friends;
-            // console.log(friends, 'shudbearray');
             friends.forEach(friend => {
                 axios.get(`/user/${friend}`)
                     .then(res => {
@@ -162,7 +155,6 @@ export const getFriends = () => (dispatch) => {
 }
 
 export const getFriend = (friendUid) => (dispatch) => {
-    // dispatch({ type: LOADING_USER });
     axios.get(`/user/${friendUid}`)
         .then(res => {
             dispatch({

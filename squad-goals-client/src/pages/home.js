@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-//Redux
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import Challenge from '../components/Challenges';
+import Profile from '../components/Profile';
+import AddChallenge from '../components/AddChallenge';
+import AddFriends from '../components/AddFriends.js';
+import Loading from '../components/Loading';
 //Material UI
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -10,13 +12,9 @@ import Grid from '@material-ui/core/Grid';
 import { getChallenges } from '../redux/actions/dataActions';
 import Tooltip from '@material-ui/core/Tooltip';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-
-//Components
-import Challenge from '../components/Challenges';
-import Profile from '../components/Profile';
-import AddChallenge from '../components/AddChallenge';
-import AddFriends from '../components/AddFriends.js';
-import Loading from '../components/Loading';
+//Redux
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 const styles = {
     challengeButton: {

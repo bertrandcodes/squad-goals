@@ -7,14 +7,12 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import withStyles from '@material-ui/core/styles/withStyles';
-
 //Redux
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addFriend } from '../redux/actions/userActions';
 
 const styles = (theme) => ({
-
 });
 
 export class AddFriends extends Component {
@@ -41,17 +39,12 @@ export class AddFriends extends Component {
         const friendData = { uid, friendUid }
         this.props.addFriend(friendData);
     }
-    // showFriend = (friends) => {
-    //     console.log(friends[0])
-    //     this.props.getFriend(friends[0])
-    // }
 
     render() {
         const { friends } = this.props.user;
 
         let friendsList = friends ? (friends.map(friend => <p>{friend.handle}</p>)) : <p>Loading...</p>
-        // let recentFriendMarkup = friends ? (friends.map(friend =>
-        // this.props.getFriend(friend))) : <p>Loading...</p>
+
         return (
             <Fragment>
                 <Button onClick={this.handleOpen} variant="contained" color="secondary">Add friends</Button>

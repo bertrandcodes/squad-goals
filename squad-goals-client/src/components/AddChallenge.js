@@ -10,8 +10,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Avatar from '@material-ui/core/Avatar';
 import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
-
-
 //Redux
 import { connect } from 'react-redux';
 import { addChallenge } from '../redux/actions/userActions';
@@ -118,7 +116,6 @@ export class AddChallenge extends Component {
             participants: {},
             participantList: []
         })
-        // this.handleClose();
     }
 
     render() {
@@ -185,11 +182,6 @@ export class AddChallenge extends Component {
                                 error={errors.description}
                             >
                             </TextField>
-                            {/* {errors.goals && (
-                                <Typography variant="body2" className={classes.customError}>
-                                    {errors.goals}
-                                </Typography>
-                            )} */}
                             <div className={classes.addParticipants}>
                                 <h3 className={classes.header}>Add participants</h3>
                                 <div className={classes.addChallengersDiv}>
@@ -202,14 +194,10 @@ export class AddChallenge extends Component {
                                                 current: 0
                                             }
                                             return <div className={classes.friendRender}>
-                                                {/* <button onClick={event => { event.preventDefault(); this.addParticipant(friendData) }}>{friend.handle}</button> */}
                                                 <Avatar alt={friend.handle} src={friend.imageUrl} ></Avatar>
-                                                {/* onClick={event => { event.preventDefault(); this.addParticipant(friendData) }} */}
                                                 <div className={classes.friendHandle}>{friend.handle}
                                                     <Checkbox
                                                         onClick={event => { event.preventDefault(); this.addParticipant(friendData) }}
-                                                        // value="checkedA"
-                                                        // inputProps={{ 'aria-label': 'Checkbox A' }}
                                                         color='green'
                                                         className={classes.check}
                                                     /></div>
@@ -217,8 +205,6 @@ export class AddChallenge extends Component {
                                         }
                                         )) : <p>Loading...</p>) : (<p className={classes.noFriends}>No friends yet... &#128546;</p>)
                                     }
-
-                                    {/* {friendsList} */}
                                 </div>
                             </div>
                         </form>

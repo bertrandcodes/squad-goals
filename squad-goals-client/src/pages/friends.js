@@ -130,7 +130,6 @@ export class friends extends Component {
     handleChange = (event) => {
         this.setState({
             friendUid: event.target.value,
-            // errors: {}
         });
     };
     handleSubmit = (uid, friendUid) => {
@@ -174,9 +173,7 @@ export class friends extends Component {
                     </div>
                     <Button onClick={event => { event.preventDefault(); this.handleSubmit(userId, this.state.friendUid) }} type="submit" className={classes.submitButton} variant="contained" color="secondary" disabled={loading}>Add friend
                     {loading && (
-                            // <div className={classes.circleDiv}>
                             <CircularProgress size={30} className={classes.progress} />
-                            // </div>
                         )}
                     </Button>
 

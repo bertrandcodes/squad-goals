@@ -1,6 +1,5 @@
 import {
     SET_CHALLENGES
-    // LOADING_DATA
 } from '../types';
 
 const initialState = {
