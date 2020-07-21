@@ -2,15 +2,12 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Challenge from '../components/Challenges';
 import Profile from '../components/Profile';
-import AddChallenge from '../components/AddChallenge';
-import AddFriends from '../components/AddFriends.js';
 import Loading from '../components/Loading';
 //Material UI
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import { getChallenges } from '../redux/actions/dataActions';
-import Tooltip from '@material-ui/core/Tooltip';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 //Redux
 import PropTypes from 'prop-types';
@@ -46,7 +43,7 @@ export class Home extends Component {
     render() {
         const { challenges, loading, credentials: { userId, handle } } = this.props.user;
         const { classes } = this.props;
-        let recentChallengesMarkup = challenges ? (challenges.map(challenge => <Challenge challenge={challenge} userId={userId} handle={handle} />)) : <div>User session timed out. 😴</div>
+        let recentChallengesMarkup = challenges ? (challenges.map(challenge => <Challenge key={challenge.challengeId} challenge={challenge} userId={userId} handle={handle} />)) : <div>User session timed out. <span role="img" aria-label="sleep">😴</span></div>
         return (
             loading ? (<Loading />) : (<Grid className="home-grid">
                 <Grid item  >

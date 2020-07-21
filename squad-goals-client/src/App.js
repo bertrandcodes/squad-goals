@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 //Redux
 import { Provider } from 'react-redux';
 import store from './redux/store';
-import { SET_AUTHENTICATED, SET_UNAUTHENTICATED } from './redux/types';
+import { SET_AUTHENTICATED } from './redux/types';
 import { logoutUser, getUserData } from './redux/actions/userActions';
 //Components
 import Navbar from './components/Navbar';
@@ -73,9 +73,9 @@ if (token) {
     window.location.href = '/login';
     store.dispatch(logoutUser())
   } else {
-  store.dispatch({ type: SET_AUTHENTICATED })
-  axios.defaults.headers.common['Authorization'] = token;
-  store.dispatch(getUserData());
+    store.dispatch({ type: SET_AUTHENTICATED })
+    axios.defaults.headers.common['Authorization'] = token;
+    store.dispatch(getUserData());
   }
 }
 

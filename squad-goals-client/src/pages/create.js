@@ -2,15 +2,10 @@ import React, { Component, Fragment } from 'react';
 //Material UI
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Avatar from '@material-ui/core/Avatar';
 import Checkbox from '@material-ui/core/Checkbox';
-import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 //Redux
@@ -259,7 +254,7 @@ export class create extends Component {
                                             /></div>
                                     </div>
                                 }
-                                )) : <p>Loading...</p>) : (<p className={classes.noFriends}>No friends yet... &#128546;</p>)
+                                )) : <p>Loading...</p>) : (<p className={classes.noFriends}>No friends yet... <span role="img" aria-label="sad">&#128546;</span></p>)
                             }
                         </div>
                     </div>
