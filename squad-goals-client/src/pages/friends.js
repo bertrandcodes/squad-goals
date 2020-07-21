@@ -108,10 +108,8 @@ const styles = {
     },
     progress: {
         position: 'absolute',
-        top: '50%',
-        left: '50%',
-        // height: '25px',
-        // width: '25px'
+        top: '3px',
+        left: '48px',
     }
 }
 
@@ -181,6 +179,7 @@ export class friends extends Component {
                             // </div>
                         )}
                     </Button>
+
                     <div className={classes.friendsListDiv}>
                         <div className={classes.friendsList}>
                             <h1 className={classes.currentFriends}><span className={classes.currentFriendsSpan}>Current Friends</span></h1>
