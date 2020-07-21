@@ -107,7 +107,11 @@ const styles = {
         marginTop: '50px'
     },
     progress: {
-        position: 'absolute'
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        // height: '25px',
+        // width: '25px'
     }
 }
 
@@ -172,7 +176,9 @@ export class friends extends Component {
                     </div>
                     <Button onClick={event => { event.preventDefault(); this.handleSubmit(userId, this.state.friendUid) }} type="submit" className={classes.submitButton} variant="contained" color="secondary" disabled={loading}>Add friend
                     {loading && (
+                            // <div className={classes.circleDiv}>
                             <CircularProgress size={30} className={classes.progress} />
+                            // </div>
                         )}
                     </Button>
                     <div className={classes.friendsListDiv}>

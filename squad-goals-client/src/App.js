@@ -69,14 +69,14 @@ const theme = createMuiTheme({
 const token = localStorage.FBIdToken;
 if (token) {
   const decodedToken = jwtDecode(token);
-  if (decodedToken.exp * 1000 < Date.now()) {
-    window.location.href = '/login';
-    store.dispatch(logoutUser())
-  } else {
-    store.dispatch({ type: SET_AUTHENTICATED })
-    axios.defaults.headers.common['Authorization'] = token;
-    store.dispatch(getUserData());
-  }
+  // if (decodedToken.exp * 1000 < Date.now()) {
+  //   window.location.href = '/login';
+  //   store.dispatch(logoutUser())
+  // } else {
+  store.dispatch({ type: SET_AUTHENTICATED })
+  axios.defaults.headers.common['Authorization'] = token;
+  store.dispatch(getUserData());
+  // }
 }
 
 class App extends Component {

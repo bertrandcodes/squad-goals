@@ -31,7 +31,7 @@ const styles = {
         backgroundColor: 'white'
     },
     challengeHeader: {
-        width: '95px',
+        width: '90px',
         marginTop: 'auto',
         marginBottom: 'auto',
     },
