@@ -22,6 +22,7 @@
     "react-scripts": "3.4.1",
     "react-toastify": "^6.0.8",
     "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
     "serve": "11.3.2",
     "styled-components": "^5.1.1"
@@ -47,5 +48,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000/accountability-tracker-friends/us-central1/api"
+  "proxy": "https://us-central1-accountability-tracker-friends.cloudfunctions.net/api"
 }

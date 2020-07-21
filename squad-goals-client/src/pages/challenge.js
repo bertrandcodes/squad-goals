@@ -66,7 +66,8 @@ const styles = {
     updateTextField: {
         width: '55px',
         backgroundColor: 'white',
-        marginBottom: '15px',
+        marginTop: '16px',
+        marginBottom: '16px',
     },
     noButton: {
         marginTop: '10px'
