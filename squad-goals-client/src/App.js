@@ -23,6 +23,8 @@ import challenge from './pages/challenge';
 import create from './pages/create';
 import axios from 'axios';
 
+axios.defaults.baseURL = 'https://us-central1-accountability-tracker-friends.cloudfunctions.net/api';
+
 const theme = createMuiTheme({
   palette: {
     primary: {
