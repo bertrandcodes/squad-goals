@@ -24,6 +24,8 @@ import create from './pages/create';
 import axios from 'axios';
 
 axios.defaults.baseURL = 'https://us-central1-accountability-tracker-friends.cloudfunctions.net/api';
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
 const theme = createMuiTheme({
   palette: {

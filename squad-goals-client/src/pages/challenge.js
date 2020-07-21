@@ -76,8 +76,8 @@ const BarWrapper = styled.div`
     margin-bottom: 5px;
 }
 .info-header {
-    margin-top: 0px;
-    margin-bottom: 0px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 .participant-bar {
     display: flex;
@@ -115,6 +115,7 @@ const BarWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
 }
 
 .graph-divs {
@@ -133,6 +134,8 @@ const BarWrapper = styled.div`
   
   .last-update {
       color: grey;
+      margin-top: 5px;
+      margin-bottom: 5px;
   }
 `;
 
