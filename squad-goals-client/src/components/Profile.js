@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Loading from './Loading';
-//MUI
+//Material UI
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
@@ -10,7 +10,6 @@ import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import Tooltip from '@material-ui/core/Tooltip';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
-
 //Redux
 import { connect } from 'react-redux';
 import { logoutUser, uploadImage } from '../redux/actions/userActions';
@@ -47,7 +46,6 @@ const styles = {
         position: 'absolute',
         left: '200px',
         bottom: '145px',
-        // float: 'right',
     },
     cameraFrame: {
         height: '50px',
@@ -55,7 +53,6 @@ const styles = {
         backgroundColor: 'white',
         borderRadius: '50%',
         textAlign: 'center',
-        // float: 'right',
     },
     noAccount: {
         height: '90px',
@@ -96,9 +93,6 @@ export class Profile extends Component {
                     </Tooltip>
                 </div>
                 <Typography variant="h3" align="center">{handle}</Typography>
-                {/* <Typography align="center">{userId}</Typography> */}
-
-                {/* <hr className={classes.rounded} /> */}
 
                 <Typography variant="h5" align="center"> &#128293; Streaks: {completed}</Typography>
             </Paper>
@@ -119,7 +113,6 @@ const mapStateToProps = (state) => ({
 const mapActionsToProps = { logoutUser, uploadImage }
 
 Profile.propTypes = {
-    // logoutUser: PropTypes.func.isRequired,
     uploadImage: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
     classes: PropTypes.object.isRequired

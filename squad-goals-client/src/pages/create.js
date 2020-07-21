@@ -13,7 +13,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
 //Redux
 import { connect } from 'react-redux';
 import { addChallenge } from '../redux/actions/userActions';
@@ -30,14 +29,9 @@ const styles = theme => ({
     secondDiv: {
         position: 'relative',
         textAlign: 'center',
-        // height: '360px',
-        // height: '330px',
-        // maxHeight: '360px',
-        // display: 'inline-block',
         width: '320px',
         marginLeft: 'auto',
         marginRight: 'auto',
-        // paddingRight: '20px',
         boxSizing: 'border-box',
         paddingTop: '10px',
         paddingBottom: '25px',
@@ -55,11 +49,6 @@ const styles = theme => ({
         borderRadius: '15px',
         bottom: '215px'
     },
-    // challengeSpan: {
-    //     backgroundColor: '#efefef',
-    //     paddingLeft: '5px',
-    //     paddingRight: '5px'
-    // },
     challengeHeader: {
         marginTop: '0px',
         marginBottom: '10px',
@@ -70,7 +59,6 @@ const styles = theme => ({
     },
     textField: {
         marginTop: '5px',
-        // backgroundColor: 'whitesmoke',
     },
     challengeButton: {
         margin: 'auto',
@@ -83,7 +71,6 @@ const styles = theme => ({
         marginBottom: '15px',
         padding: '12px',
         boxSizing: 'border-block',
-        // backgroundColor: 'whitesmoke',
         border: '3px double grey',
         borderRadius: '15px',
         overflowX: 'hidden',
@@ -96,7 +83,6 @@ const styles = theme => ({
     },
     addParticipants: {
         textAlign: 'center',
-        // marginTop: '35px'
     },
     header: {
         marginTop: '10px',
@@ -149,7 +135,6 @@ export class create extends Component {
     handleChange = (event) => {
         this.setState({
             [event.target.name]: event.target.value,
-            // errors: {}
         });
     };
     addParticipant = (friendData) => {
@@ -189,7 +174,6 @@ export class create extends Component {
 
         return (
             <Fragment>
-                {/* <div className={classes.backgroundDiv}></div> */}
                 <div className={classes.mainDiv}>
                     <Paper className={classes.secondDiv}>
                         <h1 className={classes.challengeHeader}><span className={classes.challengeSpan}>Start new challenge:</span></h1>
@@ -237,7 +221,6 @@ export class create extends Component {
                                         name="description"
                                         type="description"
                                         label="Description"
-                                        // multiline
                                         rows="1"
                                         placeholder="Do 100 pushups everyday!"
                                         variant="outlined"
@@ -271,8 +254,6 @@ export class create extends Component {
                                         <div className={classes.friendHandle}>{friend.handle}
                                             <Checkbox
                                                 onClick={event => { event.preventDefault(); this.addParticipant(friendData) }}
-                                                // value="checkedA"
-                                                // inputProps={{ 'aria-label': 'Checkbox A' }}
                                                 color='green'
                                                 className={classes.check}
                                             /></div>

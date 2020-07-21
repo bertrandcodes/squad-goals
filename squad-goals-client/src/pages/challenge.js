@@ -4,16 +4,15 @@ import Loading from '../components/Loading';
 import { toast } from 'react-toastify';
 import compliments from '../compliments.json';
 import moment from 'moment';
-
+import styled from 'styled-components';
+//Material UI
 import Avatar from '@material-ui/core/Avatar';
 import withStyles from '@material-ui/core/styles/withStyles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-
 //Redux
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
 
 const styles = {
     small: {
@@ -27,7 +26,6 @@ const styles = {
         width: '25px',
         borderRadius: '50%',
         backgroundColor: '#f3db74',
-        // position: 'absolute',
         margin: 'auto',
         marginBottom: '-6px',
         marginRight: '5px',
@@ -38,7 +36,6 @@ const styles = {
         height: '30px',
         width: '30px',
         borderRadius: '50%',
-        // position: 'absolute',
         margin: 'auto',
         marginBottom: '-6px',
         marginRight: '5px',
@@ -49,7 +46,6 @@ const styles = {
         height: '30px',
         width: '15px',
         borderRadius: '50%',
-        // position: 'absolute',
         margin: 'auto',
         marginBottom: '-6px',
         marginRight: '5px',
@@ -253,9 +249,6 @@ export class challenge extends Component {
             uid,
             handle
         }
-        // const { handle } = this.props.user.credentials.handle;
-        // const currentPercentage = ((current / Number(goal)) * 100);
-
 
         let barGraphs = !loading ? (Object.keys(participants).sort(function (a, b) { return participants[b].current - participants[a].current }).map(function (key, index) {
             const participantPercentage = ((participants[key].current / Number(goal)) * 100).toFixed(0);
@@ -267,7 +260,6 @@ export class challenge extends Component {
 
                         <div className="graph-div">
                             <Avatar className={classes.small} alt={participants[key].handle} src={participants[key].imageUrl} ></Avatar>
-                            {/* <div className={classes.completedCircle}>10</div> */}
                             {participants[key].completed > 0 ? (
                                 <div className={classes.completedStar}>
                                     <img className={classes.completedStar} src="https://img.icons8.com/fluent/48/000000/star.png" />
@@ -277,9 +269,6 @@ export class challenge extends Component {
                                     <div className={classes.noStar} />
                                 )}
 
-
-                            {/* <div>{participants[key].current}
-                            </div> */}
                             <div className="progress-bar">
                                 {participants[key].handle === handle ? (
                                     <div className="progress-bar-value">{Number(myPercentage)}%</div>
