@@ -1,8 +1,9 @@
+const { db, admin } = require('./util/admin');
 const functions = require('firebase-functions');
 const FBAuth = require('./util/FBAuth')
 const app = require('express')();
 
-const cors = require('cors')({ origin: true });
+const cors = require('cors');
 app.use(cors());
 
 const { getAllChallenges, postOneChallenge, getChallenge, updateChallenge, updateStar, updateTime } = require('./handlers/challenges');
@@ -27,3 +28,20 @@ app.put('/challenge/:challengeId/star', updateStar);
 app.put('/challenge/:challengeId/time', updateTime);
 
 exports.api = functions.https.onRequest(app);
+
+exports.clearData = functions.pubsub.schedule('0 0 * * *').onRun((context) => {
+    db.collection('challenges').get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+
+            var participants = doc.data().participants
+            for (participant in participants) {
+                currentUpdate = {};
+                currentUpdate[`participants.${participant}.current`] = 0;
+                doc.ref.update(
+                    currentUpdate
+                );
+            }
+        });
+    })
+    return console.log('data cleared', participants);
+});

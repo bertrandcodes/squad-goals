@@ -196,6 +196,16 @@ exports.addFriend = (req, res) => {
             console.log(err);
             res.status(500).json({ error: err.code });
         })
+
+    db.collection('users').doc(friendUid).update({ friends: admin.firestore.FieldValue.arrayUnion(uid) })
+        .then(() => {
+            console.log('added 1 friend')
+            return res.json(friendUid)
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json({ error: err.code });
+        })
 }
 
 //Get a friend

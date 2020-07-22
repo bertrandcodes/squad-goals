@@ -82,3 +82,22 @@ exports.validateAddFriend = (friendUid, uid) => {
         valid: Object.keys(errors).length === 0 ? true : false
     };
 }
+
+exports.validateNewValue = (newValue, inputValue) => {
+    let errors = {};
+    console.log('input', inputValue)
+    console.log('new', newValue)
+
+
+    if (inputValue < 0) {
+        errors.value = 'Stop looking for bugs. There are none.'
+    }
+    else if (newValue === null || inputValue === null) {
+        errors.value = 'Must be a number!'
+    }
+
+    return {
+        errors,
+        valid: Object.keys(errors).length === 0 ? true : false
+    };
+}
