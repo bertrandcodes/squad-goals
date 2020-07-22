@@ -165,6 +165,26 @@ export const getFriend = (friendUid) => (dispatch) => {
         .catch(err => console.log(err))
 }
 
+export const updateCurrent = (newValues, supply) => (dispatch) => {
+    dispatch({ type: LOADING_UI });
+    dispatch({ type: CLEAR_ERRORS });
+    const { compliment, stateNewValue, currentPercentage, challenge } = supply
+    axios.put(`/challenge/${challenge}`, newValues)
+        .then((res) => {
+            dispatch({ type: CLEAR_ERRORS });
+            if (stateNewValue > 0 && currentPercentage < 100) {
+                toast.success(compliment);
+            }
+        })
+        .catch((err) => {
+            console.log(err)
+            dispatch({
+                type: SET_ERRORS,
+                payload: err.response.data
+            })
+        })
+}
+
 const setAuthorizationHeader = (token) => {
     const FBIdToken = `Bearer ${token}`;
     localStorage.setItem('FBIdToken', FBIdToken);

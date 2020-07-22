@@ -13,7 +13,7 @@ import AddIcon from '@material-ui/icons/Add';
 //Redux
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { logoutUser } from '../redux/actions/userActions';
+import { logoutUser, getUserData } from '../redux/actions/userActions';
 
 export class Navbar extends Component {
     handleLogout = () => {
@@ -31,7 +31,7 @@ export class Navbar extends Component {
                     {authenticated ? (
                         <Fragment>
                             <Link to="/login">
-                                <MyButton tip="Home">
+                                <MyButton tip="Home" onClick={this.props.getUserData}>
                                     <img src="https://firebasestorage.googleapis.com/v0/b/accountability-tracker-friends.appspot.com/o/hands.png?alt=media&token=18aecf71-87d2-4f34-a64e-7c9841a3f4e2" alt="hands together" width="25px" height="25px" />
                                 </MyButton>
                             </Link>
@@ -68,7 +68,7 @@ export class Navbar extends Component {
     }
 }
 
-const mapActionsToProps = { logoutUser }
+const mapActionsToProps = { logoutUser, getUserData }
 
 Navbar.propTypes = {
     logoutUser: PropTypes.func.isRequired,
