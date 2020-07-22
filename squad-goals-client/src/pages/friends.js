@@ -27,11 +27,10 @@ const styles = {
         position: 'relative',
         textAlign: 'center',
         margin: 'auto',
-        // padding: '10px',
-        // textShadow: '1px 1px black'
     },
     text: {
-        padding: '15px'
+        padding: '15px',
+        paddingBottom: '18px'
     },
     addFriendDiv: {
         textAlign: 'center',
@@ -40,7 +39,6 @@ const styles = {
     },
     friendTextField: {
         margin: '30px auto 20px auto',
-        // backgroundColor: 'white'
     },
     idSpan: {
         color: 'green'
@@ -48,7 +46,6 @@ const styles = {
     friendsListDiv: {
         position: 'relative',
         textAlign: 'center',
-        // marginTop: '-30px'
     },
     friendsList: {
         position: 'relative',
@@ -67,7 +64,6 @@ const styles = {
     friendsListInner: {
         marginTop: '50px',
         height: '150px',
-        // width: '200px',
         overflowY: 'scroll',
         overflowX: 'hidden'
     },

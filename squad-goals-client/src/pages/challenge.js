@@ -73,11 +73,11 @@ const styles = {
 const BarWrapper = styled.div`
 .info-header-1 {
     margin-top: 0px;
-    margin-bottom: 5px;
+    margin-bottom: 0px;
 }
 .info-header {
     margin-top: 5px;
-    margin-bottom: 5px;
+    margin-bottom: 7px;
 }
 .participant-bar {
     display: flex;
@@ -152,9 +152,16 @@ export class challenge extends Component {
             newValue: 0,
             newestValue: 0,
             lastUpdate: undefined,
-            participants: []
+            participants: [],
+            errors: {}
         }
     }
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.UI.errors) {
+            this.setState({ errors: nextProps.UI.errors });
+        }
+    }
+
     componentDidMount() {
         const challenge = this.props.match.params.challengeId;
         axios.get(`/challenge/${challenge}`)
@@ -185,8 +192,8 @@ export class challenge extends Component {
     };
     handleSubmit = (participants, uid, compliments) => {
         const currentNew = participants[uid].current + this.state.pastAdds + this.state.newValue
-        const currentPercentage = ((currentNew / Number(this.state.goal)) * 100);
-        const current = participants[uid].current
+        var currentPercentage = ((currentNew / Number(this.state.goal)) * 100);
+        var current = participants[uid].current
         const challenge = this.props.match.params.challengeId;
         const newValues = {
             uid,
@@ -206,7 +213,7 @@ export class challenge extends Component {
     };
     updateBar = (data) => {
         const current = data.participants[data.uid].current + this.state.pastAdds + this.state.newValue
-        const currentPercentage = ((current / Number(this.state.goal)) * 100);
+        var currentPercentage = ((current / Number(this.state.goal)) * 100);
         const challenge = this.props.match.params.challengeId;
         const time = moment().calendar();
         const uidData = {
@@ -247,7 +254,7 @@ export class challenge extends Component {
     }
 
     render() {
-        const { name, goal, description, participants, handle, uid, pastAdds } = this.state;
+        const { name, goal, description, participants, handle, uid, pastAdds, errors } = this.state;
         const { classes, user: { loading } } = this.props;
         const updateData = {
             participants,
@@ -306,11 +313,14 @@ export class challenge extends Component {
                         <div className="graph-divs">
                             {barGraphs}
                         </div>
-                        {participants[uid].current === Number(goal) ? (
-                            <Button className={classes.noButton} variant="contained" color="secondary" disabled="true">Done for the day!</Button>
-                        ) : (
+
+                        {participants[uid].current >= Number(goal) ||
+                            ((participants[uid].current + this.state.pastAdds) >= Number(goal))
+                            ? (
+                                <Button className={classes.noButton} variant="contained" color="secondary" disabled="true">Done for the day!</Button>
+                            ) : (
                                 <div className="challenge-body">
-                                    <TextField className={classes.updateTextField} inputProps={{ style: { textAlign: 'center' } }} name="input" type="input" variant="outlined" placeholder="100" size="small" onChange={this.handleChange} />
+                                    <TextField className={classes.updateTextField} inputProps={{ style: { textAlign: 'center' } }} name="input" type="input" variant="outlined" placeholder="100" size="small" helperText={errors.value} error={errors.value} onChange={this.handleChange} />
                                     <Button variant="contained" color="secondary" onClick={() => { this.updateBar(updateData); this.handleSubmit(participants, uid, compliments); }}>Add more</Button>
                                 </div>
                             )}
@@ -326,11 +336,13 @@ export class challenge extends Component {
 challenge.propTypes = {
     data: PropTypes.object.isRequired,
     user: PropTypes.object.isRequired,
+    UI: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => ({
     data: state.data,
-    user: state.user
+    user: state.user,
+    UI: state.UI
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(challenge));
