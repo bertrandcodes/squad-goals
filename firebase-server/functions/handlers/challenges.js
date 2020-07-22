@@ -1,5 +1,5 @@
 const { db, admin } = require('../util/admin.js');
-const { validateGoals } = require('../util/validators');
+const { validateGoals, validateNewValue } = require('../util/validators');
 
 //Get all challenges
 exports.getAllChallenges = (req, res) => {
@@ -74,6 +74,12 @@ exports.getChallenge = (req, res) => {
 exports.updateChallenge = (req, res) => {
     var uid = req.body.uid;
     var newValue = req.body.newValue;
+    var inputValue = req.body.inputValue;
+
+    const { valid, errors } = validateNewValue(newValue, inputValue);
+
+    if (!valid) return res.status(400).json(errors);
+
     var currentUpdate = {};
     currentUpdate[`participants.${uid}.current`] = newValue;
     db.collection('challenges').doc(req.params.challengeId).update(currentUpdate)
