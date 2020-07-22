@@ -58,6 +58,7 @@ const styles = theme => ({
     challengeButton: {
         margin: 'auto',
         width: '125px',
+        marginBottom: '15px'
     },
     addChallengersDiv: {
         margin: 'auto',

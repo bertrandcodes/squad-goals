@@ -10,9 +10,11 @@ import Avatar from '@material-ui/core/Avatar';
 import withStyles from '@material-ui/core/styles/withStyles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 //Redux
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { updateCurrent } from '../redux/actions/userActions';
 
 const styles = {
     small: {
@@ -67,6 +69,11 @@ const styles = {
     },
     noButton: {
         marginTop: '10px'
+    },
+    customError: {
+        marginBottom: '16px',
+        color: 'red',
+        fontSize: '0.8rem',
     }
 }
 
@@ -197,19 +204,30 @@ export class challenge extends Component {
         const challenge = this.props.match.params.challengeId;
         const newValues = {
             uid,
-            newValue: this.state.newValue + this.state.pastAdds + current
+            newValue: this.state.newValue + this.state.pastAdds + current,
+            inputValue: this.state.newValue
         }
-        this.setState({
-            pastAdds: this.state.newValue + this.state.pastAdds
-        })
-        var compliment = compliments[Math.floor(Math.random() * compliments.length)];
-        axios.put(`/challenge/${challenge}`, newValues)
-            .then((res) => {
-                if (this.state.newValue > 0 && currentPercentage < 100) {
-                    toast.success(compliment);
-                }
+        if (this.state.newValue > 0) {
+            this.setState({
+                pastAdds: this.state.newValue + this.state.pastAdds,
+                errors: {}
             })
-            .catch((err) => console.log(err));
+            console.log('did it anyway smh')
+        } else {
+            this.setState({
+                newValue: 0
+            })
+        }
+
+        var compliment = compliments[Math.floor(Math.random() * compliments.length)];
+        var supply = {
+            compliment,
+            stateNewValue: this.state.newValue,
+            currentPercentage,
+            challenge
+        }
+
+        this.props.updateCurrent(newValues, supply)
     };
     updateBar = (data) => {
         const current = data.participants[data.uid].current + this.state.pastAdds + this.state.newValue
@@ -246,16 +264,18 @@ export class challenge extends Component {
         }
 
         const barFill = document.querySelector(`.progress-bar-fill-${data.handle}`);
-        this.setState({
-            newestValue: this.state.newValue
-        })
-        barFill.style.width = `${currentPercentage}%`
+        if (this.state.newValue > 0) {
+            this.setState({
+                newestValue: this.state.newValue
+            })
+            barFill.style.width = `${currentPercentage}%`
+        }
 
     }
 
     render() {
         const { name, goal, description, participants, handle, uid, pastAdds, errors } = this.state;
-        const { classes, user: { loading } } = this.props;
+        const { classes, user: { loading }, UI } = this.props;
         const updateData = {
             participants,
             uid,
@@ -320,7 +340,14 @@ export class challenge extends Component {
                                 <Button className={classes.noButton} variant="contained" color="secondary" disabled="true">Done for the day!</Button>
                             ) : (
                                 <div className="challenge-body">
-                                    <TextField className={classes.updateTextField} inputProps={{ style: { textAlign: 'center' } }} name="input" type="input" variant="outlined" placeholder="100" size="small" helperText={errors.value} error={errors.value} onChange={this.handleChange} />
+                                    <TextField className={classes.updateTextField} inputProps={{ style: { textAlign: 'center' } }} name="input" type="input" variant="outlined" placeholder="100" size="small" error={errors.value} onChange={this.handleChange} />
+
+                                    {errors.value && (
+                                        <Typography variant="body2" className={classes.customError}>
+                                            {errors.value}
+                                        </Typography>
+                                    )}
+
                                     <Button variant="contained" color="secondary" onClick={() => { this.updateBar(updateData); this.handleSubmit(participants, uid, compliments); }}>Add more</Button>
                                 </div>
                             )}
@@ -345,4 +372,4 @@ const mapStateToProps = (state) => ({
     UI: state.UI
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(challenge));
+export default connect(mapStateToProps, { updateCurrent })(withStyles(styles)(challenge));

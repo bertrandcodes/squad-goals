@@ -46,6 +46,7 @@ const styles = {
     friendsListDiv: {
         position: 'relative',
         textAlign: 'center',
+        marginBottom: '15px'
     },
     friendsList: {
         position: 'relative',
