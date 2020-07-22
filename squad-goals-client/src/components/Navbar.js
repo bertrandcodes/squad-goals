@@ -32,7 +32,7 @@ export class Navbar extends Component {
                         <Fragment>
                             <Link to="/login">
                                 <MyButton tip="Home">
-                                    <img src="hands.png" alt="hands together" width="25px" height="25px" />
+                                    <img src="https://firebasestorage.googleapis.com/v0/b/accountability-tracker-friends.appspot.com/o/hands.png?alt=media&token=18aecf71-87d2-4f34-a64e-7c9841a3f4e2" alt="hands together" width="25px" height="25px" />
                                 </MyButton>
                             </Link>
                             <Link to="/create">
