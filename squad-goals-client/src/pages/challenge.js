@@ -184,6 +184,8 @@ export class challenge extends Component {
         });
     };
     handleSubmit = (participants, uid, compliments) => {
+        const currentNew = participants[uid].current + this.state.pastAdds + this.state.newValue
+        const currentPercentage = ((currentNew / Number(this.state.goal)) * 100);
         const current = participants[uid].current
         const challenge = this.props.match.params.challengeId;
         const newValues = {
@@ -196,9 +198,8 @@ export class challenge extends Component {
         var compliment = compliments[Math.floor(Math.random() * compliments.length)];
         axios.put(`/challenge/${challenge}`, newValues)
             .then((res) => {
-                if (this.state.newValue > 0) {
-                    toast.success(compliment, {
-                    });
+                if (this.state.newValue > 0 && currentPercentage < 100) {
+                    toast.success(compliment);
                 }
             })
             .catch((err) => console.log(err));
@@ -226,7 +227,6 @@ export class challenge extends Component {
             axios.put(`/user/${this.state.handle}`, uidData)
                 .then((res) => {
                     console.log(res.data)
-                    toast.success('🌟 Congrats! You are done for today!')
                 })
                 .catch((err) => console.log(err));
             axios.put(`/challenge/${challenge}/star`, uidData)
@@ -234,6 +234,8 @@ export class challenge extends Component {
                     console.log(challenge)
                 })
                 .catch((err) => console.log(err));
+            toast.success('🌟 Congrats! You are done for today!')
+
         }
 
         const barFill = document.querySelector(`.progress-bar-fill-${data.handle}`);
