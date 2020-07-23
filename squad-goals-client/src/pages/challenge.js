@@ -40,7 +40,7 @@ const styles = {
         borderRadius: '50%',
         margin: 'auto',
         marginBottom: '-6px',
-        marginRight: '5px',
+        // marginRight: '5px',
         zIndex: '1'
     },
     noStar: {
@@ -87,8 +87,8 @@ const BarWrapper = styled.div`
     margin-bottom: 0px;
 }
 .info-header {
-    margin-top: 5px;
-    margin-bottom: 7px;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 .participant-bar {
     display: flex;
@@ -135,6 +135,7 @@ const BarWrapper = styled.div`
     flex-direction: column;
     margin-top: 20px;
     margin-bottom: 20px;
+    width: 90%;
 }
   
   .graph-div {
