@@ -123,6 +123,7 @@ const BarWrapper = styled.div`
     font-weight: bold;
   }
   .challenge-body {
+    margin-top: -12px;
     display: flex;
     flex-direction: column;
     align-items: center;
