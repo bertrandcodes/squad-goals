@@ -18,8 +18,8 @@ import { updateCurrent } from '../redux/actions/userActions';
 
 const styles = {
     small: {
-        height: '30px',
-        width: '30px',
+        height: '35px',
+        width: '35px',
         margin: 'auto',
         marginRight: '-16px'
     },
@@ -50,7 +50,7 @@ const styles = {
         borderRadius: '50%',
         margin: 'auto',
         marginBottom: '-6px',
-        marginRight: '5px',
+        marginRight: '15px',
         zIndex: '1'
     },
     centered: {
@@ -67,8 +67,12 @@ const styles = {
         marginTop: '16px',
         marginBottom: '16px',
     },
+    yesButton: {
+        marginBottom: '15px'
+    },
     noButton: {
-        marginTop: '10px'
+        marginTop: '10px',
+        marginBottom: '15px'
     },
     customError: {
         marginBottom: '16px',
@@ -348,7 +352,7 @@ export class challenge extends Component {
                                         </Typography>
                                     )}
 
-                                    <Button variant="contained" color="secondary" onClick={() => { this.updateBar(updateData); this.handleSubmit(participants, uid, compliments); }}>Add more</Button>
+                                    <Button variant="contained" color="secondary" className={classes.yesButton} onClick={() => { this.updateBar(updateData); this.handleSubmit(participants, uid, compliments); }}>Add more</Button>
                                 </div>
                             )}
                     </div>
