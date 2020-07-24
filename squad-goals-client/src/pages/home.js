@@ -16,6 +16,9 @@ import { connect } from 'react-redux';
 const styles = {
     challengeButton: {
         margin: '25px',
+    },
+    error: {
+        marginTop: '10px'
     }
 }
 
@@ -41,15 +44,16 @@ export class Home extends Component {
     }
 
     render() {
-        const { challenges, loading, credentials: { userId, handle } } = this.props.user;
+        const { challenges, loading, credentials: { userId, handle }, authenticated } = this.props.user;
         const { classes } = this.props;
-        let recentChallengesMarkup = challenges ? (challenges.map(challenge => <Challenge key={challenge.challengeId} challenge={challenge} userId={userId} handle={handle} />)) : <div>User session timed out. <span role="img" aria-label="sleep">😴</span></div>
+        let recentChallengesMarkup = challenges ? (challenges.map(challenge => <Challenge key={challenge.challengeId} challenge={challenge} userId={userId} handle={handle} />)) : <div className={classes.error}>User session timed out. <span role="img" aria-label="sleep">😴</span></div>
         return (
             loading ? (<Loading />) : (<Grid className="home-grid">
                 <Grid item  >
                     <Profile />
                 </Grid>
-                <Button className={classes.challengeButton} variant="contained" color="secondary" component={Link} to={`/create`}>Add Challenge</Button>
+                {authenticated ? (<Button className={classes.challengeButton} variant="contained" color="secondary" component={Link} to={`/create`}>Add Challenge</Button>
+                ) : (null)}
                 {this.state.noChallenges ? (
                     <div className="upArrow">
                         <ArrowUpwardIcon className="bounce" />
