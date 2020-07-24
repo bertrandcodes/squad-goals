@@ -82,6 +82,7 @@ exports.updateChallenge = (req, res) => {
 
     var currentUpdate = {};
     currentUpdate[`participants.${uid}.current`] = newValue;
+    currentUpdate[`participants.${uid}.total`] = admin.firestore.FieldValue.increment(inputValue);
     db.collection('challenges').doc(req.params.challengeId).update(currentUpdate)
         .then(() => {
             return res.json(currentUpdate)
