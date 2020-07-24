@@ -247,7 +247,7 @@ export class create extends Component {
                                         lastUpdate: 'N/A',
                                         total: 0
                                     }
-                                    return <div className={classes.friendRender}>
+                                    return <div key={friend.userId} className={classes.friendRender}>
                                         <Avatar alt={friend.handle} src={friend.imageUrl} ></Avatar>
                                         <div className={classes.friendHandle}>{friend.handle}
                                             <Checkbox

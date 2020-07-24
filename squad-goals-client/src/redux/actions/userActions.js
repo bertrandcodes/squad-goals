@@ -149,6 +149,7 @@ export const getFriends = () => (dispatch) => {
                             payload: res.data
                         })
                     })
+                    .catch(err => console.log(err))
             });
         })
         .catch(err => console.log(err))
