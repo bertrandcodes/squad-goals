@@ -14,18 +14,17 @@ const styles = {
         marginBottom: '5px',
         textDecoration: 'none',
         backgroundColor: '#ffffff',
-        width: '350px',
     },
     cardContent: {
         display: 'flex',
-        width: '100%',
+        width: '320px',
         paddingTop: '20px',
         paddingBottom: '16px !important',
         borderRadius: '5px',
         backgroundColor: 'white'
     },
     challengeHeader: {
-        width: '90px',
+        width: '120px',
         marginTop: 'auto',
         marginBottom: 'auto',
     },
@@ -36,7 +35,7 @@ const styles = {
         borderRadius: '10px',
     },
     avatars: {
-        marginTop: '5px',
+        marginTop: '7px',
         marginLeft: '20%',
         marginRight: '20%',
         display: 'flex',
@@ -60,6 +59,7 @@ const styles = {
         marginInlineStart: '0px',
         marginInlineEnd: '0px',
         paddingTop: '5px',
+        // color: 'grey'
     },
     fraction: {
         float: 'right'
@@ -68,11 +68,13 @@ const styles = {
         float: 'right',
         textAlign: 'right',
         width: '110px',
+        fontSize: '18px'
+        // color: 'grey'
     },
     typographyDescription: {
-        marginTop: '5px',
-        textAlign: 'left',
-        overflow: 'hidden'
+        marginTop: '2px',
+        textAlign: 'center',
+        overflow: 'hidden',
     },
     avatarDiv: {
         marginLeft: 'auto',
@@ -94,11 +96,20 @@ export class Challenges extends Component {
                     <hr className={classes.rounded} />
                     <div className={classes.information}>
                         <div className={classes.greyDiv}>
-                            <Typography variant="h6" align="center" className={classes.statusHeader}><span className={classes.status}>Status: </span><span className={classes.fraction}>{participants[userId].current}/{goal}</span></Typography>
+                            {/* <Typography variant="h6" align="center" className={classes.statusHeader}><span className={classes.status}>Total: </span><span className={classes.fraction}>{participants[userId].total}</span></Typography>
+                            <Typography variant="h6" align="center" className={classes.statusHeader}><span className={classes.status}>Daily Status: </span><span className={classes.fraction}>{participants[userId].current}/{goal}</span></Typography> */}
                             < div className={classes.typographyDescription}>
+                                <span className={classes.status}>Total: {participants[userId].total}</span>
+                                {/* <div className={classes.description}>{participants[userId].total}</div> */}
+                            </div>
+                            < div className={classes.typographyDescription}>
+                                <span className={classes.status}>Daily Status: {participants[userId].current}/{goal}</span>
+                                {/* <div className={classes.description}>{participants[userId].current}/{goal}</div> */}
+                            </div>
+                            {/* < div className={classes.typographyDescription}>
                                 <span className={classes.status}>Description: </span>
                                 <div className={classes.description}>{description}</div>
-                            </div>
+                            </div> */}
                         </div>
                         <div className={classes.avatarDiv}>
                             <AvatarGroup max={4} className={classes.avatars}>

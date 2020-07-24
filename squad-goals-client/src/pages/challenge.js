@@ -85,6 +85,7 @@ const BarWrapper = styled.div`
 .info-header-1 {
     margin-top: 0px;
     margin-bottom: 0px;
+    text-decoration: underline;
 }
 .info-header {
     margin-top: 0px;
@@ -135,7 +136,8 @@ const BarWrapper = styled.div`
     flex-direction: column;
     margin-top: 20px;
     margin-bottom: 20px;
-    width: 90%;
+    margin-left: -10px;
+    width: 333px;
 }
   
   .graph-div {
@@ -148,7 +150,7 @@ const BarWrapper = styled.div`
   .last-update {
       color: grey;
       margin-top: 5px;
-      margin-bottom: 5px;
+      margin-bottom: 0px;
   }
 `;
 
@@ -165,6 +167,7 @@ export class challenge extends Component {
             newValue: 0,
             newestValue: 0,
             lastUpdate: undefined,
+            total: undefined,
             participants: [],
             errors: {}
         }
@@ -216,9 +219,8 @@ export class challenge extends Component {
         if (this.state.newValue > 0) {
             this.setState({
                 pastAdds: this.state.newValue + this.state.pastAdds,
-                errors: {}
+                errors: {},
             })
-            console.log('did it anyway smh')
         } else {
             this.setState({
                 newValue: 0
@@ -243,9 +245,12 @@ export class challenge extends Component {
         const uidData = {
             uid: this.state.uid
         }
-        this.setState({
-            lastUpdate: time
-        })
+        if (this.state.newValue > 0) {
+            this.setState({
+                lastUpdate: time,
+                total: data.participants[data.uid].total + this.state.pastAdds + this.state.newValue
+            })
+        }
         axios.put(`/challenge/${challenge}/time`, {
             uid: this.state.uid,
             time: time
@@ -327,7 +332,13 @@ export class challenge extends Component {
                 <BarWrapper>
                     <div className="challenge-body">
                         <h1 className="info-header-1">{name.toUpperCase()}</h1>
-                        <h2 className="info-header">Goal: {goal}</h2>
+                        <h2 className="info-header"><span role="img" aria-label="up">📈</span> Total:
+                        {this.state.lastUpdate ? (
+                                <span className="time-span"> {this.state.total}</span>
+                            ) : (
+                                    <span className="time-span"> {participants[uid].total}</span>
+                                )}</h2>
+                        <h3 className="info-header">Daily Goal: {goal}</h3>
                         <h3 className="info-header">{description}</h3>
                         <p className="last-update" ><i>last updated:
                         {this.state.lastUpdate ? (
